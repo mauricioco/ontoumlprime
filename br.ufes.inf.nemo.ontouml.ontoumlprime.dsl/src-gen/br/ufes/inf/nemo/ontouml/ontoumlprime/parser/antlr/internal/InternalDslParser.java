@@ -9515,14 +9515,11 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
     static final String DFA2_maxS =
         "\1\66\20\uffff\2\71\6\uffff";
     static final String DFA2_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1"+
-        "\15\1\16\1\17\1\20\2\uffff\1\23\1\24\1\21\1\25\1\22\1\26";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\2\uffff\1\23\1\24\1\21\1\25\1\22\1\26";
     static final String DFA2_specialS =
         "\31\uffff}>";
     static final String[] DFA2_transitionS = {
-            "\1\2\6\uffff\1\1\2\uffff\2\2\6\uffff\1\3\2\uffff\1\4\1\5\4\6"+
-            "\10\uffff\1\7\1\10\2\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1"+
-            "\21\1\uffff\1\22\1\23\1\24",
+            "\1\2\6\uffff\1\1\2\uffff\2\2\6\uffff\1\3\2\uffff\1\4\1\5\4\6\10\uffff\1\7\1\10\2\11\1\12\1\13\1\14\1\15\1\16\1\17\1\20\1\21\1\uffff\1\22\1\23\1\24",
             "",
             "",
             "",
@@ -9589,8 +9586,7 @@ public class InternalDslParser extends AbstractInternalAntlrParser {
     static final String DFA13_minS =
         "\5\33\2\4\3\33\2\40\1\6\4\uffff\1\6\2\41\2\6\4\42\2\43";
     static final String DFA13_maxS =
-        "\1\36\4\37\2\4\3\37\1\46\1\45\1\6\4\uffff\1\6\2\41\2\75\4\42\1\46"+
-        "\1\45";
+        "\1\36\4\37\2\4\3\37\1\46\1\45\1\6\4\uffff\1\6\2\41\2\75\4\42\1\46\1\45";
     static final String DFA13_acceptS =
         "\15\uffff\1\2\1\1\1\4\1\3\13\uffff";
     static final String DFA13_specialS =

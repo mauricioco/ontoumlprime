@@ -23,9 +23,9 @@ class DslValidator extends AbstractDslValidator {
 
 		val ePackage = PrimeOntoUMLPackage::eINSTANCE;
 		val oclURI = URI::createPlatformPluginURI("/br.ufes.inf.nemo.ontouml.ontoumlprime/model/ontoumlprime.ocl", true);
-		val validator = new CompleteOCLEObjectValidator(ePackage, oclURI);
+		//val validator = new CompleteOCLEObjectValidator(ePackage, oclURI);
 
-		registar.register(ePackage, validator);
+		//registar.register(ePackage, validator);
 	}
 
 //  public static val INVALID_NAME = 'invalidName'
