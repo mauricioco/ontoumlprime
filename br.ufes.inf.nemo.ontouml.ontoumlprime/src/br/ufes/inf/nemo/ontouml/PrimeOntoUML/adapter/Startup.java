@@ -9,6 +9,6 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.util.CompleteOCLValidator;
 // Source: http://help.eclipse.org/galileo/topic/org.eclipse.emf.validation.doc/tutorials/validationAdapterTutorial.html#registering
 public class Startup implements IStartup {
 	public void earlyStartup() {
-		CompleteOCLValidator.register();
+		//CompleteOCLValidator.register();
 	}
 }
