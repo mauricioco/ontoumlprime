@@ -392,5 +392,12 @@
             extensions="ouml">
     </provider>
   </extension>
+  
+  <extension point="net.sourceforge.plantuml.eclipse.diagramTextProvider">
+    <diagramTextProvider
+      fileExtensions="ouml"
+      providerClass="br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui.plantuml.OntoUMLDiagramTextProvider">
+    </diagramTextProvider>
+  </extension> 
 
 </plugin>
