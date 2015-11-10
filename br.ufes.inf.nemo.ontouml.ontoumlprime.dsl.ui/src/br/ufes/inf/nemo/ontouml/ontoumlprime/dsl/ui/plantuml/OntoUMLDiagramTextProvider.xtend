@@ -6,21 +6,21 @@ import org.eclipse.ui.IEditorInput
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.xtext.ui.editor.model.XtextDocument
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model
-import br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui.plantuml.elements.KindPlantUML
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Kind
+import static br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui.plantuml.PlantUMLInterface.*
 
 class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
-	def dispatch String toPlantUML(Model it)
+	def String toPlantUML(Model it)
 	'''
 	@startuml
+	hide circle
+	hide methods
 	«FOR e : elements»
-    «e.toPlantUML»
+    «toPlantUML(e)»
     «ENDFOR»
-    @enduml
+	@enduml
 	'''
 	
-	def dispatch String toPlantUML(Kind it) { KindPlantUML.toPlantUML(it) }
 	
 	override String getDiagramText(IEditorPart editorPart, IEditorInput editorInput) {
 	
@@ -30,7 +30,6 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
             return contents.head as Model
         ]
         
-        System.out.println(model.toPlantUML);
         model.toPlantUML;
         
     }
