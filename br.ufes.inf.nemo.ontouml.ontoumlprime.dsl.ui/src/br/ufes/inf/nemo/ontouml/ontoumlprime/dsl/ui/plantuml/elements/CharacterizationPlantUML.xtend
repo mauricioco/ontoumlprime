@@ -11,11 +11,11 @@ class CharacterizationPlantUML {
 	
 	def static public String toPlantUML(String sourceName, Characterization it)
 	'''
-	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" --|> "«toPlantUML(sourceLowerBound, sourceUpperBound)»" «getTargetPlantUMLName(target)»
+	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" -- "«toPlantUML(sourceLowerBound, sourceUpperBound)»" «getTargetPlantUMLName(target)»
 	'''
 	
 	def static public String toPlantUML(String label, String sourceName, Characterization it)
 	'''
-	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" --|> "«toPlantUML(targetLowerBound, targetUpperBound)»" «getTargetPlantUMLName(target)» : «label»
+	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" -- "«toPlantUML(targetLowerBound, targetUpperBound)»" «getTargetPlantUMLName(target)» : «label»
 	'''
 }
