@@ -26,39 +26,36 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Role
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Phase
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PrimitiveDataType
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComplexDataType
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryMaterialRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryFormalRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
 
 class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
-	def static String toPlantUML(int lowerBound, int upperBound) {
+	def dispatch String toPlantUML(int lowerBound, int upperBound) {
 		if(upperBound == 0 && lowerBound == 0) {
-			return '''-'''
+			return ''''''
 		}
 		if(upperBound < 0) {
-			return '''«lowerBound»..*''';
+			return '''"«lowerBound»..*"''';
 		}
-		return '''«lowerBound»..«upperBound»'''
+		return '''"«lowerBound»..«upperBound»"'''
 	}
 	
 	
-	def dispatch String toPlantUML(Model it)
+	def dispatch String toPlantUML(BinaryFormalRelation it) // This really has no name in oled?
 	'''
-	@startuml
-	hide circle
-	hide methods
-	«FOR e : elements»
-    «e.toPlantUML»
-    «ENDFOR»
-	@enduml
+	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<formal>>
 	'''
 	
-	def String toPlantUML(String sourceName, Characterization it)
+	def dispatch String toPlantUML(BinaryMaterialRelation it)
 	'''
-	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" -- "«toPlantUML(targetLowerBound, targetUpperBound)»" «target.name»
-	'''
-
-	def String toPlantUML(String label, String sourceName, Characterization it)
-	'''
-	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" -- "«toPlantUML(targetLowerBound, targetUpperBound)»" «target.name» «if(label.empty) "" else ": "+label»
+	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<formal>>
+	(«source.name», «target.name») .. «derivedFrom.name»
 	'''
 	
 	def dispatch String toPlantUML(Category it)
@@ -66,6 +63,16 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	class «name» <<category>> {
 		
 	}
+	'''
+	
+	def dispatch String toPlantUML(String sourceName, Characterization it)
+	'''
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : characterizes >
+	'''
+
+	def String toPlantUML(String label, String sourceName, Characterization it)
+	'''
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» «if(label.empty) ": characterizes >" else ": "+label+" >"»
 	'''
 	
 	def dispatch String toPlantUML(CollectiveUniversal it)
@@ -78,9 +85,18 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	«ENDFOR»
 	'''
 	
+	def dispatch String toPlantUML(ComplexDataType it)
+	'''
+	class «name» <<datatype>> {
+		«FOR a : attributes»
+		«a.name»
+		«ENDFOR»
+	}
+	'''
+	
 	def dispatch String toPlantUML(ComponentOfRelation it)
 	'''
-	«part.name» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" -- "«toPlantUML(targetLowerBound, targetUpperBound)»" «whole.name»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isComponentOf >
 	'''
 	
 	def dispatch String toPlantUML(Enumeration it)
@@ -109,9 +125,14 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	«ENDFOR»
 	'''
 	
-	def String toPlantUML(String sourceName, Mediation it)
+	def dispatch String toPlantUML(String sourceName, Mediation it)
 	'''
-	«sourceName» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" -- "«toPlantUML(targetLowerBound, targetUpperBound)»" «target.name»
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : mediates >
+	'''
+	
+	def dispatch String toPlantUML(MembershipRelation it)
+	'''
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» o-- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isMemberOf >
 	'''
 	
 	def dispatch String toPlantUML(Mixin it)
@@ -121,6 +142,17 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	}
 	'''
 	
+	def dispatch String toPlantUML(Model it)
+	'''
+	@startuml
+	hide circle
+	hide methods
+	«FOR e : elements»
+    «e.toPlantUML»
+    «ENDFOR»
+	@enduml
+	'''
+	
 	def dispatch String toPlantUML(ModeUniversal it)
 	'''
 	class «name» <<mode>> {
@@ -128,6 +160,17 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	}
 	«FOR c : characterizedBy»
 	«toPlantUML(name, c)»
+	«ENDFOR»
+	'''
+	
+	def dispatch String toPlantUML(nAryFormalRelation it) // This one has no target...
+	'''
+	'''
+	
+	def dispatch String toPlantUML(nAryMaterialRelation it)
+	'''
+	«FOR t : targetRelata»
+	«derivedFrom.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --> «t.name» : «name» >
 	«ENDFOR»
 	'''
 	
@@ -148,6 +191,13 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	«FOR c : characterizedBy»
 	«toPlantUML(name, c)»
 	«ENDFOR»
+	'''
+	
+	def dispatch String toPlantUML(PrimitiveDataType it)
+	'''
+	class «name» <<primitivetype>> {
+		
+	}
 	'''
 	
 	def dispatch String toPlantUML(RelatorUniversal it)
@@ -203,7 +253,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	def dispatch String toPlantUML(SubCollectionRelation it)
 	'''
-	«part.name» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" o-- "«toPlantUML(targetLowerBound, targetUpperBound)»" «whole.name»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» o-- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name»
 	'''
 	
 	def dispatch String toPlantUML(SubKind it)
@@ -218,7 +268,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	def dispatch String toPlantUML(SubQuantityRelation it)
 	'''
-	«part.name» "«toPlantUML(sourceLowerBound, sourceUpperBound)»" *-- "«toPlantUML(targetLowerBound, targetUpperBound)»" «whole.name»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» *-- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name»
 	'''
 	
 	
@@ -226,11 +276,16 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
         val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorInput) as XtextDocument;
         
-        val Model model = document.readOnly[
-            return contents.head as Model
-        ]
-        
-        model.toPlantUML;
+        try {
+	        val Model model = document.readOnly[
+	            return contents.head as Model
+	        ]
+	        
+	        model.toPlantUML;
+	        
+	    } catch(NullPointerException e) {
+	    	
+	    }
         
     }
     
