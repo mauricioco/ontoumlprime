@@ -1,6 +1,5 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui.plantuml
 
-import net.sourceforge.plantuml.eclipse.utils.AbstractDiagramTextProvider
 import org.eclipse.ui.IEditorPart
 import org.eclipse.ui.IEditorInput
 import org.eclipse.xtext.ui.editor.XtextEditor
@@ -33,6 +32,9 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
+import net.sourceforge.plantuml.text.AbstractDiagramTextProvider
+import org.eclipse.jface.viewers.ISelection
+import org.eclipse.jface.text.TextSelection
 
 class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
@@ -45,7 +47,6 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 		}
 		return '''"«lowerBound»..«upperBound»"'''
 	}
-	
 	
 	def dispatch String toPlantUML(BinaryFormalRelation it) // This really has no name in oled?
 	'''
@@ -111,7 +112,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	def dispatch String toPlantUML(GeneralizationSet it)
 	'''
 	«FOR sp : specializingUniversals»
-	«specializedUniversal.name» --|> «sp.name» «if(name==null || name.empty) "" else ":"+name»
+	«specializedUniversal.name» <|-- «sp.name» «if(name==null || name.empty) "" else ":"+name»
 	«ENDFOR»
 	'''
 	
@@ -150,7 +151,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	«FOR e : elements»
     «e.toPlantUML»
     «ENDFOR»
-	@enduml
+	
 	'''
 	
 	def dispatch String toPlantUML(ModeUniversal it)
@@ -272,7 +273,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	'''
 	
 	
-	override String getDiagramText(IEditorPart editorPart, IEditorInput editorInput) {
+	override String getDiagramText(IEditorPart editorPart, IEditorInput editorInput, ISelection selection) {
 	
         val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorInput) as XtextDocument;
         
@@ -288,5 +289,10 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	    }
         
     }
+				
+	override supportsSelection(ISelection selection) {
+		// TODO check what is this for...
+		return true;
+	}
     
 }

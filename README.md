@@ -21,7 +21,12 @@ Instructions
 2. Look at `target` folders for the built artifacts.
 3. Upload `br.ufes.inf.nemo.ontouml.ontoumlprime.updatesite/target/` to your
    update site server.
-4. The PlantUML plugin wasn't added as a dependency. So, to run it, you'll need to install PlantUML from eclipse separately. Follow the instrunctions on http://plantuml.com/eclipse.html. Graphviz (http://www.graphviz.org/Download.php) is also required for the diagrams to be rendered. Just install it and check your system environment variables (http://plantuml.com/graphvizdot.html).
+
+Instructions - PlantUML visualization
+=====================================
+
+1. The PlantUML plugin was added as a submodule, forked from `https://github.com/hallvard/plantuml.git`. So there's no need to install it separately anymore. Also, it is now possible to customize its code and add more features to visualization.
+2. You need to install Graphviz (`http://www.graphviz.org/Download.php`). PlantUML uses it for the diagrams to be rendered. Just install it and check your system environment variables (`http://plantuml.com/graphvizdot.html`).
 
 History:
 ========
