@@ -396,7 +396,7 @@
   <extension point="net.sourceforge.plantuml.eclipse.diagramTextProvider">
     <diagramTextProvider
       fileExtensions="ouml"
-      providerClass="br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui.plantuml.OntoUMLDiagramTextProvider">
+      providerClass="br.ufes.inf.nemo.ontouml.ontoumlprime.ui.plantuml.OntoUMLDiagramTextProvider">
     </diagramTextProvider>
   </extension> 
 

@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui.plantuml
+package br.ufes.inf.nemo.ontouml.ontoumlprime.ui.plantuml
 
 import org.eclipse.ui.IEditorPart
 import org.eclipse.ui.IEditorInput
