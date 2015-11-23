@@ -9,6 +9,7 @@ Bundle-Localization: plugin
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: br.ufes.inf.nemo.ontouml.PrimeOntoUML,
  br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl,
+ br.ufes.inf.nemo.ontouml.PrimeOntoUML.refontouml,
  br.ufes.inf.nemo.ontouml.PrimeOntoUML.util
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.emf.ecore;visibility:=reexport,
