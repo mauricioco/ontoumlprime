@@ -38,6 +38,13 @@ import org.eclipse.jface.text.TextSelection
 
 class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
+	def String showPlantUMLMessage(String message)
+	'''
+	legend
+	«message»
+	endlegend
+	'''
+	
 	def dispatch String toPlantUML(int lowerBound, int upperBound) {
 		if(upperBound == 0 && lowerBound == 0) {
 			return ''''''
@@ -55,7 +62,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	def dispatch String toPlantUML(BinaryMaterialRelation it)
 	'''
-	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<formal>>
+	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name»
 	(«source.name», «target.name») .. «derivedFrom.name»
 	'''
 	
@@ -68,12 +75,12 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	def dispatch String toPlantUML(String sourceName, Characterization it)
 	'''
-	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : characterizes >
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : characterizes <
 	'''
 
 	def String toPlantUML(String label, String sourceName, Characterization it)
 	'''
-	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» «if(label.empty) ": characterizes >" else ": "+label+" >"»
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» «if(label.empty) ": characterizes <" else ": "+label+" <"»
 	'''
 	
 	def dispatch String toPlantUML(CollectiveUniversal it)
@@ -90,7 +97,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	'''
 	class «name» <<datatype>> {
 		«FOR a : attributes»
-		«a.name»
+		«a.isOfType.name» «a.name»
 		«ENDFOR»
 	}
 	'''
@@ -148,10 +155,13 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	@startuml
 	hide circle
 	hide methods
+	skinparam classBackgroundColor white
+	skinparam classBorderColor black
+	skinparam classArrowColor black
 	«FOR e : elements»
     «e.toPlantUML»
     «ENDFOR»
-	
+	@enduml
 	'''
 	
 	def dispatch String toPlantUML(ModeUniversal it)
@@ -274,18 +284,26 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	
 	override String getDiagramText(IEditorPart editorPart, IEditorInput editorInput, ISelection selection) {
+		
+		if(!(editorPart instanceof XtextEditor)) {
+			return showPlantUMLMessage("Active editor is not a Xtext Editor");
+		}
 	
         val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorInput) as XtextDocument;
         
-        try {
-	        val Model model = document.readOnly[
-	            return contents.head as Model
+        val Model model = document.readOnly[
+	        	val result = contents.head;
+	        	if(result instanceof Model) {
+	        		return result as Model;
+	        	} else {
+	        		return null;
+	        	}
 	        ]
-	        
-	        model.toPlantUML;
-	        
-	    } catch(NullPointerException e) {
-	    	
+	    
+	    if(model == null) {
+	    	showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
+	    } else {
+	    	model.toPlantUML;
 	    }
         
     }
