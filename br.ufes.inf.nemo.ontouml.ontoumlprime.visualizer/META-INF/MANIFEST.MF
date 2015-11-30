@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Visualizer
+Bundle-SymbolicName: br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.xtext.ui,
+ br.ufes.inf.nemo.ontouml.ontoumlprime,
+ org.eclipse.xtext,
+ net.sourceforge.plantuml.eclipse;bundle-version="1.1.11",
+ net.sourceforge.plantuml.text;bundle-version="0.9.0"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
