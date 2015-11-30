@@ -60,7 +60,6 @@ class OntoUMLPrime2PlantUML {
 	}
 	
 	def dispatch String toPlantUML(BinaryFormalRelation it) {
-		if()
 		'''
 		«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<formal>>
 		'''

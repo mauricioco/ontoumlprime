@@ -4,6 +4,8 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.ui.labeling
 
 import com.google.inject.Inject
+import org.eclipse.jface.viewers.ILabelProviderListener
+import org.eclipse.jface.viewers.LabelProviderChangedEvent
 
 /**
  * Provides labels for a EObjects.
@@ -15,6 +17,7 @@ class DslLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabelPro
 	@Inject
 	new(org.eclipse.emf.edit.ui.provider.AdapterFactoryLabelProvider delegate) {
 		super(delegate);
+		
 	}
 
 	// Labels and icons can be computed like this:

@@ -3,11 +3,118 @@
 */
 package br.ufes.inf.nemo.ontouml.ontoumlprime.ui.outline
 
+import org.eclipse.xtext.ui.editor.outline.impl.DocumentRootNode
+import org.eclipse.emf.ecore.EObject
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Kind
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PrimeOntoUMLPackage
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement
+import org.eclipse.xtext.ui.editor.outline.IOutlineNode
+import org.eclipse.swt.graphics.Image
+import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils
+import org.eclipse.xtext.ui.editor.outline.impl.EStructuralFeatureNode
+import org.eclipse.emf.ecore.EStructuralFeature
+import java.util.Collection
+import org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider
+
 /**
  * Customization of the default outline structure.
  *
  * see http://www.eclipse.org/Xtext/documentation.html#outline
  */
-class DslOutlineTreeProvider extends org.eclipse.xtext.ui.editor.outline.impl.DefaultOutlineTreeProvider {
+class DslOutlineTreeProvider extends DefaultOutlineTreeProvider {
 	
+	//protected EStructuralFeatureNode createEStructuralFeatureNode(IOutlineNode parentNode, EObject owner,
+		//	EStructuralFeature feature, Image image, Object text, boolean isLeaf) {
+	/*
+	 protected void _createChildren(DocumentRootNode parentNode, 
+                               Domainmodel domainModel) {
+  for (AbstractElement element : domainModel.getElements()) {
+    createNode(parentNode, element);
+  }
+}
+	 */
+	 
+	def protected _createChildren(DocumentRootNode parentNode, Model model) {
+		for (PackageableElement element : model.elements) {
+	 		createNode(parentNode, element);
+	 	}
+	}
+	
+	override protected _createNode(IOutlineNode parentNode, EObject modelElement) {
+		val text = textDispatcher.invoke(modelElement);
+		val isLeaf = isLeafDispatcher.invoke(modelElement);
+		if(text == null && isLeaf == null) {
+			return;
+		}
+		val image = imageDispatcher.invoke(modelElement);
+		createEObjectNode(parentNode, modelElement, image, text, isLeaf);
+	}
+	 
+	override protected createEObjectNode(IOutlineNode parentNode, EObject modelElement, Image image, Object text, boolean isLeaf) {
+		val eObjectNode = new EObjectNode(modelElement, parentNode, image, text, isLeaf);
+		val parserNode = NodeModelUtils.getNode(modelElement);
+		if (parserNode != null) {
+			eObjectNode.setTextRegion(parserNode.getTextRegion());
+		}
+		if (isLocalElement(parentNode, modelElement)) {
+			eObjectNode.setShortTextRegion(locationInFileProvider.getSignificantTextRegion(modelElement));
+		}
+		
+		return eObjectNode;
+	}
+	
+	override protected EStructuralFeatureNode createEStructuralFeatureNode(IOutlineNode parentNode, EObject owner,
+			EStructuralFeature feature, Image image, Object text, boolean isLeaf) {
+		val isFeatureSet = owner.eIsSet(feature);
+		val eStructuralFeatureNode = new EStructuralFeatureNode(owner, feature, parentNode, image,
+				text, isLeaf || !isFeatureSet);
+		
+		if (isFeatureSet) {
+			var region = locationInFileProvider.getFullTextRegion(owner, feature, 0);
+			if (feature.isMany()) {
+				val numValues = (owner.eGet(feature) as Collection<?>).size();
+				val fullTextRegion = locationInFileProvider.getFullTextRegion(owner, feature, numValues - 1);
+				if (fullTextRegion != null) {
+					region = region.merge(fullTextRegion);
+				}
+			}
+			eStructuralFeatureNode.setTextRegion(region);
+		}
+		
+		return eStructuralFeatureNode;
+	}
+	
+	 /*
+	  protected EStructuralFeatureNode createEStructuralFeatureNode(IOutlineNode parentNode, EObject owner,
+			EStructuralFeature feature, Image image, Object text, boolean isLeaf) {
+		boolean isFeatureSet = owner.eIsSet(feature);
+		EStructuralFeatureNode eStructuralFeatureNode = new EStructuralFeatureNode(owner, feature, parentNode, image,
+				text, isLeaf || !isFeatureSet);
+		if (isFeatureSet) {
+			ITextRegion region = locationInFileProvider.getFullTextRegion(owner, feature, 0);
+			if (feature.isMany()) {
+				int numValues = ((Collection<?>) owner.eGet(feature)).size();
+				ITextRegion fullTextRegion = locationInFileProvider.getFullTextRegion(owner, feature, numValues - 1);
+				if (fullTextRegion != null)
+					region = region.merge(fullTextRegion);
+			}
+			eStructuralFeatureNode.setTextRegion(region);
+		}
+		return eStructuralFeatureNode;
+	}
+	  */
+	 
+	 
+	 /*
+	protected void _createNode(IOutlineNode parentNode, EObject modelElement) {
+		Object text = textDispatcher.invoke(modelElement);
+		boolean isLeaf = isLeafDispatcher.invoke(modelElement);
+		if (text == null && isLeaf)
+			return;
+		Image image = imageDispatcher.invoke(modelElement);
+		createEObjectNode(parentNode, modelElement, image, text, isLeaf);
+	}
+	*/
 }

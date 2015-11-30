@@ -4,6 +4,13 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.ui.editor.outline.actions.IOutlineContribution;
+
+import com.google.inject.Binder;
+import com.google.inject.name.Names;
+
+import br.ufes.inf.nemo.ontouml.ontoumlprime.ui.outline.FilterOperationsContribution;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.ui.outline.OntoUMLPrimeOutlineManager;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -11,5 +18,12 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 public class DslUiModule extends br.ufes.inf.nemo.ontouml.ontoumlprime.ui.AbstractDslUiModule {
 	public DslUiModule(AbstractUIPlugin plugin) {
 		super(plugin);
+	}
+	
+	public void configureFilterOperationsContribution(Binder binder) {
+		binder
+		.bind(IOutlineContribution.class)
+		.annotatedWith(Names.named("FilterOperationsContribution"))
+		.toInstance(OntoUMLPrimeOutlineManager.getFilterOperations());
 	}
 }
