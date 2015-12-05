@@ -17,12 +17,15 @@ public class VisionList {
 	private String modelTitle;
 
 	private List<ModelVision> visionList;
+	private ModelVision selectedVision;
 	
 	public VisionList(String modelTitle, Model model) {
 		this.model = model;
 		this.modelTitle = modelTitle;
 		this.visionList = new ArrayList<>(1);
-		this.visionList.add(ModelVision.newDefaultModelVision(model.getElements()));	// Default model visualization.
+		ModelVision defaultModelVision = ModelVision.newDefaultModelVision(model.getElements());
+		this.visionList.add(defaultModelVision);
+		selectedVision = defaultModelVision;
 		/*
 		EList<PackageableElement> elements = model.getElements();
 		for(PackageableElement e : elements) {
@@ -36,6 +39,12 @@ public class VisionList {
 		*/
 	}
 	
+	public void addVision(String visionName, List<PackageableElement> elementList) {
+		ModelVision newModelVision = new ModelVision(visionName);
+		newModelVision.addElements(elementList);
+		visionList.add(newModelVision);
+	}
+	
 	public Iterator<ModelVision> getVisionListIterator() {
 		return visionList.iterator();
 	}
@@ -43,5 +52,15 @@ public class VisionList {
 	public Model getModel() {
 		return model;
 	}
+
+	public ModelVision getSelectedVision() {
+		return selectedVision;
+	}
+
+	public void setSelectedVision(ModelVision selectedVision) {
+		this.selectedVision = selectedVision;
+	}
+	
+	
 	
 }

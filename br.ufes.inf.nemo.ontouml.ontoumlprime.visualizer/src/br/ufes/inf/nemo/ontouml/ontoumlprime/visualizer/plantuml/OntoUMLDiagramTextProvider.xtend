@@ -16,6 +16,8 @@ import org.eclipse.ui.PlatformUI
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList
 
 /**
  * This is the class that provides the PlantUML view with diagram code.
@@ -28,7 +30,6 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	public static String currentModelTitle = "";
 	public static Model currentModel = null;
-	
 	
 	private static boolean updateModel = true;
 
@@ -60,16 +61,19 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	    if(model == null) {
 	    	OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
 	    } else {
+	    	
+	    	val v = VisionManager.initialize(editorPart.title, model);
+		    VisionManager.updateView;
+		    
 	    	if(updateModel) {
 		    	currentModel = model;
 		    	currentModelTitle = editorPart.title;
-		    	System.out.println("Current title: " + currentModelTitle);
-		    	VisionManager.initialize(currentModelTitle, currentModel);
-		    	VisionManager.updateView;
-	    		generatePlantUMLCode(model);
+		    	//System.out.println("Current title: " + currentModelTitle);
+		    	
+	    		generatePlantUMLCode(model, v.selectedVision);
 		    } else {
 		    	updateModel = true;
-		    	generatePlantUMLCode(br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider.currentModel);
+		    	generatePlantUMLCode(currentModel, v.selectedVision);
 		    }
 	    	
 	    }
@@ -79,8 +83,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
     //		«IF o == null || o.visible»
     // 	    «ENDIF»
     
-    def String generatePlantUMLCode(Model it) {
-    	val OntoUMLPrime2PlantUML o2p = OntoUMLPrime2PlantUML.sharedInstance;
+    def String generatePlantUMLCode(Model it, ModelVision v) {
 		'''
 		@startuml
 		hide circle
@@ -90,7 +93,11 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 		skinparam classArrowColor black
 		
 		«FOR e : elements»
-	    «OntoUMLPrime2PlantUML.toPlantUML(e)»
+		
+		«IF v.getElementVision(e) != null»
+		«OntoUMLPrime2PlantUML.toPlantUML(e)»
+		«ENDIF»
+		
 	    «ENDFOR»
 		
 		@enduml

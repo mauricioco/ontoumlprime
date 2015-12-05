@@ -43,7 +43,7 @@ public class ModelVision {
 		//System.out.println("");
 	}
 
-	public void addElements(EList<PackageableElement> elements) {
+	public void addElements(List<PackageableElement> elements) {
 		for(PackageableElement e : elements) {
 			String id = OntoUMLPrimeUtils.generateId(e);
 			ElementVision v = elementMap.get(id);

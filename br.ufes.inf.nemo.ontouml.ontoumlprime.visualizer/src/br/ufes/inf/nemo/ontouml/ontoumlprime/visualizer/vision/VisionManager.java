@@ -33,12 +33,15 @@ public class VisionManager {
 	
 	private static Map<String, VisionList> visionMap = new HashMap<>(); 
 	
-	public static void initialize(String modelTitle, Model model) {
+	public static VisionList initialize(String modelTitle, Model model) {
 		System.out.println("Verifying vision list for " + modelTitle);
-		if (visionMap.get(modelTitle) == null) {
+		VisionList v = visionMap.get(modelTitle);
+		if (v == null) {
 			System.out.println("Creating vision list for " + modelTitle);
-			visionMap.put(modelTitle, new VisionList(modelTitle, model));
+			v = new VisionList(modelTitle, model);
+			visionMap.put(modelTitle, v);
 		}
+		return v;
 	}
 	
 	public static VisionList getVisionList(String modelTitle) {
@@ -53,7 +56,7 @@ public class VisionManager {
 			return null;
 		}
 	}
-
+	
 	public static void loadElements(String modelName) {
 		
 	}
@@ -61,6 +64,9 @@ public class VisionManager {
 	public static void saveElements(String modelName) {
 		
 	}
+		
+	// ---------------------------------------------------------
+	
 	
 	
 	// ---------------------------------------------------------

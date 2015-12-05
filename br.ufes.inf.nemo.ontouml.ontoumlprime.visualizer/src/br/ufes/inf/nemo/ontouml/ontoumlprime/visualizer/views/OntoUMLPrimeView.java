@@ -1,6 +1,8 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
@@ -19,10 +21,19 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramT
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewLabelProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ElementVision;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager;
 
 import org.eclipse.jface.viewers.*;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.jface.action.*;
+import org.eclipse.jface.dialogs.IInputValidator;
+import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
 import org.eclipse.swt.widgets.Menu;
@@ -41,7 +52,7 @@ public class OntoUMLPrimeView extends ViewPart {
 
 	private TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
-	private Action action1;
+	private Action actionCreateVisionFromSelected;
 	private Action action2;
 	private Action selectAction;
 	private Action doubleClickAction;
@@ -167,7 +178,7 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 
 	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(action1);
+		manager.add(actionCreateVisionFromSelected);
 		manager.add(new Separator());
 		manager.add(action2);
 	}
@@ -178,31 +189,74 @@ public class OntoUMLPrimeView extends ViewPart {
 		manager.add(showTaxonomicStructureAction);
 		manager.add(new Separator());
 		
-		drillDownAdapter.addNavigationActions(manager);
+		// Adds tree actions (go into, go back, go home). Commented because it's unnecessary.
+		//drillDownAdapter.addNavigationActions(manager);
+		
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(action1);
+		manager.add(actionCreateVisionFromSelected);
 		manager.add(action2);
 		manager.add(new Separator());
 		drillDownAdapter.addNavigationActions(manager);
 	}
 
-	private void makeActions() {
-		action1 = new Action() {
-			public void run() {
-				//showMessage("Action 1 executed");
-				//viewer.setContentProvider(new OntoUMLPrimeViewContentProvider(OntoUMLPrimeView.this));
-				//((OntoUMLPrimeViewContentProvider)viewer.getContentProvider()).setAllVisibility(true);
-				OntoUMLDiagramTextProvider.updateDiagram();
+	private void createVisionFromSelected() {
+		final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		Iterator<Object> iterator = selection.iterator();
+		
+		final List<PackageableElement> selectedElementList = new ArrayList<>();
+		while(iterator.hasNext()) {
+			Object obj = iterator.next();	
+			if(obj instanceof ElementVisionTreeObject) {
+				selectedElementList.add(((ElementVisionTreeObject) obj).getElementVision().getModelElement());
+			}
+		}
+		
+		IInputValidator validator = new IInputValidator() {
+			@Override
+			public String isValid(String newText) {
+				if(newText.isEmpty()) {
+					return "Enter name for your vision.";
+				}
+				
+				Iterator<ModelVision> i = VisionManager.getVisionList(modelTitle).getVisionListIterator();
+				while(i.hasNext()) {
+					ModelVision v = i.next();
+					if(v.getVisionName().equals(newText)) {
+						return "Vision name " + newText + " already exists.";
+					}
+				}
+				return null;
 			}
 		};
-		action1.setText("Set all visible");
-		action1.setToolTipText("Set all elements visible.");
-		action1.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
+		
+		InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
+		switch(i.open()) {
+			case Window.OK:
+				VisionManager.getVisionList(modelTitle).addVision(i.getValue(), selectedElementList);
+				refreshViewer();
+				break;
+			case Window.CANCEL:
+			default:
+				break;
+		}
+	}
+	
+	
+	private void makeActions() {
+		actionCreateVisionFromSelected = new Action() {
+			public void run() {
+				createVisionFromSelected();
+			}
+		};
+		actionCreateVisionFromSelected.setText("Set all visible");
+		actionCreateVisionFromSelected.setToolTipText("Set all elements visible.");
+		actionCreateVisionFromSelected.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
+			getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
 		
 		action2 = new Action() {
 			public void run() {
@@ -228,7 +282,17 @@ public class OntoUMLPrimeView extends ViewPart {
 			public void run() {
 				IContentProvider cp = viewer.getContentProvider();
 				if(cp instanceof OntoUMLPrimeViewContentProvider) {
-					((OntoUMLPrimeViewContentProvider) cp).handleSelection(viewer);
+					final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+					IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+					Object selectedObject = selection.getFirstElement();
+					
+					if(selectedObject instanceof ModelVisionTreeObject) {
+						ModelVision selectedVision = ((ModelVisionTreeObject) selectedObject).getModelVision();
+						VisionManager.getVisionList(modelTitle).setSelectedVision(selectedVision);
+						OntoUMLDiagramTextProvider.updateDiagram();
+					}
+					
+					//((OntoUMLPrimeViewContentProvider) cp).handleSelection(viewer);
 				}
 				//if(cp instanceof OntoUMLPrimeViewStereotypeContentProvider) {
 				//	((OntoUMLPrimeViewStereotypeContentProvider) cp).handleSelection(viewer);

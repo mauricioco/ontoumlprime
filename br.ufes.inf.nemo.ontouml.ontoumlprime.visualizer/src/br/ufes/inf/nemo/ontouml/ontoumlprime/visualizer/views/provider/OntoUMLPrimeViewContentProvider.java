@@ -149,7 +149,10 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 	// ---------------------------------------------------------
 
 	
+	//public void 
+	
 	public void handleSelection(TreeViewer viewer) {
+		
 		/*
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		Iterator<Object> iterator = selection.iterator();
