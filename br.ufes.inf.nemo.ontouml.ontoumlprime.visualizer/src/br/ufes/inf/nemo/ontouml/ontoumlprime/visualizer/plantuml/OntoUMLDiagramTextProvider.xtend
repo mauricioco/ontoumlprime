@@ -8,21 +8,29 @@ import net.sourceforge.plantuml.text.AbstractDiagramTextProvider
 import org.eclipse.jface.viewers.ISelection
 import org.eclipse.jface.text.TextSelection
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.model.OntoUMLPrimeModelElement
 import java.util.HashMap
 import java.util.Map
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.ui.PlatformUI
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager
 
 /**
  * This is the class that provides the PlantUML view with diagram code.
  */
 class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
-	static private Model previousModel = null;
-	static public boolean updateModel = true;
+	enum UpdateMethod {
+		
+	}
+	
+	public static String currentModelTitle = "";
+	public static Model currentModel = null;
+	
+	
+	private static boolean updateModel = true;
 
 	static def updateDiagram() {
 		val editor = PlatformUI.workbench.activeWorkbenchWindow.activePage.activeEditor as XtextEditor;
@@ -33,11 +41,9 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	override String getDiagramText(IEditorPart editorPart, IEditorInput editorInput, ISelection selection) {
 		
 		val OntoUMLPrime2PlantUML o2p = OntoUMLPrime2PlantUML.sharedInstance;
-		
-		System.out.println("IT WORKED");
-		
+				
 		if(!(editorPart instanceof XtextEditor)) {
-			return o2p.showPlantUMLMessage("Active editor is not a Xtext Editor");
+			return OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not a Xtext Editor");
 		}
 	
         val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorInput) as XtextDocument;
@@ -52,24 +58,31 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	        ]
 	    
 	    if(model == null) {
-	    	o2p.showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
+	    	OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
 	    } else {
 	    	if(updateModel) {
-		    	previousModel = model;
+		    	currentModel = model;
+		    	currentModelTitle = editorPart.title;
+		    	System.out.println("Current title: " + currentModelTitle);
+		    	VisionManager.initialize(currentModelTitle, currentModel);
+		    	VisionManager.updateView;
 	    		generatePlantUMLCode(model);
 		    } else {
 		    	updateModel = true;
-		    	generatePlantUMLCode(previousModel);
+		    	generatePlantUMLCode(br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider.currentModel);
 		    }
 	    	
 	    }
         
     }
+    //«val o = OntoUMLPrimeViewContentProvider.map.get(OntoUMLPrimeUtils.generateId(e))»
+    //		«IF o == null || o.visible»
+    // 	    «ENDIF»
     
     def String generatePlantUMLCode(Model it) {
     	val OntoUMLPrime2PlantUML o2p = OntoUMLPrime2PlantUML.sharedInstance;
 		'''
-		@startuml    
+		@startuml
 		hide circle
 		hide methods
 		skinparam classBackgroundColor white
@@ -77,7 +90,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 		skinparam classArrowColor black
 		
 		«FOR e : elements»
-	    «o2p.toPlantUML(e)»
+	    «OntoUMLPrime2PlantUML.toPlantUML(e)»
 	    «ENDFOR»
 		
 		@enduml

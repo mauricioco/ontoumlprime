@@ -15,8 +15,10 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewLabelProvider;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.swt.graphics.Image;
@@ -41,8 +43,10 @@ public class OntoUMLPrimeView extends ViewPart {
 	private DrillDownAdapter drillDownAdapter;
 	private Action action1;
 	private Action action2;
+	private Action selectAction;
 	private Action doubleClickAction;
-
+	private Action showTaxonomicStructureAction;
+	
 	/**
 	 * The constructor.
 	 */
@@ -52,8 +56,9 @@ public class OntoUMLPrimeView extends ViewPart {
 	final IPropertyListener propertyListener = new IPropertyListener() {	
 		@Override
 		public void propertyChanged(Object source, int propId) {
-			System.out.println("Updating model settings from " + ((IEditorPart)source).getTitle());
-			viewer.getContentProvider().inputChanged(viewer, null, null);
+			// TODO source can be any part... even project explorer. Insert instanceof treatments
+			//System.out.println("Updating model settings from " + ((IEditorPart)source).getTitle());
+			//viewer.getContentProvider().inputChanged(viewer, null, null);
 		}
 	};
 	
@@ -137,6 +142,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		
 		makeActions();
 		hookContextMenu();
+		hookSelectAction();
 		hookDoubleClickAction();
 		contributeToActionBars();
 	}
@@ -167,9 +173,11 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
-		manager.add(action1);
-		manager.add(action2);
+		//manager.add(action1);
+		//manager.add(action2);
+		manager.add(showTaxonomicStructureAction);
 		manager.add(new Separator());
+		
 		drillDownAdapter.addNavigationActions(manager);
 		// Other plug-ins can contribute there actions here
 		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
@@ -185,38 +193,73 @@ public class OntoUMLPrimeView extends ViewPart {
 	private void makeActions() {
 		action1 = new Action() {
 			public void run() {
-				showMessage("Action 1 executed");
+				//showMessage("Action 1 executed");
+				//viewer.setContentProvider(new OntoUMLPrimeViewContentProvider(OntoUMLPrimeView.this));
+				//((OntoUMLPrimeViewContentProvider)viewer.getContentProvider()).setAllVisibility(true);
+				OntoUMLDiagramTextProvider.updateDiagram();
 			}
 		};
-		action1.setText("Action 1");
-		action1.setToolTipText("Action 1 tooltip");
+		action1.setText("Set all visible");
+		action1.setToolTipText("Set all elements visible.");
 		action1.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 			getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		
 		action2 = new Action() {
 			public void run() {
-				showMessage("Action 2 executed");
+				//showMessage("Action 2 executed");
+				//viewer.setContentProvider(new OntoUMLPrimeViewStereotypeContentProvider(OntoUMLPrimeView.this));
+				//((OntoUMLPrimeViewContentProvider)viewer.getContentProvider()).setAllVisibility(false);
+				OntoUMLDiagramTextProvider.updateDiagram();
 			}
 		};
-		action2.setText("Action 2");
-		action2.setToolTipText("Action 2 tooltip");
+		action2.setText("Set all invisible");
+		action2.setToolTipText("Sets all elements invisible.");
 		action2.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
 		
-		doubleClickAction = new Action() {
+		showTaxonomicStructureAction = new Action("Show taxonomic structure", Action.AS_CHECK_BOX) {
+			@Override
+			public void run() {
+				//setChecked(!isChecked());
+			}
+		};
+		
+		selectAction = new Action() {
 			public void run() {
 				IContentProvider cp = viewer.getContentProvider();
 				if(cp instanceof OntoUMLPrimeViewContentProvider) {
 					((OntoUMLPrimeViewContentProvider) cp).handleSelection(viewer);
 				}
+				//if(cp instanceof OntoUMLPrimeViewStereotypeContentProvider) {
+				//	((OntoUMLPrimeViewStereotypeContentProvider) cp).handleSelection(viewer);
+				//}
+			}
+		};
+		
+		doubleClickAction = new Action() {
+			public void run() {
+				
 			}
 		};
 	}
-
+	
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
+			
+			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				doubleClickAction.run();
+		        IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		        viewer.expandToLevel(selection.getFirstElement(), 1);
+			}
+			
+		});
+	}
+	
+	private void hookSelectAction() {
+		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(SelectionChangedEvent event) {
+				selectAction.run();
 			}
 		});
 	}
@@ -232,5 +275,11 @@ public class OntoUMLPrimeView extends ViewPart {
 	 */
 	public void setFocus() {
 		viewer.getControl().setFocus();
+	}
+	
+	// ------------------------------------------------------------------------
+	
+	public void refreshViewer() {
+		viewer.getContentProvider().inputChanged(viewer, null, null);
 	}
 }

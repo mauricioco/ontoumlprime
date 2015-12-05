@@ -3,7 +3,7 @@ package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TreeObject {
+abstract public class TreeObject {
 	
 	protected TreeObject parent;
 	protected List<TreeObject> children;

@@ -1,20 +1,20 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.model;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision;
 
 import org.eclipse.emf.ecore.EObject;
 
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
-public class OntoUMLPrimeModelElement {
+public class ElementVision {
 	
-	protected EObject modelElement;
+	private EObject modelElement;
 	
 	private String id;
 	
 	private boolean isVisible = true;
 	
-	public OntoUMLPrimeModelElement(EObject modelElement) {
+	public ElementVision(EObject modelElement) {
 		this.modelElement = modelElement;
-		this.id = OntoUMLPrimeUtils.sharedInstance().generateId(modelElement);
+		this.id = OntoUMLPrimeUtils.generateId(modelElement);
 	}
 
 	public EObject getModelElement() {
@@ -36,5 +36,4 @@ public class OntoUMLPrimeModelElement {
 	public String getId() {
 		return id;
 	}
-	
 }

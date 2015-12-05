@@ -2,7 +2,9 @@ package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+
 
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.EList;
@@ -32,22 +34,23 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.model.OntoUMLPrimeModelElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLPrime2PlantUML;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeModelElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeOption;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.RootTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ElementVision;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager;
 
 public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 	
-	public static Map<String, OntoUMLPrimeModelElement> map = new HashMap();
-	
-	// ------------------------------------
-	
 	OntoUMLPrimeView ontoUMLPrimeView;
-	TreeModelElement root;
+	RootTreeObject root;
 	
 	public OntoUMLPrimeViewContentProvider(OntoUMLPrimeView ontoUMLPrimeView) {
 		super();
@@ -55,7 +58,7 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 	}
 	
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
-		initialize();
+		initialize();	// more like reinitialize... if it fails, content won't change.
 		if(v instanceof TreeViewer) {
 			((TreeViewer) v).refresh();
 		}
@@ -66,34 +69,36 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 	
 	public Object[] getElements(Object parent) {
 		if (parent.equals(ontoUMLPrimeView.getViewSite())) {
-			if(root == null) initialize();
+			if(root == null) {
+				initialize();
+			}
 			return getChildren(root);
 		}
 		return getChildren(parent);
 	}
 	
 	public Object getParent(Object child) {
-		if (child instanceof TreeModelElement) {
-			return ((TreeModelElement)child).getParent();
+		if (child instanceof TreeObject) {
+			return ((TreeObject)child).getParent();
 		}
 		return null;
 	}
 	
 	public Object [] getChildren(Object parent) {
-		if (parent instanceof TreeModelElement) {
-			return ((TreeModelElement)parent).getChildren();
+		if (parent instanceof TreeObject) {
+			return ((TreeObject)parent).getChildren();
 		}
 		return new Object[0];
 	}
 	
 	public boolean hasChildren(Object parent) {
-		if (parent instanceof TreeModelElement)
-			return ((TreeModelElement)parent).hasChildren();
+		if (parent instanceof TreeObject)
+			return ((TreeObject)parent).hasChildren();
 		return false;
 	}
 	
 	private void initialize() {
-		//TODO treat errror
+		/*
 		IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		IEditorInput editorInput = editor.getEditorInput();
 		XtextDocument doc = (XtextDocument) ((XtextEditor) editor).getDocumentProvider().getDocument(editorInput);
@@ -114,43 +119,51 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		};
 		
 		Model model = doc.<Model>readOnly(getModel);
+		*/
 		
-		root = new TreeModelElement(null);
-		TreeModelElement modelRoot = new TreeModelElement(null);
-		root.addChild(modelRoot);
-		for(PackageableElement e : model.getElements()) {
-			String id = OntoUMLPrimeUtils.sharedInstance().generateId(e);
-			OntoUMLPrimeModelElement o = map.get(id);
+		String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+		VisionList visionList = VisionManager.getVisionList(modelTitle);
+		if(visionList == null) {
+			return;
+		}
+		
+		System.out.println("Should update...");
+		
+		Iterator<ModelVision> visionIterator = visionList.getVisionListIterator();
+		
+		root = new RootTreeObject();	// invisible element.
+		while(visionIterator.hasNext()) {
+			ModelVision vision = visionIterator.next();
 			
-			if(o == null) {
-				o = new OntoUMLPrimeModelElement(e);
-				map.put(o.getId(), o);
+			ModelVisionTreeObject modelRoot = new ModelVisionTreeObject(vision);
+			root.addChild(modelRoot);
+			for(ElementVision elementVision : vision.getElementVisionList()) {
+				modelRoot.addChild(new ElementVisionTreeObject(elementVision));
 			}
 			
-			TreeModelElement tm = new TreeModelElement(o);
-			
-			tm.addChild(new TreeOption(tm, "TAG"));
-			modelRoot.addChild(tm);
 		}
 		
 	}
 	
 	
 	// ---------------------------------------------------------
+
 	
 	public void handleSelection(TreeViewer viewer) {
-		ISelection selection = viewer.getSelection();
-		Object obj = ((IStructuredSelection)selection).getFirstElement();	
-		
-		if(obj instanceof TreeModelElement) {
-			ICompositeNode composite = NodeModelUtils.getNode(((TreeModelElement)obj).getModelElement().getModelElement());
-			((XtextEditor)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).selectAndReveal(composite.getTextRegion().getOffset(), composite.getTextRegion().getLength());
+		/*
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		Iterator<Object> iterator = selection.iterator();
+				
+		while(iterator.hasNext()) {
+			Object obj = iterator.next();	
+			if(obj instanceof TreeModelElement) {
+				ICompositeNode composite = NodeModelUtils.getNode(((TreeModelElement)obj).getModelElement().getModelElement());
+				((XtextEditor)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).selectAndReveal(composite.getTextRegion().getOffset(), composite.getTextRegion().getLength());
+				((TreeModelElement) obj).getModelElement().setVisible(true);
+				OntoUMLDiagramTextProvider.updateDiagram();
+			}
 		}
-		
-		if(obj instanceof TreeOption) {
-			((TreeOption) obj).getParentElement().getModelElement().setVisible(false);
-			OntoUMLDiagramTextProvider.updateDiagram();
-		}
+		*/
 	}
 	
 }

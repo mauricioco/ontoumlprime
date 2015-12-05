@@ -30,16 +30,7 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
 
 class OntoUMLPrimeUtils {
-	
-	static OntoUMLPrimeUtils sharedInstance;
-	
-	def static OntoUMLPrimeUtils sharedInstance() {
-		if(sharedInstance == null) {
-			sharedInstance = new OntoUMLPrimeUtils();
-		}
-		return sharedInstance;
-	}
-	
+
 	public final static String STEREOTYPE_BINARY_FORMAL_RELATION = "BinaryFormaRelation";
 	public final static String STEREOTYPE_BINARY_MATERIAL_RELATION = "BinaryMaterialRelation";
 	public final static String STEREOTYPE_CATEGORY = "Category";
@@ -53,6 +44,7 @@ class OntoUMLPrimeUtils {
 	public final static String STEREOTYPE_MEDIATION = "Mediation";
 	public final static String STEREOTYPE_MEMBERSHIP_RELATION = "MembershipRelation";
 	public final static String STEREOTYPE_MIXIN = "Mixin";
+	public final static String STEREOTYPE_MODEL = "Model";
 	public final static String STEREOTYPE_MODE_UNIVERSAL = "ModeUniversal";
 	public final static String STEREOTYPE_N_ARY_FORMAL_RELATION = "nAryFormalRelation";
 	public final static String STEREOTYPE_N_ARY_MATERIAL_RELATION = "nAryMaterialRelation";
@@ -70,169 +62,175 @@ class OntoUMLPrimeUtils {
 	
 	// ----------------------------------------------------------
 	
-	def dispatch String generateId(BinaryFormalRelation it) // This really has no name in oled?
+	def static dispatch String generateId(BinaryFormalRelation it) // This really has no name in oled?
 	'''BinaryFormaRelation_«name»'''
 	
-	def dispatch String generateId(BinaryMaterialRelation it)
+	def static dispatch String generateId(BinaryMaterialRelation it)
 	'''BinaryMaterialRelation_«name»'''
 	
-	def dispatch String generateId(Category it)
+	def static dispatch String generateId(Category it)
 	'''Category_«name»'''
 	
-	def dispatch String generateId(Characterization it)
+	def static dispatch String generateId(Characterization it)
 	'''Characterization_(unique)'''
 	
-	def dispatch String generateId(CollectiveUniversal it)
+	def static dispatch String generateId(CollectiveUniversal it)
 	'''CollectiveUniversal_«name»'''
 	
-	def dispatch String generateId(ComplexDataType it)
+	def static dispatch String generateId(ComplexDataType it)
 	'''ComplexDataType_«name»'''
 	
-	def dispatch String generateId(ComponentOfRelation it)
+	def static dispatch String generateId(ComponentOfRelation it)
 	'''ComponentOfRelation_«part.name»_«whole.name»'''
 	
-	def dispatch String generateId(Enumeration it)
+	def static dispatch String generateId(Enumeration it)
 	'''Enumeration_«name»'''
 	
-	def dispatch String generateId(GeneralizationSet it)
+	def static dispatch String generateId(GeneralizationSet it)
 	'''GeneralizationSet_(unique)'''
 	//'''GeneralizationSet_«if (name != null && name.length > 0)  name else "anonymous"»_'''
 	
-	def dispatch String generateId(Kind it)
+	def static dispatch String generateId(Kind it)
 	'''Kind_«name»'''
 	
-	def dispatch String generateId(Mediation it)
+	def static dispatch String generateId(Mediation it)
 	'''Mediation_(unique)'''
 	
-	def dispatch String generateId(MembershipRelation it)
+	def static dispatch String generateId(MembershipRelation it)
 	'''MembershipRelation_(unique)'''
 	//has part and whole
 	
-	def dispatch String generateId(Mixin it)
+	def static dispatch String generateId(Mixin it)
 	'''Mixin_«name»'''
 	
-	def dispatch String generateId(ModeUniversal it)
+	def static dispatch String generateId(Model it)
+	'''Model_(unique)'''
+	
+	def static dispatch String generateId(ModeUniversal it)
 	'''ModeUniversal_«name»'''
 	
-	def dispatch String generateId(nAryFormalRelation it) // This one has no target...
+	def static dispatch String generateId(nAryFormalRelation it) // This one has no target...
 	'''nAryFormalRelation_(unique)'''
 	
-	def dispatch String generateId(nAryMaterialRelation it)
+	def static dispatch String generateId(nAryMaterialRelation it)
 	'''nAryMaterialRelation_(unique)'''
 	
-	def dispatch String generateId(Package it)
+	def static dispatch String generateId(Package it)
 	'''Package_«name»'''
 	
-	def dispatch String generateId(Phase it)
+	def static dispatch String generateId(Phase it)
 	'''Phase_«name»'''
 	
-	def dispatch String generateId(PrimitiveDataType it) // not implemented...
+	def static dispatch String generateId(PrimitiveDataType it) // not implemented...
 	'''PrimitiveDataType_«name»'''
 	
-	def dispatch String generateId(RelatorUniversal it)
+	def static dispatch String generateId(RelatorUniversal it)
 	'''RelatorUniversal_«name»'''
 	
-	def dispatch String generateId(Role it)
+	def static dispatch String generateId(Role it)
 	'''Role_«name»'''
 	
-	def dispatch String generateId(RoleMixin it)
+	def static dispatch String generateId(RoleMixin it)
 	'''RoleMixin_«name»'''
 	
-	def dispatch String generateId(QualityUniversal it)
+	def static dispatch String generateId(QualityUniversal it)
 	'''QualityUniversal_«name»'''
 	
-	def dispatch String generateId(QuantityUniversal it)
+	def static dispatch String generateId(QuantityUniversal it)
 	'''QuantityUniversal_«name»'''
 	
-	def dispatch String generateId(SubCollectionRelation it)
+	def static dispatch String generateId(SubCollectionRelation it)
 	'''SubCollectionRelation_(unique)'''
 	
-	def dispatch String generateId(SubKind it)
+	def static dispatch String generateId(SubKind it)
 	'''SubKind_«name»'''
 	
-	def dispatch String generateId(SubQuantityRelation it)
+	def static dispatch String generateId(SubQuantityRelation it)
 	'''SubQuantityRelation_(unique)'''
 	
 	// ---------------------------------------------------
 	
-	def dispatch String getStereotype(BinaryFormalRelation it) // This really has no name in oled?
+	def static dispatch String getStereotype(BinaryFormalRelation it) // This really has no name in oled?
 	'''BinaryFormaRelation'''
 	
-	def dispatch String getStereotype(BinaryMaterialRelation it)
+	def static dispatch String getStereotype(BinaryMaterialRelation it)
 	'''BinaryMaterialRelation'''
 	
-	def dispatch String getStereotype(Category it)
+	def static dispatch String getStereotype(Category it)
 	'''Category'''
 	
-	def dispatch String getStereotype(Characterization it)
+	def static dispatch String getStereotype(Characterization it)
 	'''Characterization'''
 	
-	def dispatch String getStereotype(CollectiveUniversal it)
+	def static dispatch String getStereotype(CollectiveUniversal it)
 	'''CollectiveUniversal'''
 	
-	def dispatch String getStereotype(ComplexDataType it)
+	def static dispatch String getStereotype(ComplexDataType it)
 	'''ComplexDataType'''
 	
-	def dispatch String getStereotype(ComponentOfRelation it)
+	def static dispatch String getStereotype(ComponentOfRelation it)
 	'''ComponentOfRelation'''
 	
-	def dispatch String getStereotype(Enumeration it)
+	def static dispatch String getStereotype(Enumeration it)
 	'''Enumeration'''
 	
-	def dispatch String getStereotype(GeneralizationSet it)
+	def static dispatch String getStereotype(GeneralizationSet it)
 	'''GeneralizationSet'''
 	
-	def dispatch String getStereotype(Kind it)
+	def static dispatch String getStereotype(Kind it)
 	'''Kind'''
 	
-	def dispatch String getStereotype(Mediation it)
+	def static dispatch String getStereotype(Mediation it)
 	'''Mediation'''
 	
-	def dispatch String getStereotype(MembershipRelation it)
+	def static dispatch String getStereotype(MembershipRelation it)
 	'''MembershipRelation'''
 	
-	def dispatch String getStereotype(Mixin it)
+	def static dispatch String getStereotype(Mixin it)
 	'''Mixin'''
 	
-	def dispatch String getStereotype(ModeUniversal it)
+	def static dispatch String getStereotype(Model it)
+	'''Model'''
+	
+	def static dispatch String getStereotype(ModeUniversal it)
 	'''ModeUniversal'''
 	
-	def dispatch String getStereotype(nAryFormalRelation it) // This one has no target...
+	def static dispatch String getStereotype(nAryFormalRelation it) // This one has no target...
 	'''nAryFormalRelation'''
 	
-	def dispatch String getStereotype(nAryMaterialRelation it)
+	def static dispatch String getStereotype(nAryMaterialRelation it)
 	'''nAryMaterialRelation'''
 	
-	def dispatch String getStereotype(Package it)
+	def static dispatch String getStereotype(Package it)
 	'''Package'''
 	
-	def dispatch String getStereotype(Phase it)
+	def static dispatch String getStereotype(Phase it)
 	'''Phase'''
 	
-	def dispatch String getStereotype(PrimitiveDataType it) // not implemented...
+	def static dispatch String getStereotype(PrimitiveDataType it) // not implemented...
 	'''PrimitiveDataType'''
 	
-	def dispatch String getStereotype(RelatorUniversal it)
+	def static dispatch String getStereotype(RelatorUniversal it)
 	'''RelatorUniversal'''
 	
-	def dispatch String getStereotype(Role it)
+	def static dispatch String getStereotype(Role it)
 	'''Role'''
 	
-	def dispatch String getStereotype(RoleMixin it)
+	def static dispatch String getStereotype(RoleMixin it)
 	'''RoleMixin'''
 	
-	def dispatch String getStereotype(QualityUniversal it)
+	def static dispatch String getStereotype(QualityUniversal it)
 	'''QualityUniversal'''
 	
-	def dispatch String getStereotype(QuantityUniversal it)
+	def static dispatch String getStereotype(QuantityUniversal it)
 	'''QuantityUniversal'''
 	
-	def dispatch String getStereotype(SubCollectionRelation it)
+	def static dispatch String getStereotype(SubCollectionRelation it)
 	'''SubCollectionRelation'''
 	
-	def dispatch String getStereotype(SubKind it)
+	def static dispatch String getStereotype(SubKind it)
 	'''SubKind'''
 	
-	def dispatch String getStereotype(SubQuantityRelation it)
+	def static dispatch String getStereotype(SubQuantityRelation it)
 	'''SubQuantityRelation'''
 }

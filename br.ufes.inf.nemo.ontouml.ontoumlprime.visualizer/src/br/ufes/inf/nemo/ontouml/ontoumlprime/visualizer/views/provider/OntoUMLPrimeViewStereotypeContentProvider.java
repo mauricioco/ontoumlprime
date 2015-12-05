@@ -24,19 +24,14 @@ import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.model.OntoUMLPrimeModelElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.model.OntoUMLPrimeStereotype;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeModelElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeModelStereotype;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeOption;
 
 import static br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils.*;
 
-public class OntoUMLPrimeViewStereotypeContentProvider implements IStructuredContentProvider, ITreeContentProvider {
-	
+public class OntoUMLPrimeViewStereotypeContentProvider {/*implements IStructuredContentProvider, ITreeContentProvider {
+	/*
 	public static Map<String, OntoUMLPrimeStereotype> map = new HashMap();
 	
 	static {
@@ -138,10 +133,13 @@ public class OntoUMLPrimeViewStereotypeContentProvider implements IStructuredCon
 		ISelection selection = viewer.getSelection();
 		Object obj = ((IStructuredSelection)selection).getFirstElement();	
 		
-		if(obj instanceof TreeModelElement) {
-			ICompositeNode composite = NodeModelUtils.getNode(((TreeModelElement)obj).getModelElement().getModelElement());
-			((XtextEditor)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).selectAndReveal(composite.getTextRegion().getOffset(), composite.getTextRegion().getLength());
+		if(obj instanceof TreeModelStereotype) {
+			((TreeModelStereotype) obj).getModelElement().setVisible(true);
+			OntoUMLDiagramTextProvider.updateDiagram();
+			//ICompositeNode composite = NodeModelUtils.getNode(((TreeModelElement)obj).getModelElement().getModelElement());
+			//((XtextEditor)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor()).selectAndReveal(composite.getTextRegion().getOffset(), composite.getTextRegion().getLength());
 		}
 		
 	}
+	*/
 }
