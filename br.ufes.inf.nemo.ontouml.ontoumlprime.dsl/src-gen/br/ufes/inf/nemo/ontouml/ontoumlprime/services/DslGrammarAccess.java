@@ -876,14 +876,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	public class ComponentOfRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ComponentOfRelation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final UnorderedGroup cUnorderedGroup_0 = (UnorderedGroup)cGroup.eContents().get(0);
-		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cUnorderedGroup_0.eContents().get(0);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final Keyword cPartIsEssentialEssentialKeyword_0_0_0 = (Keyword)cPartIsEssentialAssignment_0_0.eContents().get(0);
-		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cUnorderedGroup_0.eContents().get(1);
+		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
 		private final Keyword cPartIsInseparableInseparableKeyword_0_1_0 = (Keyword)cPartIsInseparableAssignment_0_1.eContents().get(0);
-		private final Assignment cPartIsShareableAssignment_0_2 = (Assignment)cUnorderedGroup_0.eContents().get(2);
+		private final Assignment cPartIsShareableAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final Keyword cPartIsShareableShareableKeyword_0_2_0 = (Keyword)cPartIsShareableAssignment_0_2.eContents().get(0);
-		private final Assignment cPartIsImmutableAssignment_0_3 = (Assignment)cUnorderedGroup_0.eContents().get(3);
+		private final Assignment cPartIsImmutableAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
 		private final Keyword cPartIsImmutableImmutableKeyword_0_3_0 = (Keyword)cPartIsImmutableAssignment_0_3.eContents().get(0);
 		private final Keyword cRelationKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPartAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -916,41 +916,41 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * Foo [1..1] isComponentOf Bar [1..1]; 
 		// * / ComponentOfRelation:
-		//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//	sourceUpperBound=CardinalityUpperBound "]")? "isComponentOf" whole=[SubstantialUniversal] ("["
 		//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 		@Override public ParserRule getRule() { return rule; }
 
-		//(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//sourceUpperBound=CardinalityUpperBound "]")? "isComponentOf" whole=[SubstantialUniversal] ("["
 		//targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//partIsImmutable?="immutable"
-		public UnorderedGroup getUnorderedGroup_0() { return cUnorderedGroup_0; }
+		//partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//partIsImmutable?="immutable"?
+		public Group getGroup_0() { return cGroup_0; }
 
-		//partIsEssential?="essential"
+		//partIsEssential?="essential"?
 		public Assignment getPartIsEssentialAssignment_0_0() { return cPartIsEssentialAssignment_0_0; }
 
 		//"essential"
 		public Keyword getPartIsEssentialEssentialKeyword_0_0_0() { return cPartIsEssentialEssentialKeyword_0_0_0; }
 
-		//partIsInseparable?="inseparable"
+		//partIsInseparable?="inseparable"?
 		public Assignment getPartIsInseparableAssignment_0_1() { return cPartIsInseparableAssignment_0_1; }
 
 		//"inseparable"
 		public Keyword getPartIsInseparableInseparableKeyword_0_1_0() { return cPartIsInseparableInseparableKeyword_0_1_0; }
 
-		//partIsShareable?="shareable"
+		//partIsShareable?="shareable"?
 		public Assignment getPartIsShareableAssignment_0_2() { return cPartIsShareableAssignment_0_2; }
 
 		//"shareable"
 		public Keyword getPartIsShareableShareableKeyword_0_2_0() { return cPartIsShareableShareableKeyword_0_2_0; }
 
-		//partIsImmutable?="immutable"
+		//partIsImmutable?="immutable"?
 		public Assignment getPartIsImmutableAssignment_0_3() { return cPartIsImmutableAssignment_0_3; }
 
 		//"immutable"
@@ -1035,14 +1035,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	public class MembershipRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "MembershipRelation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final UnorderedGroup cUnorderedGroup_0 = (UnorderedGroup)cGroup.eContents().get(0);
-		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cUnorderedGroup_0.eContents().get(0);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final Keyword cPartIsEssentialEssentialKeyword_0_0_0 = (Keyword)cPartIsEssentialAssignment_0_0.eContents().get(0);
-		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cUnorderedGroup_0.eContents().get(1);
+		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
 		private final Keyword cPartIsInseparableInseparableKeyword_0_1_0 = (Keyword)cPartIsInseparableAssignment_0_1.eContents().get(0);
-		private final Assignment cPartIsShareableAssignment_0_2 = (Assignment)cUnorderedGroup_0.eContents().get(2);
+		private final Assignment cPartIsShareableAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final Keyword cPartIsShareableShareableKeyword_0_2_0 = (Keyword)cPartIsShareableAssignment_0_2.eContents().get(0);
-		private final Assignment cPartIsImmutableAssignment_0_3 = (Assignment)cUnorderedGroup_0.eContents().get(3);
+		private final Assignment cPartIsImmutableAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
 		private final Keyword cPartIsImmutableImmutableKeyword_0_3_0 = (Keyword)cPartIsImmutableAssignment_0_3.eContents().get(0);
 		private final Keyword cRelationKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPartAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -1075,41 +1075,41 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * Foo [1..1] isMemberOf Bar [1..1]; 
 		// * / MembershipRelation:
-		//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//	sourceUpperBound=CardinalityUpperBound "]")? "isMemberOf" whole=[SubstantialUniversal] ("["
 		//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 		@Override public ParserRule getRule() { return rule; }
 
-		//(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//sourceUpperBound=CardinalityUpperBound "]")? "isMemberOf" whole=[SubstantialUniversal] ("["
 		//targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//partIsImmutable?="immutable"
-		public UnorderedGroup getUnorderedGroup_0() { return cUnorderedGroup_0; }
+		//partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//partIsImmutable?="immutable"?
+		public Group getGroup_0() { return cGroup_0; }
 
-		//partIsEssential?="essential"
+		//partIsEssential?="essential"?
 		public Assignment getPartIsEssentialAssignment_0_0() { return cPartIsEssentialAssignment_0_0; }
 
 		//"essential"
 		public Keyword getPartIsEssentialEssentialKeyword_0_0_0() { return cPartIsEssentialEssentialKeyword_0_0_0; }
 
-		//partIsInseparable?="inseparable"
+		//partIsInseparable?="inseparable"?
 		public Assignment getPartIsInseparableAssignment_0_1() { return cPartIsInseparableAssignment_0_1; }
 
 		//"inseparable"
 		public Keyword getPartIsInseparableInseparableKeyword_0_1_0() { return cPartIsInseparableInseparableKeyword_0_1_0; }
 
-		//partIsShareable?="shareable"
+		//partIsShareable?="shareable"?
 		public Assignment getPartIsShareableAssignment_0_2() { return cPartIsShareableAssignment_0_2; }
 
 		//"shareable"
 		public Keyword getPartIsShareableShareableKeyword_0_2_0() { return cPartIsShareableShareableKeyword_0_2_0; }
 
-		//partIsImmutable?="immutable"
+		//partIsImmutable?="immutable"?
 		public Assignment getPartIsImmutableAssignment_0_3() { return cPartIsImmutableAssignment_0_3; }
 
 		//"immutable"
@@ -1194,14 +1194,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	public class SubCollectionRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SubCollectionRelation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final UnorderedGroup cUnorderedGroup_0 = (UnorderedGroup)cGroup.eContents().get(0);
-		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cUnorderedGroup_0.eContents().get(0);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final Keyword cPartIsEssentialEssentialKeyword_0_0_0 = (Keyword)cPartIsEssentialAssignment_0_0.eContents().get(0);
-		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cUnorderedGroup_0.eContents().get(1);
+		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
 		private final Keyword cPartIsInseparableInseparableKeyword_0_1_0 = (Keyword)cPartIsInseparableAssignment_0_1.eContents().get(0);
-		private final Assignment cPartIsShareableAssignment_0_2 = (Assignment)cUnorderedGroup_0.eContents().get(2);
+		private final Assignment cPartIsShareableAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final Keyword cPartIsShareableShareableKeyword_0_2_0 = (Keyword)cPartIsShareableAssignment_0_2.eContents().get(0);
-		private final Assignment cPartIsImmutableAssignment_0_3 = (Assignment)cUnorderedGroup_0.eContents().get(3);
+		private final Assignment cPartIsImmutableAssignment_0_3 = (Assignment)cGroup_0.eContents().get(3);
 		private final Keyword cPartIsImmutableImmutableKeyword_0_3_0 = (Keyword)cPartIsImmutableAssignment_0_3.eContents().get(0);
 		private final Keyword cRelationKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPartAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -1236,41 +1236,41 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * GUIZZARDI, pg. 351 
 		// * / SubCollectionRelation:
-		//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//	sourceUpperBound=CardinalityUpperBound "]")? "isSubCollectionOf" whole=[SubstantialUniversal] ("["
 		//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 		@Override public ParserRule getRule() { return rule; }
 
-		//(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//sourceUpperBound=CardinalityUpperBound "]")? "isSubCollectionOf" whole=[SubstantialUniversal] ("["
 		//targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-		//partIsImmutable?="immutable"
-		public UnorderedGroup getUnorderedGroup_0() { return cUnorderedGroup_0; }
+		//partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+		//partIsImmutable?="immutable"?
+		public Group getGroup_0() { return cGroup_0; }
 
-		//partIsEssential?="essential"
+		//partIsEssential?="essential"?
 		public Assignment getPartIsEssentialAssignment_0_0() { return cPartIsEssentialAssignment_0_0; }
 
 		//"essential"
 		public Keyword getPartIsEssentialEssentialKeyword_0_0_0() { return cPartIsEssentialEssentialKeyword_0_0_0; }
 
-		//partIsInseparable?="inseparable"
+		//partIsInseparable?="inseparable"?
 		public Assignment getPartIsInseparableAssignment_0_1() { return cPartIsInseparableAssignment_0_1; }
 
 		//"inseparable"
 		public Keyword getPartIsInseparableInseparableKeyword_0_1_0() { return cPartIsInseparableInseparableKeyword_0_1_0; }
 
-		//partIsShareable?="shareable"
+		//partIsShareable?="shareable"?
 		public Assignment getPartIsShareableAssignment_0_2() { return cPartIsShareableAssignment_0_2; }
 
 		//"shareable"
 		public Keyword getPartIsShareableShareableKeyword_0_2_0() { return cPartIsShareableShareableKeyword_0_2_0; }
 
-		//partIsImmutable?="immutable"
+		//partIsImmutable?="immutable"?
 		public Assignment getPartIsImmutableAssignment_0_3() { return cPartIsImmutableAssignment_0_3; }
 
 		//"immutable"
@@ -1355,12 +1355,12 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	public class SubQuantityRelationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "SubQuantityRelation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final UnorderedGroup cUnorderedGroup_0 = (UnorderedGroup)cGroup.eContents().get(0);
-		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cUnorderedGroup_0.eContents().get(0);
+		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
+		private final Assignment cPartIsEssentialAssignment_0_0 = (Assignment)cGroup_0.eContents().get(0);
 		private final Keyword cPartIsEssentialEssentialKeyword_0_0_0 = (Keyword)cPartIsEssentialAssignment_0_0.eContents().get(0);
-		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cUnorderedGroup_0.eContents().get(1);
+		private final Assignment cPartIsInseparableAssignment_0_1 = (Assignment)cGroup_0.eContents().get(1);
 		private final Keyword cPartIsInseparableInseparableKeyword_0_1_0 = (Keyword)cPartIsInseparableAssignment_0_1.eContents().get(0);
-		private final Assignment cPartIsImmutableAssignment_0_2 = (Assignment)cUnorderedGroup_0.eContents().get(2);
+		private final Assignment cPartIsImmutableAssignment_0_2 = (Assignment)cGroup_0.eContents().get(2);
 		private final Keyword cPartIsImmutableImmutableKeyword_0_2_0 = (Keyword)cPartIsImmutableAssignment_0_2.eContents().get(0);
 		private final Keyword cRelationKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Assignment cPartAssignment_2 = (Assignment)cGroup.eContents().get(2);
@@ -1395,40 +1395,38 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * GUIZZARDI, pg. 350 
 		// * / SubQuantityRelation:
-		//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & // Is always false
+		//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? // Is always false
 		//	// partIsShareable?='shareable' & 
-		//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//	sourceUpperBound=CardinalityUpperBound "]")? "isSubQuantityOf" whole=[SubstantialUniversal] ("["
 		//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 		@Override public ParserRule getRule() { return rule; }
 
-		//(partIsEssential?="essential" & partIsInseparable?="inseparable" & // Is always false
+		//(partIsEssential?="essential"? partIsInseparable?="inseparable"? // Is always false
 		//// partIsShareable?='shareable' & 
-		//partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+		//partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//sourceUpperBound=CardinalityUpperBound "]")? "isSubQuantityOf" whole=[SubstantialUniversal] ("["
 		//targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//partIsEssential?="essential" & partIsInseparable?="inseparable" & // Is always false
+		//partIsEssential?="essential"? partIsInseparable?="inseparable"? // Is always false
 		//// partIsShareable?='shareable' & 
-		//partIsImmutable?="immutable"
-		public UnorderedGroup getUnorderedGroup_0() { return cUnorderedGroup_0; }
+		//partIsImmutable?="immutable"?
+		public Group getGroup_0() { return cGroup_0; }
 
-		//partIsEssential?="essential"
+		//partIsEssential?="essential"?
 		public Assignment getPartIsEssentialAssignment_0_0() { return cPartIsEssentialAssignment_0_0; }
 
 		//"essential"
 		public Keyword getPartIsEssentialEssentialKeyword_0_0_0() { return cPartIsEssentialEssentialKeyword_0_0_0; }
 
-		//partIsInseparable?="inseparable"
+		//partIsInseparable?="inseparable"?
 		public Assignment getPartIsInseparableAssignment_0_1() { return cPartIsInseparableAssignment_0_1; }
 
 		//"inseparable"
 		public Keyword getPartIsInseparableInseparableKeyword_0_1_0() { return cPartIsInseparableInseparableKeyword_0_1_0; }
 
-		//// Is always false
-		//// partIsShareable?='shareable' & 
-		//partIsImmutable?="immutable"
+		//partIsImmutable?="immutable"?
 		public Assignment getPartIsImmutableAssignment_0_2() { return cPartIsImmutableAssignment_0_2; }
 
 		//"immutable"
@@ -2811,6 +2809,110 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
+	public class CharacterizesElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Characterizes");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cCharacterizationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cSourceLowerBoundAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cSourceLowerBoundCardinalityBoundParserRuleCall_1_1_0 = (RuleCall)cSourceLowerBoundAssignment_1_1.eContents().get(0);
+		private final Keyword cFullStopFullStopKeyword_1_2 = (Keyword)cGroup_1.eContents().get(2);
+		private final Assignment cSourceUpperBoundAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
+		private final RuleCall cSourceUpperBoundCardinalityUpperBoundParserRuleCall_1_3_0 = (RuleCall)cSourceUpperBoundAssignment_1_3.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_1_4 = (Keyword)cGroup_1.eContents().get(4);
+		private final Keyword cCharacterizedByKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final CrossReference cTargetIntrinsicMomentUniversalCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
+		private final RuleCall cTargetIntrinsicMomentUniversalIDTerminalRuleCall_3_0_1 = (RuleCall)cTargetIntrinsicMomentUniversalCrossReference_3_0.eContents().get(1);
+		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
+		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
+		private final Assignment cTargetLowerBoundAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
+		private final RuleCall cTargetLowerBoundCardinalityBoundParserRuleCall_4_1_0 = (RuleCall)cTargetLowerBoundAssignment_4_1.eContents().get(0);
+		private final Keyword cFullStopFullStopKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Assignment cTargetUpperBoundAssignment_4_3 = (Assignment)cGroup_4.eContents().get(3);
+		private final RuleCall cTargetUpperBoundCardinalityUpperBoundParserRuleCall_4_3_0 = (RuleCall)cTargetUpperBoundAssignment_4_3.eContents().get(0);
+		private final Keyword cRightSquareBracketKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		
+		//Characterizes returns Characterization:
+		//	{Characterization} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
+		//	"characterizedBy" target=[IntrinsicMomentUniversal] ("[" targetLowerBound=CardinalityBound ".."
+		//	targetUpperBound=CardinalityUpperBound "]")? ";";
+		@Override public ParserRule getRule() { return rule; }
+
+		//{Characterization} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
+		//"characterizedBy" target=[IntrinsicMomentUniversal] ("[" targetLowerBound=CardinalityBound ".."
+		//targetUpperBound=CardinalityUpperBound "]")? ";"
+		public Group getGroup() { return cGroup; }
+
+		//{Characterization}
+		public Action getCharacterizationAction_0() { return cCharacterizationAction_0; }
+
+		//("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_1_0() { return cLeftSquareBracketKeyword_1_0; }
+
+		//sourceLowerBound=CardinalityBound
+		public Assignment getSourceLowerBoundAssignment_1_1() { return cSourceLowerBoundAssignment_1_1; }
+
+		//CardinalityBound
+		public RuleCall getSourceLowerBoundCardinalityBoundParserRuleCall_1_1_0() { return cSourceLowerBoundCardinalityBoundParserRuleCall_1_1_0; }
+
+		//".."
+		public Keyword getFullStopFullStopKeyword_1_2() { return cFullStopFullStopKeyword_1_2; }
+
+		//sourceUpperBound=CardinalityUpperBound
+		public Assignment getSourceUpperBoundAssignment_1_3() { return cSourceUpperBoundAssignment_1_3; }
+
+		//CardinalityUpperBound
+		public RuleCall getSourceUpperBoundCardinalityUpperBoundParserRuleCall_1_3_0() { return cSourceUpperBoundCardinalityUpperBoundParserRuleCall_1_3_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_1_4() { return cRightSquareBracketKeyword_1_4; }
+
+		//"characterizedBy"
+		public Keyword getCharacterizedByKeyword_2() { return cCharacterizedByKeyword_2; }
+
+		//target=[IntrinsicMomentUniversal]
+		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
+
+		//[IntrinsicMomentUniversal]
+		public CrossReference getTargetIntrinsicMomentUniversalCrossReference_3_0() { return cTargetIntrinsicMomentUniversalCrossReference_3_0; }
+
+		//ID
+		public RuleCall getTargetIntrinsicMomentUniversalIDTerminalRuleCall_3_0_1() { return cTargetIntrinsicMomentUniversalIDTerminalRuleCall_3_0_1; }
+
+		//("[" targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")?
+		public Group getGroup_4() { return cGroup_4; }
+
+		//"["
+		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
+
+		//targetLowerBound=CardinalityBound
+		public Assignment getTargetLowerBoundAssignment_4_1() { return cTargetLowerBoundAssignment_4_1; }
+
+		//CardinalityBound
+		public RuleCall getTargetLowerBoundCardinalityBoundParserRuleCall_4_1_0() { return cTargetLowerBoundCardinalityBoundParserRuleCall_4_1_0; }
+
+		//".."
+		public Keyword getFullStopFullStopKeyword_4_2() { return cFullStopFullStopKeyword_4_2; }
+
+		//targetUpperBound=CardinalityUpperBound
+		public Assignment getTargetUpperBoundAssignment_4_3() { return cTargetUpperBoundAssignment_4_3; }
+
+		//CardinalityUpperBound
+		public RuleCall getTargetUpperBoundCardinalityUpperBoundParserRuleCall_4_3_0() { return cTargetUpperBoundCardinalityUpperBoundParserRuleCall_4_3_0; }
+
+		//"]"
+		public Keyword getRightSquareBracketKeyword_4_4() { return cRightSquareBracketKeyword_4_4; }
+
+		//";"
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
+	}
+
 	public class MediationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Mediation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -3077,6 +3179,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	private final NAryMaterialRelationElements pNAryMaterialRelation;
 	private final NAryFormalRelationElements pNAryFormalRelation;
 	private final CharacterizationElements pCharacterization;
+	private final CharacterizesElements pCharacterizes;
 	private final MediationElements pMediation;
 	private final EStringElements pEString;
 	private final PrimitiveDataTypeTypeElements pPrimitiveDataTypeType;
@@ -3131,6 +3234,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pNAryMaterialRelation = new NAryMaterialRelationElements();
 		this.pNAryFormalRelation = new NAryFormalRelationElements();
 		this.pCharacterization = new CharacterizationElements();
+		this.pCharacterizes = new CharacterizesElements();
 		this.pMediation = new MediationElements();
 		this.pEString = new EStringElements();
 		this.pPrimitiveDataTypeType = new PrimitiveDataTypeTypeElements();
@@ -3351,8 +3455,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * Foo [1..1] isComponentOf Bar [1..1]; 
 	// * / ComponentOfRelation:
-	//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-	//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+	//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+	//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 	//	sourceUpperBound=CardinalityUpperBound "]")? "isComponentOf" whole=[SubstantialUniversal] ("["
 	//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 	public ComponentOfRelationElements getComponentOfRelationAccess() {
@@ -3368,8 +3472,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * Foo [1..1] isMemberOf Bar [1..1]; 
 	// * / MembershipRelation:
-	//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-	//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+	//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+	//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 	//	sourceUpperBound=CardinalityUpperBound "]")? "isMemberOf" whole=[SubstantialUniversal] ("["
 	//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 	public MembershipRelationElements getMembershipRelationAccess() {
@@ -3387,8 +3491,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * GUIZZARDI, pg. 351 
 	// * / SubCollectionRelation:
-	//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & partIsShareable?="shareable" &
-	//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+	//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? partIsShareable?="shareable"?
+	//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 	//	sourceUpperBound=CardinalityUpperBound "]")? "isSubCollectionOf" whole=[SubstantialUniversal] ("["
 	//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 	public SubCollectionRelationElements getSubCollectionRelationAccess() {
@@ -3406,9 +3510,9 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * GUIZZARDI, pg. 350 
 	// * / SubQuantityRelation:
-	//	(partIsEssential?="essential" & partIsInseparable?="inseparable" & // Is always false
+	//	(partIsEssential?="essential"? partIsInseparable?="inseparable"? // Is always false
 	//	// partIsShareable?='shareable' & 
-	//	partIsImmutable?="immutable") "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
+	//	partIsImmutable?="immutable"?) "relation" part=[SubstantialUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 	//	sourceUpperBound=CardinalityUpperBound "]")? "isSubQuantityOf" whole=[SubstantialUniversal] ("["
 	//	targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")? ";";
 	public SubQuantityRelationElements getSubQuantityRelationAccess() {
@@ -3671,6 +3775,18 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getCharacterizationRule() {
 		return getCharacterizationAccess().getRule();
+	}
+
+	//Characterizes returns Characterization:
+	//	{Characterization} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
+	//	"characterizedBy" target=[IntrinsicMomentUniversal] ("[" targetLowerBound=CardinalityBound ".."
+	//	targetUpperBound=CardinalityUpperBound "]")? ";";
+	public CharacterizesElements getCharacterizesAccess() {
+		return pCharacterizes;
+	}
+	
+	public ParserRule getCharacterizesRule() {
+		return getCharacterizesAccess().getRule();
 	}
 
 	/// *

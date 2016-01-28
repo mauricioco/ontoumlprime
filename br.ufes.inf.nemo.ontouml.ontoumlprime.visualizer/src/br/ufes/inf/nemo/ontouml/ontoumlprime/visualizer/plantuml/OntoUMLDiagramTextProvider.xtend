@@ -18,11 +18,16 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList
+import org.eclipse.ui.part.FileEditorInput
+import java.beans.PropertyChangeEvent
+import org.eclipse.ui.IWorkbenchPage
+import net.sourceforge.plantuml.eclipse.views.PlantUmlView
+import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider
 
 /**
  * This is the class that provides the PlantUML view with diagram code.
  */
-class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
+class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	
 	enum UpdateMethod {
 		
@@ -33,21 +38,50 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	
 	private static boolean updateModel = true;
 
-	static def updateDiagram() {
-		val editor = PlatformUI.workbench.activeWorkbenchWindow.activePage.activeEditor as XtextEditor;
-		updateModel = false;
-		editor.setFocus();
+	def static updateDiagram() {		
+		val v = VisionManager.initialize(currentModelTitle, currentModel);
+		VisionManager.updateView;
+		updateDiagramWithCode(generatePlantUMLCode(currentModel, v.selectedVision));
 	}
 	
-	override String getDiagramText(IEditorPart editorPart, IEditorInput editorInput, ISelection selection) {
+	/**
+	 * This method directly updates the PlantUML visualization. 
+	 */
+	def static private updateDiagramWithCode(String code) {
+		val page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+		if (page == null) {
+			return;
+		}
+		val view = page.findView("net.sourceforge.plantuml.eclipse.views.PlantUmlView");
+		if (view != null && view instanceof PlantUmlView) {
+			(view as PlantUmlView).updateDiagram(code);
+		}
+	}
+	
+	override supportsEditor(IEditorPart editorPart) {
+		if(editorPart instanceof XtextEditor) {
+			return true;
+		} else {
+			System.out.println("Editor not supported.");
+			updateDiagramWithCode(OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not a Xtext Editor"));
+			return false;
+		}
+	}
+	
+	override supportsSelection(ISelection selection) {
+		return true;
+	}
 		
-		val OntoUMLPrime2PlantUML o2p = OntoUMLPrime2PlantUML.sharedInstance;
-				
-		if(!(editorPart instanceof XtextEditor)) {
-			return OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not a Xtext Editor");
+	override String getDiagramText(IEditorPart editorPart, ISelection selection) {
+						
+		if(!supportsEditor(editorPart)) {
+			OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not a Xtext Editor")
+			return null;
 		}
 	
-        val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorInput) as XtextDocument;
+        val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorPart.editorInput) as XtextDocument;
+        
+		//System.out.println("CALLED IT");
         
         val Model model = document.readOnly[
 	        	val result = contents.head;
@@ -65,17 +99,12 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 	    	val v = VisionManager.initialize(editorPart.title, model);
 		    VisionManager.updateView;
 		    
-	    	if(updateModel) {
-		    	currentModel = model;
-		    	currentModelTitle = editorPart.title;
-		    	//System.out.println("Current title: " + currentModelTitle);
+		    currentModel = model;
+		    currentModelTitle = editorPart.title;
+		    //System.out.println("Current title: " + currentModelTitle);
+		    
+	    	generatePlantUMLCode(model, v.selectedVision);
 		    	
-	    		generatePlantUMLCode(model, v.selectedVision);
-		    } else {
-		    	updateModel = true;
-		    	generatePlantUMLCode(currentModel, v.selectedVision);
-		    }
-	    	
 	    }
         
     }
@@ -83,7 +112,7 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
     //		«IF o == null || o.visible»
     // 	    «ENDIF»
     
-    def String generatePlantUMLCode(Model it, ModelVision v) {
+    def static String generatePlantUMLCode(Model it, ModelVision v) {
 		'''
 		@startuml
 		hide circle
@@ -103,10 +132,5 @@ class OntoUMLDiagramTextProvider extends AbstractDiagramTextProvider {
 		@enduml
 		'''
 	}
-				
-	override supportsSelection(ISelection selection) {
-		// TODO check what is this for...
-		return true;
-	}
-    
+	  
 }

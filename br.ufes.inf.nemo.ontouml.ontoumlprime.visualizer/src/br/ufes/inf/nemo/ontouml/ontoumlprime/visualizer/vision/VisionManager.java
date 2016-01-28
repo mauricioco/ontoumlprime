@@ -41,6 +41,7 @@ public class VisionManager {
 			v = new VisionList(modelTitle, model);
 			visionMap.put(modelTitle, v);
 		}
+		v.updateDefaultVision(model);
 		return v;
 	}
 	

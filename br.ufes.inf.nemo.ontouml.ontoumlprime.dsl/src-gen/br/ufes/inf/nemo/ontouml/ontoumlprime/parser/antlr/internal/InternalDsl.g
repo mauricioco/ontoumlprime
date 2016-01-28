@@ -1004,25 +1004,11 @@ ruleComponentOfRelation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-
+(((
 (
-	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0());
-	}
-	(
-		(
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 0)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 0);
-	 				}
-					({true}?=>(
-(
-		lv_partIsEssential_1_0=	'essential' 
+		lv_partIsEssential_0_0=	'essential' 
     {
-        newLeafNode(lv_partIsEssential_1_0, grammarAccess.getComponentOfRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
+        newLeafNode(lv_partIsEssential_0_0, grammarAccess.getComponentOfRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
     }
  
 	    {
@@ -1033,23 +1019,11 @@ ruleComponentOfRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 1)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 1);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsInseparable_2_0=	'inseparable' 
+		lv_partIsInseparable_1_0=	'inseparable' 
     {
-        newLeafNode(lv_partIsInseparable_2_0, grammarAccess.getComponentOfRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
+        newLeafNode(lv_partIsInseparable_1_0, grammarAccess.getComponentOfRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
     }
  
 	    {
@@ -1060,23 +1034,11 @@ ruleComponentOfRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 2);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsShareable_3_0=	'shareable' 
+		lv_partIsShareable_2_0=	'shareable' 
     {
-        newLeafNode(lv_partIsShareable_3_0, grammarAccess.getComponentOfRelationAccess().getPartIsShareableShareableKeyword_0_2_0());
+        newLeafNode(lv_partIsShareable_2_0, grammarAccess.getComponentOfRelationAccess().getPartIsShareableShareableKeyword_0_2_0());
     }
  
 	    {
@@ -1087,23 +1049,11 @@ ruleComponentOfRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 3)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), 3);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsImmutable_4_0=	'immutable' 
+		lv_partIsImmutable_3_0=	'immutable' 
     {
-        newLeafNode(lv_partIsImmutable_4_0, grammarAccess.getComponentOfRelationAccess().getPartIsImmutableImmutableKeyword_0_3_0());
+        newLeafNode(lv_partIsImmutable_3_0, grammarAccess.getComponentOfRelationAccess().getPartIsImmutableImmutableKeyword_0_3_0());
     }
  
 	    {
@@ -1114,24 +1064,9 @@ ruleComponentOfRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  
-
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0())}?	
-	)
-)
-	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0());
-	}
-
-)	otherlv_5='relation' 
+)?)	otherlv_4='relation' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getComponentOfRelationAccess().getRelationKeyword_1());
+    	newLeafNode(otherlv_4, grammarAccess.getComponentOfRelationAccess().getRelationKeyword_1());
     }
 (
 (
@@ -1140,63 +1075,63 @@ ruleComponentOfRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getComponentOfRelationRule());
 	        }
         }
-	otherlv_6=RULE_ID
+	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getComponentOfRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getComponentOfRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
 	}
 
 )
-)(	otherlv_7='[' 
+)(	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getComponentOfRelationAccess().getLeftSquareBracketKeyword_3_0());
+    	newLeafNode(otherlv_6, grammarAccess.getComponentOfRelationAccess().getLeftSquareBracketKeyword_3_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getComponentOfRelationAccess().getSourceLowerBoundCardinalityBoundParserRuleCall_3_1_0()); 
 	    }
-		lv_sourceLowerBound_8_0=ruleCardinalityBound		{
+		lv_sourceLowerBound_7_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getComponentOfRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceLowerBound",
-        		lv_sourceLowerBound_8_0, 
+        		lv_sourceLowerBound_7_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_9='..' 
+)	otherlv_8='..' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getComponentOfRelationAccess().getFullStopFullStopKeyword_3_2());
+    	newLeafNode(otherlv_8, grammarAccess.getComponentOfRelationAccess().getFullStopFullStopKeyword_3_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getComponentOfRelationAccess().getSourceUpperBoundCardinalityUpperBoundParserRuleCall_3_3_0()); 
 	    }
-		lv_sourceUpperBound_10_0=ruleCardinalityUpperBound		{
+		lv_sourceUpperBound_9_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getComponentOfRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceUpperBound",
-        		lv_sourceUpperBound_10_0, 
+        		lv_sourceUpperBound_9_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_11=']' 
+)	otherlv_10=']' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getComponentOfRelationAccess().getRightSquareBracketKeyword_3_4());
+    	newLeafNode(otherlv_10, grammarAccess.getComponentOfRelationAccess().getRightSquareBracketKeyword_3_4());
     }
-)?	otherlv_12='isComponentOf' 
+)?	otherlv_11='isComponentOf' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getComponentOfRelationAccess().getIsComponentOfKeyword_4());
+    	newLeafNode(otherlv_11, grammarAccess.getComponentOfRelationAccess().getIsComponentOfKeyword_4());
     }
 (
 (
@@ -1205,63 +1140,63 @@ ruleComponentOfRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getComponentOfRelationRule());
 	        }
         }
-	otherlv_13=RULE_ID
+	otherlv_12=RULE_ID
 	{
-		newLeafNode(otherlv_13, grammarAccess.getComponentOfRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
+		newLeafNode(otherlv_12, grammarAccess.getComponentOfRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
 	}
 
 )
-)(	otherlv_14='[' 
+)(	otherlv_13='[' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getComponentOfRelationAccess().getLeftSquareBracketKeyword_6_0());
+    	newLeafNode(otherlv_13, grammarAccess.getComponentOfRelationAccess().getLeftSquareBracketKeyword_6_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getComponentOfRelationAccess().getTargetLowerBoundCardinalityBoundParserRuleCall_6_1_0()); 
 	    }
-		lv_targetLowerBound_15_0=ruleCardinalityBound		{
+		lv_targetLowerBound_14_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getComponentOfRelationRule());
 	        }
        		set(
        			$current, 
        			"targetLowerBound",
-        		lv_targetLowerBound_15_0, 
+        		lv_targetLowerBound_14_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_16='..' 
+)	otherlv_15='..' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getComponentOfRelationAccess().getFullStopFullStopKeyword_6_2());
+    	newLeafNode(otherlv_15, grammarAccess.getComponentOfRelationAccess().getFullStopFullStopKeyword_6_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getComponentOfRelationAccess().getTargetUpperBoundCardinalityUpperBoundParserRuleCall_6_3_0()); 
 	    }
-		lv_targetUpperBound_17_0=ruleCardinalityUpperBound		{
+		lv_targetUpperBound_16_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getComponentOfRelationRule());
 	        }
        		set(
        			$current, 
        			"targetUpperBound",
-        		lv_targetUpperBound_17_0, 
+        		lv_targetUpperBound_16_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_18=']' 
+)	otherlv_17=']' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getComponentOfRelationAccess().getRightSquareBracketKeyword_6_4());
+    	newLeafNode(otherlv_17, grammarAccess.getComponentOfRelationAccess().getRightSquareBracketKeyword_6_4());
     }
-)?	otherlv_19=';' 
+)?	otherlv_18=';' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getComponentOfRelationAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_18, grammarAccess.getComponentOfRelationAccess().getSemicolonKeyword_7());
     }
 )
 ;
@@ -1284,25 +1219,11 @@ ruleMembershipRelation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-
+(((
 (
-	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0());
-	}
-	(
-		(
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 0)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 0);
-	 				}
-					({true}?=>(
-(
-		lv_partIsEssential_1_0=	'essential' 
+		lv_partIsEssential_0_0=	'essential' 
     {
-        newLeafNode(lv_partIsEssential_1_0, grammarAccess.getMembershipRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
+        newLeafNode(lv_partIsEssential_0_0, grammarAccess.getMembershipRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
     }
  
 	    {
@@ -1313,23 +1234,11 @@ ruleMembershipRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 1)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 1);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsInseparable_2_0=	'inseparable' 
+		lv_partIsInseparable_1_0=	'inseparable' 
     {
-        newLeafNode(lv_partIsInseparable_2_0, grammarAccess.getMembershipRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
+        newLeafNode(lv_partIsInseparable_1_0, grammarAccess.getMembershipRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
     }
  
 	    {
@@ -1340,23 +1249,11 @@ ruleMembershipRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 2);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsShareable_3_0=	'shareable' 
+		lv_partIsShareable_2_0=	'shareable' 
     {
-        newLeafNode(lv_partIsShareable_3_0, grammarAccess.getMembershipRelationAccess().getPartIsShareableShareableKeyword_0_2_0());
+        newLeafNode(lv_partIsShareable_2_0, grammarAccess.getMembershipRelationAccess().getPartIsShareableShareableKeyword_0_2_0());
     }
  
 	    {
@@ -1367,23 +1264,11 @@ ruleMembershipRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 3)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), 3);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsImmutable_4_0=	'immutable' 
+		lv_partIsImmutable_3_0=	'immutable' 
     {
-        newLeafNode(lv_partIsImmutable_4_0, grammarAccess.getMembershipRelationAccess().getPartIsImmutableImmutableKeyword_0_3_0());
+        newLeafNode(lv_partIsImmutable_3_0, grammarAccess.getMembershipRelationAccess().getPartIsImmutableImmutableKeyword_0_3_0());
     }
  
 	    {
@@ -1394,24 +1279,9 @@ ruleMembershipRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  
-
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0())}?	
-	)
-)
-	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0());
-	}
-
-)	otherlv_5='relation' 
+)?)	otherlv_4='relation' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getMembershipRelationAccess().getRelationKeyword_1());
+    	newLeafNode(otherlv_4, grammarAccess.getMembershipRelationAccess().getRelationKeyword_1());
     }
 (
 (
@@ -1420,63 +1290,63 @@ ruleMembershipRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getMembershipRelationRule());
 	        }
         }
-	otherlv_6=RULE_ID
+	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getMembershipRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getMembershipRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
 	}
 
 )
-)(	otherlv_7='[' 
+)(	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getMembershipRelationAccess().getLeftSquareBracketKeyword_3_0());
+    	newLeafNode(otherlv_6, grammarAccess.getMembershipRelationAccess().getLeftSquareBracketKeyword_3_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getMembershipRelationAccess().getSourceLowerBoundCardinalityBoundParserRuleCall_3_1_0()); 
 	    }
-		lv_sourceLowerBound_8_0=ruleCardinalityBound		{
+		lv_sourceLowerBound_7_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMembershipRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceLowerBound",
-        		lv_sourceLowerBound_8_0, 
+        		lv_sourceLowerBound_7_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_9='..' 
+)	otherlv_8='..' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getMembershipRelationAccess().getFullStopFullStopKeyword_3_2());
+    	newLeafNode(otherlv_8, grammarAccess.getMembershipRelationAccess().getFullStopFullStopKeyword_3_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getMembershipRelationAccess().getSourceUpperBoundCardinalityUpperBoundParserRuleCall_3_3_0()); 
 	    }
-		lv_sourceUpperBound_10_0=ruleCardinalityUpperBound		{
+		lv_sourceUpperBound_9_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMembershipRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceUpperBound",
-        		lv_sourceUpperBound_10_0, 
+        		lv_sourceUpperBound_9_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_11=']' 
+)	otherlv_10=']' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getMembershipRelationAccess().getRightSquareBracketKeyword_3_4());
+    	newLeafNode(otherlv_10, grammarAccess.getMembershipRelationAccess().getRightSquareBracketKeyword_3_4());
     }
-)?	otherlv_12='isMemberOf' 
+)?	otherlv_11='isMemberOf' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getMembershipRelationAccess().getIsMemberOfKeyword_4());
+    	newLeafNode(otherlv_11, grammarAccess.getMembershipRelationAccess().getIsMemberOfKeyword_4());
     }
 (
 (
@@ -1485,63 +1355,63 @@ ruleMembershipRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getMembershipRelationRule());
 	        }
         }
-	otherlv_13=RULE_ID
+	otherlv_12=RULE_ID
 	{
-		newLeafNode(otherlv_13, grammarAccess.getMembershipRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
+		newLeafNode(otherlv_12, grammarAccess.getMembershipRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
 	}
 
 )
-)(	otherlv_14='[' 
+)(	otherlv_13='[' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getMembershipRelationAccess().getLeftSquareBracketKeyword_6_0());
+    	newLeafNode(otherlv_13, grammarAccess.getMembershipRelationAccess().getLeftSquareBracketKeyword_6_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getMembershipRelationAccess().getTargetLowerBoundCardinalityBoundParserRuleCall_6_1_0()); 
 	    }
-		lv_targetLowerBound_15_0=ruleCardinalityBound		{
+		lv_targetLowerBound_14_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMembershipRelationRule());
 	        }
        		set(
        			$current, 
        			"targetLowerBound",
-        		lv_targetLowerBound_15_0, 
+        		lv_targetLowerBound_14_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_16='..' 
+)	otherlv_15='..' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getMembershipRelationAccess().getFullStopFullStopKeyword_6_2());
+    	newLeafNode(otherlv_15, grammarAccess.getMembershipRelationAccess().getFullStopFullStopKeyword_6_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getMembershipRelationAccess().getTargetUpperBoundCardinalityUpperBoundParserRuleCall_6_3_0()); 
 	    }
-		lv_targetUpperBound_17_0=ruleCardinalityUpperBound		{
+		lv_targetUpperBound_16_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMembershipRelationRule());
 	        }
        		set(
        			$current, 
        			"targetUpperBound",
-        		lv_targetUpperBound_17_0, 
+        		lv_targetUpperBound_16_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_18=']' 
+)	otherlv_17=']' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getMembershipRelationAccess().getRightSquareBracketKeyword_6_4());
+    	newLeafNode(otherlv_17, grammarAccess.getMembershipRelationAccess().getRightSquareBracketKeyword_6_4());
     }
-)?	otherlv_19=';' 
+)?	otherlv_18=';' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getMembershipRelationAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_18, grammarAccess.getMembershipRelationAccess().getSemicolonKeyword_7());
     }
 )
 ;
@@ -1564,25 +1434,11 @@ ruleSubCollectionRelation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-
+(((
 (
-	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0());
-	}
-	(
-		(
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 0)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 0);
-	 				}
-					({true}?=>(
-(
-		lv_partIsEssential_1_0=	'essential' 
+		lv_partIsEssential_0_0=	'essential' 
     {
-        newLeafNode(lv_partIsEssential_1_0, grammarAccess.getSubCollectionRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
+        newLeafNode(lv_partIsEssential_0_0, grammarAccess.getSubCollectionRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
     }
  
 	    {
@@ -1593,23 +1449,11 @@ ruleSubCollectionRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 1)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 1);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsInseparable_2_0=	'inseparable' 
+		lv_partIsInseparable_1_0=	'inseparable' 
     {
-        newLeafNode(lv_partIsInseparable_2_0, grammarAccess.getSubCollectionRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
+        newLeafNode(lv_partIsInseparable_1_0, grammarAccess.getSubCollectionRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
     }
  
 	    {
@@ -1620,23 +1464,11 @@ ruleSubCollectionRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 2);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsShareable_3_0=	'shareable' 
+		lv_partIsShareable_2_0=	'shareable' 
     {
-        newLeafNode(lv_partIsShareable_3_0, grammarAccess.getSubCollectionRelationAccess().getPartIsShareableShareableKeyword_0_2_0());
+        newLeafNode(lv_partIsShareable_2_0, grammarAccess.getSubCollectionRelationAccess().getPartIsShareableShareableKeyword_0_2_0());
     }
  
 	    {
@@ -1647,23 +1479,11 @@ ruleSubCollectionRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 3)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), 3);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsImmutable_4_0=	'immutable' 
+		lv_partIsImmutable_3_0=	'immutable' 
     {
-        newLeafNode(lv_partIsImmutable_4_0, grammarAccess.getSubCollectionRelationAccess().getPartIsImmutableImmutableKeyword_0_3_0());
+        newLeafNode(lv_partIsImmutable_3_0, grammarAccess.getSubCollectionRelationAccess().getPartIsImmutableImmutableKeyword_0_3_0());
     }
  
 	    {
@@ -1674,24 +1494,9 @@ ruleSubCollectionRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  
-
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0())}?	
-	)
-)
-	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0());
-	}
-
-)	otherlv_5='relation' 
+)?)	otherlv_4='relation' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getSubCollectionRelationAccess().getRelationKeyword_1());
+    	newLeafNode(otherlv_4, grammarAccess.getSubCollectionRelationAccess().getRelationKeyword_1());
     }
 (
 (
@@ -1700,63 +1505,63 @@ ruleSubCollectionRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getSubCollectionRelationRule());
 	        }
         }
-	otherlv_6=RULE_ID
+	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_6, grammarAccess.getSubCollectionRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getSubCollectionRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
 	}
 
 )
-)(	otherlv_7='[' 
+)(	otherlv_6='[' 
     {
-    	newLeafNode(otherlv_7, grammarAccess.getSubCollectionRelationAccess().getLeftSquareBracketKeyword_3_0());
+    	newLeafNode(otherlv_6, grammarAccess.getSubCollectionRelationAccess().getLeftSquareBracketKeyword_3_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubCollectionRelationAccess().getSourceLowerBoundCardinalityBoundParserRuleCall_3_1_0()); 
 	    }
-		lv_sourceLowerBound_8_0=ruleCardinalityBound		{
+		lv_sourceLowerBound_7_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubCollectionRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceLowerBound",
-        		lv_sourceLowerBound_8_0, 
+        		lv_sourceLowerBound_7_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_9='..' 
+)	otherlv_8='..' 
     {
-    	newLeafNode(otherlv_9, grammarAccess.getSubCollectionRelationAccess().getFullStopFullStopKeyword_3_2());
+    	newLeafNode(otherlv_8, grammarAccess.getSubCollectionRelationAccess().getFullStopFullStopKeyword_3_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubCollectionRelationAccess().getSourceUpperBoundCardinalityUpperBoundParserRuleCall_3_3_0()); 
 	    }
-		lv_sourceUpperBound_10_0=ruleCardinalityUpperBound		{
+		lv_sourceUpperBound_9_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubCollectionRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceUpperBound",
-        		lv_sourceUpperBound_10_0, 
+        		lv_sourceUpperBound_9_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_11=']' 
+)	otherlv_10=']' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSubCollectionRelationAccess().getRightSquareBracketKeyword_3_4());
+    	newLeafNode(otherlv_10, grammarAccess.getSubCollectionRelationAccess().getRightSquareBracketKeyword_3_4());
     }
-)?	otherlv_12='isSubCollectionOf' 
+)?	otherlv_11='isSubCollectionOf' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getSubCollectionRelationAccess().getIsSubCollectionOfKeyword_4());
+    	newLeafNode(otherlv_11, grammarAccess.getSubCollectionRelationAccess().getIsSubCollectionOfKeyword_4());
     }
 (
 (
@@ -1765,63 +1570,63 @@ ruleSubCollectionRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getSubCollectionRelationRule());
 	        }
         }
-	otherlv_13=RULE_ID
+	otherlv_12=RULE_ID
 	{
-		newLeafNode(otherlv_13, grammarAccess.getSubCollectionRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
+		newLeafNode(otherlv_12, grammarAccess.getSubCollectionRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
 	}
 
 )
-)(	otherlv_14='[' 
+)(	otherlv_13='[' 
     {
-    	newLeafNode(otherlv_14, grammarAccess.getSubCollectionRelationAccess().getLeftSquareBracketKeyword_6_0());
+    	newLeafNode(otherlv_13, grammarAccess.getSubCollectionRelationAccess().getLeftSquareBracketKeyword_6_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubCollectionRelationAccess().getTargetLowerBoundCardinalityBoundParserRuleCall_6_1_0()); 
 	    }
-		lv_targetLowerBound_15_0=ruleCardinalityBound		{
+		lv_targetLowerBound_14_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubCollectionRelationRule());
 	        }
        		set(
        			$current, 
        			"targetLowerBound",
-        		lv_targetLowerBound_15_0, 
+        		lv_targetLowerBound_14_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_16='..' 
+)	otherlv_15='..' 
     {
-    	newLeafNode(otherlv_16, grammarAccess.getSubCollectionRelationAccess().getFullStopFullStopKeyword_6_2());
+    	newLeafNode(otherlv_15, grammarAccess.getSubCollectionRelationAccess().getFullStopFullStopKeyword_6_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubCollectionRelationAccess().getTargetUpperBoundCardinalityUpperBoundParserRuleCall_6_3_0()); 
 	    }
-		lv_targetUpperBound_17_0=ruleCardinalityUpperBound		{
+		lv_targetUpperBound_16_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubCollectionRelationRule());
 	        }
        		set(
        			$current, 
        			"targetUpperBound",
-        		lv_targetUpperBound_17_0, 
+        		lv_targetUpperBound_16_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_18=']' 
+)	otherlv_17=']' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getSubCollectionRelationAccess().getRightSquareBracketKeyword_6_4());
+    	newLeafNode(otherlv_17, grammarAccess.getSubCollectionRelationAccess().getRightSquareBracketKeyword_6_4());
     }
-)?	otherlv_19=';' 
+)?	otherlv_18=';' 
     {
-    	newLeafNode(otherlv_19, grammarAccess.getSubCollectionRelationAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_18, grammarAccess.getSubCollectionRelationAccess().getSemicolonKeyword_7());
     }
 )
 ;
@@ -1844,25 +1649,11 @@ ruleSubQuantityRelation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
-
+(((
 (
-	{ 
-	  getUnorderedGroupHelper().enter(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0());
-	}
-	(
-		(
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), 0)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), 0);
-	 				}
-					({true}?=>(
-(
-		lv_partIsEssential_1_0=	'essential' 
+		lv_partIsEssential_0_0=	'essential' 
     {
-        newLeafNode(lv_partIsEssential_1_0, grammarAccess.getSubQuantityRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
+        newLeafNode(lv_partIsEssential_0_0, grammarAccess.getSubQuantityRelationAccess().getPartIsEssentialEssentialKeyword_0_0_0());
     }
  
 	    {
@@ -1873,23 +1664,11 @@ ruleSubQuantityRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), 1)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), 1);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsInseparable_2_0=	'inseparable' 
+		lv_partIsInseparable_1_0=	'inseparable' 
     {
-        newLeafNode(lv_partIsInseparable_2_0, grammarAccess.getSubQuantityRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
+        newLeafNode(lv_partIsInseparable_1_0, grammarAccess.getSubQuantityRelationAccess().getPartIsInseparableInseparableKeyword_0_1_0());
     }
  
 	    {
@@ -1900,23 +1679,11 @@ ruleSubQuantityRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  |
-
-			( 
-				{getUnorderedGroupHelper().canSelect(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), 2)}?=>(
-					{ 
-	 				  getUnorderedGroupHelper().select(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), 2);
-	 				}
-					({true}?=>(
+)?(
 (
-		lv_partIsImmutable_3_0=	'immutable' 
+		lv_partIsImmutable_2_0=	'immutable' 
     {
-        newLeafNode(lv_partIsImmutable_3_0, grammarAccess.getSubQuantityRelationAccess().getPartIsImmutableImmutableKeyword_0_2_0());
+        newLeafNode(lv_partIsImmutable_2_0, grammarAccess.getSubQuantityRelationAccess().getPartIsImmutableImmutableKeyword_0_2_0());
     }
  
 	    {
@@ -1927,24 +1694,9 @@ ruleSubQuantityRelation returns [EObject current=null]
 	    }
 
 )
-))
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0());
-	 				}
- 				)
-			)  
-
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0())}?	
-	)
-)
-	{ 
-	  getUnorderedGroupHelper().leave(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0());
-	}
-
-)	otherlv_4='relation' 
+)?)	otherlv_3='relation' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getSubQuantityRelationAccess().getRelationKeyword_1());
+    	newLeafNode(otherlv_3, grammarAccess.getSubQuantityRelationAccess().getRelationKeyword_1());
     }
 (
 (
@@ -1953,63 +1705,63 @@ ruleSubQuantityRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getSubQuantityRelationRule());
 	        }
         }
-	otherlv_5=RULE_ID
+	otherlv_4=RULE_ID
 	{
-		newLeafNode(otherlv_5, grammarAccess.getSubQuantityRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
+		newLeafNode(otherlv_4, grammarAccess.getSubQuantityRelationAccess().getPartSubstantialUniversalCrossReference_2_0()); 
 	}
 
 )
-)(	otherlv_6='[' 
+)(	otherlv_5='[' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getSubQuantityRelationAccess().getLeftSquareBracketKeyword_3_0());
+    	newLeafNode(otherlv_5, grammarAccess.getSubQuantityRelationAccess().getLeftSquareBracketKeyword_3_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubQuantityRelationAccess().getSourceLowerBoundCardinalityBoundParserRuleCall_3_1_0()); 
 	    }
-		lv_sourceLowerBound_7_0=ruleCardinalityBound		{
+		lv_sourceLowerBound_6_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubQuantityRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceLowerBound",
-        		lv_sourceLowerBound_7_0, 
+        		lv_sourceLowerBound_6_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_8='..' 
+)	otherlv_7='..' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getSubQuantityRelationAccess().getFullStopFullStopKeyword_3_2());
+    	newLeafNode(otherlv_7, grammarAccess.getSubQuantityRelationAccess().getFullStopFullStopKeyword_3_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubQuantityRelationAccess().getSourceUpperBoundCardinalityUpperBoundParserRuleCall_3_3_0()); 
 	    }
-		lv_sourceUpperBound_9_0=ruleCardinalityUpperBound		{
+		lv_sourceUpperBound_8_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubQuantityRelationRule());
 	        }
        		set(
        			$current, 
        			"sourceUpperBound",
-        		lv_sourceUpperBound_9_0, 
+        		lv_sourceUpperBound_8_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_10=']' 
+)	otherlv_9=']' 
     {
-    	newLeafNode(otherlv_10, grammarAccess.getSubQuantityRelationAccess().getRightSquareBracketKeyword_3_4());
+    	newLeafNode(otherlv_9, grammarAccess.getSubQuantityRelationAccess().getRightSquareBracketKeyword_3_4());
     }
-)?	otherlv_11='isSubQuantityOf' 
+)?	otherlv_10='isSubQuantityOf' 
     {
-    	newLeafNode(otherlv_11, grammarAccess.getSubQuantityRelationAccess().getIsSubQuantityOfKeyword_4());
+    	newLeafNode(otherlv_10, grammarAccess.getSubQuantityRelationAccess().getIsSubQuantityOfKeyword_4());
     }
 (
 (
@@ -2018,63 +1770,63 @@ ruleSubQuantityRelation returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getSubQuantityRelationRule());
 	        }
         }
-	otherlv_12=RULE_ID
+	otherlv_11=RULE_ID
 	{
-		newLeafNode(otherlv_12, grammarAccess.getSubQuantityRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
+		newLeafNode(otherlv_11, grammarAccess.getSubQuantityRelationAccess().getWholeSubstantialUniversalCrossReference_5_0()); 
 	}
 
 )
-)(	otherlv_13='[' 
+)(	otherlv_12='[' 
     {
-    	newLeafNode(otherlv_13, grammarAccess.getSubQuantityRelationAccess().getLeftSquareBracketKeyword_6_0());
+    	newLeafNode(otherlv_12, grammarAccess.getSubQuantityRelationAccess().getLeftSquareBracketKeyword_6_0());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubQuantityRelationAccess().getTargetLowerBoundCardinalityBoundParserRuleCall_6_1_0()); 
 	    }
-		lv_targetLowerBound_14_0=ruleCardinalityBound		{
+		lv_targetLowerBound_13_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubQuantityRelationRule());
 	        }
        		set(
        			$current, 
        			"targetLowerBound",
-        		lv_targetLowerBound_14_0, 
+        		lv_targetLowerBound_13_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_15='..' 
+)	otherlv_14='..' 
     {
-    	newLeafNode(otherlv_15, grammarAccess.getSubQuantityRelationAccess().getFullStopFullStopKeyword_6_2());
+    	newLeafNode(otherlv_14, grammarAccess.getSubQuantityRelationAccess().getFullStopFullStopKeyword_6_2());
     }
 (
 (
 		{ 
 	        newCompositeNode(grammarAccess.getSubQuantityRelationAccess().getTargetUpperBoundCardinalityUpperBoundParserRuleCall_6_3_0()); 
 	    }
-		lv_targetUpperBound_16_0=ruleCardinalityUpperBound		{
+		lv_targetUpperBound_15_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getSubQuantityRelationRule());
 	        }
        		set(
        			$current, 
        			"targetUpperBound",
-        		lv_targetUpperBound_16_0, 
+        		lv_targetUpperBound_15_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_17=']' 
+)	otherlv_16=']' 
     {
-    	newLeafNode(otherlv_17, grammarAccess.getSubQuantityRelationAccess().getRightSquareBracketKeyword_6_4());
+    	newLeafNode(otherlv_16, grammarAccess.getSubQuantityRelationAccess().getRightSquareBracketKeyword_6_4());
     }
-)?	otherlv_18=';' 
+)?	otherlv_17=';' 
     {
-    	newLeafNode(otherlv_18, grammarAccess.getSubQuantityRelationAccess().getSemicolonKeyword_7());
+    	newLeafNode(otherlv_17, grammarAccess.getSubQuantityRelationAccess().getSemicolonKeyword_7());
     }
 )
 ;
@@ -3858,6 +3610,8 @@ ruleCharacterization returns [EObject current=null]
     }
 )
 ;
+
+
 
 
 

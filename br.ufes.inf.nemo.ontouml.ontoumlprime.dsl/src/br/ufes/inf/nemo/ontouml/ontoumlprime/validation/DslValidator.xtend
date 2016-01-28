@@ -6,7 +6,7 @@ package br.ufes.inf.nemo.ontouml.ontoumlprime.validation
 import org.eclipse.xtext.validation.EValidatorRegistrar
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PrimeOntoUMLPackage
 import org.eclipse.emf.common.util.URI
-import org.eclipse.ocl.examples.xtext.completeocl.validation.CompleteOCLEObjectValidator
+//import org.eclipse.ocl.examples.xtext.completeocl.validation.CompleteOCLEObjectValidator
 
 //import org.eclipse.xtext.validation.Check
 

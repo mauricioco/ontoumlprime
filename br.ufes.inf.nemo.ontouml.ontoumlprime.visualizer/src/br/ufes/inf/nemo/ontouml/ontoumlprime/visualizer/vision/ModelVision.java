@@ -7,6 +7,7 @@ import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
 
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
@@ -54,6 +55,15 @@ public class ModelVision {
 		}
 	}
 	
+	public void reloadElements(Model newModel) {
+		elementMap.clear();
+		for(PackageableElement e : newModel.getElements()) {
+			String id = OntoUMLPrimeUtils.generateId(e);
+			ElementVision v = new ElementVision(e);
+			elementMap.put(v.getId(), v);
+		}
+	}
+	
 	public List<ElementVision> getElementVisionList() {
 		return new ArrayList<>(elementMap.values());
 	}
@@ -67,11 +77,10 @@ public class ModelVision {
 	}
 	
 	// ------------------------------------------------------------------------
-	
-	public void setAllVisibility(boolean visibility) {
-		for(String key : elementMap.keySet()) {
-			elementMap.get(key).setVisible(visibility);
-		}
-	}
+	//public void setAllVisibility(boolean visibility) {
+	//	for(String key : elementMap.keySet()) {
+	//		elementMap.get(key).setVisible(visibility);
+	//	}
+	//}
 	
 }

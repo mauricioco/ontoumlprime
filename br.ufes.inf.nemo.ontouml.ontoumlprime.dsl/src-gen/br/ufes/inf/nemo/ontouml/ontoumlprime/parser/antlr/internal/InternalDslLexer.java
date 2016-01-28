@@ -12,65 +12,65 @@ import java.util.ArrayList;
 
 @SuppressWarnings("all")
 public class InternalDslLexer extends Lexer {
-    public static final int RULE_ID=4;
-    public static final int T__29=29;
-    public static final int T__28=28;
-    public static final int T__27=27;
-    public static final int T__26=26;
-    public static final int T__25=25;
-    public static final int T__24=24;
-    public static final int T__23=23;
-    public static final int T__22=22;
-    public static final int T__21=21;
-    public static final int RULE_ANY_OTHER=10;
-    public static final int T__20=20;
-    public static final int T__61=61;
-    public static final int T__60=60;
-    public static final int EOF=-1;
-    public static final int T__55=55;
-    public static final int T__56=56;
+    public static final int T__50=50;
     public static final int T__19=19;
+    public static final int T__15=15;
+    public static final int T__59=59;
+    public static final int T__16=16;
+    public static final int T__17=17;
+    public static final int T__18=18;
+    public static final int T__11=11;
+    public static final int T__55=55;
+    public static final int T__12=12;
+    public static final int T__56=56;
+    public static final int T__13=13;
     public static final int T__57=57;
+    public static final int T__14=14;
     public static final int T__58=58;
     public static final int T__51=51;
-    public static final int T__16=16;
     public static final int T__52=52;
-    public static final int T__15=15;
     public static final int T__53=53;
-    public static final int T__18=18;
     public static final int T__54=54;
-    public static final int T__17=17;
-    public static final int T__12=12;
-    public static final int T__11=11;
-    public static final int T__14=14;
-    public static final int T__13=13;
-    public static final int T__59=59;
+    public static final int T__60=60;
+    public static final int T__61=61;
+    public static final int RULE_ID=4;
+    public static final int T__26=26;
+    public static final int T__27=27;
+    public static final int T__28=28;
     public static final int RULE_INT=6;
-    public static final int T__50=50;
-    public static final int T__42=42;
-    public static final int T__43=43;
-    public static final int T__40=40;
-    public static final int T__41=41;
-    public static final int T__46=46;
-    public static final int T__47=47;
-    public static final int T__44=44;
-    public static final int T__45=45;
-    public static final int T__48=48;
-    public static final int T__49=49;
-    public static final int RULE_SL_COMMENT=8;
+    public static final int T__29=29;
+    public static final int T__22=22;
     public static final int RULE_ML_COMMENT=7;
-    public static final int T__30=30;
-    public static final int T__31=31;
-    public static final int T__32=32;
+    public static final int T__23=23;
+    public static final int T__24=24;
+    public static final int T__25=25;
+    public static final int T__20=20;
+    public static final int T__21=21;
     public static final int RULE_STRING=5;
+    public static final int RULE_SL_COMMENT=8;
+    public static final int T__37=37;
+    public static final int T__38=38;
+    public static final int T__39=39;
     public static final int T__33=33;
     public static final int T__34=34;
     public static final int T__35=35;
     public static final int T__36=36;
-    public static final int T__37=37;
-    public static final int T__38=38;
-    public static final int T__39=39;
+    public static final int EOF=-1;
+    public static final int T__30=30;
+    public static final int T__31=31;
+    public static final int T__32=32;
     public static final int RULE_WS=9;
+    public static final int RULE_ANY_OTHER=10;
+    public static final int T__48=48;
+    public static final int T__49=49;
+    public static final int T__44=44;
+    public static final int T__45=45;
+    public static final int T__46=46;
+    public static final int T__47=47;
+    public static final int T__40=40;
+    public static final int T__41=41;
+    public static final int T__42=42;
+    public static final int T__43=43;
 
     // delegates
     // delegators
@@ -1152,10 +1152,10 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4194:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4194:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3948:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3948:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4194:11: ( '^' )?
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3948:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -1164,7 +1164,7 @@ public class InternalDslLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4194:11: '^'
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3948:11: '^'
                     {
                     match('^'); 
 
@@ -1182,7 +1182,7 @@ public class InternalDslLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4194:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3948:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -1231,10 +1231,10 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4196:10: ( ( '0' .. '9' )+ )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4196:12: ( '0' .. '9' )+
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3950:10: ( ( '0' .. '9' )+ )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3950:12: ( '0' .. '9' )+
             {
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4196:12: ( '0' .. '9' )+
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3950:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -1248,7 +1248,7 @@ public class InternalDslLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4196:13: '0' .. '9'
+            	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3950:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -1280,10 +1280,10 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -1301,10 +1301,10 @@ public class InternalDslLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -1320,7 +1320,7 @@ public class InternalDslLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:21: '\\\\' .
+                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1328,7 +1328,7 @@ public class InternalDslLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1353,10 +1353,10 @@ public class InternalDslLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -1372,7 +1372,7 @@ public class InternalDslLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:54: '\\\\' .
+                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -1380,7 +1380,7 @@ public class InternalDslLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4198:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3952:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -1423,12 +1423,12 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4200:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4200:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3954:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3954:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4200:24: ( options {greedy=false; } : . )*
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3954:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -1453,7 +1453,7 @@ public class InternalDslLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4200:52: .
+            	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3954:52: .
             	    {
             	    matchAny(); 
 
@@ -1483,12 +1483,12 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -1501,7 +1501,7 @@ public class InternalDslLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1521,7 +1521,7 @@ public class InternalDslLexer extends Lexer {
                 }
             } while (true);
 
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:40: ( ( '\\r' )? '\\n' )?
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -1530,9 +1530,9 @@ public class InternalDslLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:41: ( '\\r' )? '\\n'
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:41: ( '\\r' )? '\\n'
                     {
-                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:41: ( '\\r' )?
+                    // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -1541,7 +1541,7 @@ public class InternalDslLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4202:41: '\\r'
+                            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3956:41: '\\r'
                             {
                             match('\r'); 
 
@@ -1573,10 +1573,10 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4204:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4204:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3958:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3958:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4204:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3958:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -1630,8 +1630,8 @@ public class InternalDslLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4206:16: ( . )
-            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:4206:18: .
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3960:16: ( . )
+            // ../br.ufes.inf.nemo.ontouml.ontoumlprime.dsl/src-gen/br/ufes/inf/nemo/ontouml/ontoumlprime/parser/antlr/internal/InternalDsl.g:3960:18: .
             {
             matchAny(); 
 

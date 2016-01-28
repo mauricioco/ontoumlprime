@@ -47,6 +47,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager;
 
+
 public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
 	
 	OntoUMLPrimeView ontoUMLPrimeView;

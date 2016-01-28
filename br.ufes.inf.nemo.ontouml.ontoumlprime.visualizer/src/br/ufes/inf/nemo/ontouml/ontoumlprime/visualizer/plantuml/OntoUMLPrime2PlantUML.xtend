@@ -55,9 +55,9 @@ class OntoUMLPrime2PlantUML {
 			return ''''''
 		}
 		if(upperBound < 0) {
-			return '''"«lowerBound»..*"''';
+			return '''" **«lowerBound»..* **"''';
 		}
-		return '''"«lowerBound»..«upperBound»"'''
+		return '''" **«lowerBound»..«upperBound»** "'''
 	}
 	
 	def static dispatch String toPlantUML(BinaryFormalRelation it) {
@@ -68,9 +68,9 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(BinaryMaterialRelation it)
 	'''
-	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name»
-	(«source.name», «target.name») .. «derivedFrom.name»
+	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : «derivedFrom.name»_«name»
 	'''
+	// («source.name», «target.name») .. «derivedFrom.name»
 	
 	def static dispatch String toPlantUML(Category it)
 	'''
@@ -81,7 +81,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(String sourceName, Characterization it)
 	'''
-	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : characterizes <
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<characterization>> <
 	'''
 
 	def static String toPlantUML(String label, String sourceName, Characterization it)
@@ -142,12 +142,12 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(String sourceName, Mediation it)
 	'''
-	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : mediates >
+	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<mediation>> >
 	'''
 	
 	def static dispatch String toPlantUML(MembershipRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» o-- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isMemberOf >
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isMemberOf
 	'''
 	
 	def static dispatch String toPlantUML(Mixin it)
@@ -167,15 +167,14 @@ class OntoUMLPrime2PlantUML {
 	«ENDFOR»
 	'''
 	
-	def static dispatch String toPlantUML(nAryFormalRelation it) // This one has no target...
+	def static dispatch String toPlantUML(nAryFormalRelation it) // This one has no source...
 	'''
 	'''
 	
 	def static dispatch String toPlantUML(nAryMaterialRelation it)
+	// This one has no source, but it can be infered.
+	//It's not easy to do so though, so it's not gonna be implemented by now.
 	'''
-	«FOR t : targetRelata»
-	«derivedFrom.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --> «t.name» : «name» >
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(Package it)
@@ -257,7 +256,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(SubCollectionRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» o-- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isSubCollectionOf
 	'''
 	
 	def static dispatch String toPlantUML(SubKind it)
@@ -272,7 +271,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(SubQuantityRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» *-- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --* «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isSubQuantityOf
 	'''
 	
 }

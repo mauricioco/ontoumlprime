@@ -67,15 +67,19 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getEnumerationAccess().getGroup(), "rule__Enumeration__Group__0");
 					put(grammarAccess.getEnumerationAccess().getGroup_4(), "rule__Enumeration__Group_4__0");
 					put(grammarAccess.getComponentOfRelationAccess().getGroup(), "rule__ComponentOfRelation__Group__0");
+					put(grammarAccess.getComponentOfRelationAccess().getGroup_0(), "rule__ComponentOfRelation__Group_0__0");
 					put(grammarAccess.getComponentOfRelationAccess().getGroup_3(), "rule__ComponentOfRelation__Group_3__0");
 					put(grammarAccess.getComponentOfRelationAccess().getGroup_6(), "rule__ComponentOfRelation__Group_6__0");
 					put(grammarAccess.getMembershipRelationAccess().getGroup(), "rule__MembershipRelation__Group__0");
+					put(grammarAccess.getMembershipRelationAccess().getGroup_0(), "rule__MembershipRelation__Group_0__0");
 					put(grammarAccess.getMembershipRelationAccess().getGroup_3(), "rule__MembershipRelation__Group_3__0");
 					put(grammarAccess.getMembershipRelationAccess().getGroup_6(), "rule__MembershipRelation__Group_6__0");
 					put(grammarAccess.getSubCollectionRelationAccess().getGroup(), "rule__SubCollectionRelation__Group__0");
+					put(grammarAccess.getSubCollectionRelationAccess().getGroup_0(), "rule__SubCollectionRelation__Group_0__0");
 					put(grammarAccess.getSubCollectionRelationAccess().getGroup_3(), "rule__SubCollectionRelation__Group_3__0");
 					put(grammarAccess.getSubCollectionRelationAccess().getGroup_6(), "rule__SubCollectionRelation__Group_6__0");
 					put(grammarAccess.getSubQuantityRelationAccess().getGroup(), "rule__SubQuantityRelation__Group__0");
+					put(grammarAccess.getSubQuantityRelationAccess().getGroup_0(), "rule__SubQuantityRelation__Group_0__0");
 					put(grammarAccess.getSubQuantityRelationAccess().getGroup_3(), "rule__SubQuantityRelation__Group_3__0");
 					put(grammarAccess.getSubQuantityRelationAccess().getGroup_6(), "rule__SubQuantityRelation__Group_6__0");
 					put(grammarAccess.getKindAccess().getGroup(), "rule__Kind__Group__0");
@@ -112,6 +116,9 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCharacterizationAccess().getGroup(), "rule__Characterization__Group__0");
 					put(grammarAccess.getCharacterizationAccess().getGroup_1(), "rule__Characterization__Group_1__0");
 					put(grammarAccess.getCharacterizationAccess().getGroup_4(), "rule__Characterization__Group_4__0");
+					put(grammarAccess.getCharacterizesAccess().getGroup(), "rule__Characterizes__Group__0");
+					put(grammarAccess.getCharacterizesAccess().getGroup_1(), "rule__Characterizes__Group_1__0");
+					put(grammarAccess.getCharacterizesAccess().getGroup_4(), "rule__Characterizes__Group_4__0");
 					put(grammarAccess.getMediationAccess().getGroup(), "rule__Mediation__Group__0");
 					put(grammarAccess.getMediationAccess().getGroup_2(), "rule__Mediation__Group_2__0");
 					put(grammarAccess.getMediationAccess().getGroup_4(), "rule__Mediation__Group_4__0");
@@ -241,6 +248,11 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCharacterizationAccess().getTargetAssignment_3(), "rule__Characterization__TargetAssignment_3");
 					put(grammarAccess.getCharacterizationAccess().getTargetLowerBoundAssignment_4_1(), "rule__Characterization__TargetLowerBoundAssignment_4_1");
 					put(grammarAccess.getCharacterizationAccess().getTargetUpperBoundAssignment_4_3(), "rule__Characterization__TargetUpperBoundAssignment_4_3");
+					put(grammarAccess.getCharacterizesAccess().getSourceLowerBoundAssignment_1_1(), "rule__Characterizes__SourceLowerBoundAssignment_1_1");
+					put(grammarAccess.getCharacterizesAccess().getSourceUpperBoundAssignment_1_3(), "rule__Characterizes__SourceUpperBoundAssignment_1_3");
+					put(grammarAccess.getCharacterizesAccess().getTargetAssignment_3(), "rule__Characterizes__TargetAssignment_3");
+					put(grammarAccess.getCharacterizesAccess().getTargetLowerBoundAssignment_4_1(), "rule__Characterizes__TargetLowerBoundAssignment_4_1");
+					put(grammarAccess.getCharacterizesAccess().getTargetUpperBoundAssignment_4_3(), "rule__Characterizes__TargetUpperBoundAssignment_4_3");
 					put(grammarAccess.getMediationAccess().getSourceLowerBoundAssignment_2_1(), "rule__Mediation__SourceLowerBoundAssignment_2_1");
 					put(grammarAccess.getMediationAccess().getSourceUpperBoundAssignment_2_3(), "rule__Mediation__SourceUpperBoundAssignment_2_3");
 					put(grammarAccess.getMediationAccess().getTargetAssignment_3(), "rule__Mediation__TargetAssignment_3");
@@ -248,10 +260,6 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getMediationAccess().getTargetUpperBoundAssignment_4_3(), "rule__Mediation__TargetUpperBoundAssignment_4_3");
 					put(grammarAccess.getDataTypeAttributeAccess().getIsOfTypeAssignment_0(), "rule__DataTypeAttribute__IsOfTypeAssignment_0");
 					put(grammarAccess.getDataTypeAttributeAccess().getNameAssignment_1(), "rule__DataTypeAttribute__NameAssignment_1");
-					put(grammarAccess.getComponentOfRelationAccess().getUnorderedGroup_0(), "rule__ComponentOfRelation__UnorderedGroup_0");
-					put(grammarAccess.getMembershipRelationAccess().getUnorderedGroup_0(), "rule__MembershipRelation__UnorderedGroup_0");
-					put(grammarAccess.getSubCollectionRelationAccess().getUnorderedGroup_0(), "rule__SubCollectionRelation__UnorderedGroup_0");
-					put(grammarAccess.getSubQuantityRelationAccess().getUnorderedGroup_0(), "rule__SubQuantityRelation__UnorderedGroup_0");
 				}
 			};
 		}

@@ -86,8 +86,14 @@ class OntoUMLPrimeUtils {
 	def static dispatch String generateId(Enumeration it)
 	'''Enumeration_«name»'''
 	
-	def static dispatch String generateId(GeneralizationSet it)
-	'''GeneralizationSet_(unique)'''
+	def static dispatch String generateId(GeneralizationSet it) {
+		if(name == null) {
+			'''GeneralizationSet_(unique)'''
+		} else {
+			'''GeneralizationSet_«name»'''
+		}
+	}
+	
 	//'''GeneralizationSet_«if (name != null && name.length > 0)  name else "anonymous"»_'''
 	
 	def static dispatch String generateId(Kind it)

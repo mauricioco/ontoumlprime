@@ -6,20 +6,12 @@ import java.util.List;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.part.*;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewLabelProvider;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewSorter;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
@@ -64,23 +56,6 @@ public class OntoUMLPrimeView extends ViewPart {
 	public OntoUMLPrimeView() {
 	}
 	
-	final IPropertyListener propertyListener = new IPropertyListener() {	
-		@Override
-		public void propertyChanged(Object source, int propId) {
-			// TODO source can be any part... even project explorer. Insert instanceof treatments
-			//System.out.println("Updating model settings from " + ((IEditorPart)source).getTitle());
-			//viewer.getContentProvider().inputChanged(viewer, null, null);
-		}
-	};
-	
-	public void unbindToEditor(final IWorkbenchPartReference editorPart) {
-		editorPart.removePropertyListener(propertyListener);
-	}
-	
-	public void bindToEditor(final IWorkbenchPartReference partRef) {
-		partRef.addPropertyListener(propertyListener);
-	}
-	
 	/**
 	 * This is a callback that will allow us
 	 * to create the viewer and initialize it.
@@ -90,62 +65,20 @@ public class OntoUMLPrimeView extends ViewPart {
 		drillDownAdapter = new DrillDownAdapter(viewer);
 		viewer.setContentProvider(new OntoUMLPrimeViewContentProvider(this));
 		viewer.setLabelProvider(new OntoUMLPrimeViewLabelProvider());
-		//viewer.setSorter(new NameSorter());
+		
+		ViewerFilter[] e = new ViewerFilter[1];
+		e[0] = new ViewerFilter() {
+			@Override
+			public boolean select(Viewer viewer, Object parentElement, Object element) {
+				// TODO Auto-generated method stub
+				return false;
+			}
+		};
+		
+		//viewer.setFilters(e);
+		viewer.setSorter(new OntoUMLPrimeViewSorter());
 		viewer.setInput(getViewSite());
 		//viewer.
-		
-		getSite().getPage().addPartListener(new IPartListener2() {
-			
-			@Override
-			public void partVisible(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void partOpened(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void partInputChanged(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void partHidden(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void partDeactivated(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void partClosed(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				unbindToEditor(partRef);
-			}
-			
-			@Override
-			public void partBroughtToTop(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void partActivated(IWorkbenchPartReference partRef) {
-				// TODO Auto-generated method stub
-				bindToEditor(partRef);
-			}
-		});
-		
-		
 		
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(viewer.getControl(), "br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.viewer");
@@ -184,23 +117,21 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
-		//manager.add(action1);
-		//manager.add(action2);
-		manager.add(showTaxonomicStructureAction);
-		manager.add(new Separator());
+		//manager.add(showTaxonomicStructureAction);
+		manager.add(actionCreateVisionFromSelected);
 		
-		// Adds tree actions (go into, go back, go home). Commented because it's unnecessary.
+		//manager.add(new Separator());
 		//drillDownAdapter.addNavigationActions(manager);
 		
-		// Other plug-ins can contribute there actions here
-		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		// Other plug-ins can contribute there actions here... and this is not working well, so... DISABLED!
+		//manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(actionCreateVisionFromSelected);
 		manager.add(action2);
 		manager.add(new Separator());
-		drillDownAdapter.addNavigationActions(manager);
+		//drillDownAdapter.addNavigationActions(manager);
 	}
 
 	private void createVisionFromSelected() {
@@ -253,8 +184,8 @@ public class OntoUMLPrimeView extends ViewPart {
 				createVisionFromSelected();
 			}
 		};
-		actionCreateVisionFromSelected.setText("Set all visible");
-		actionCreateVisionFromSelected.setToolTipText("Set all elements visible.");
+		actionCreateVisionFromSelected.setText("Create vision...");
+		actionCreateVisionFromSelected.setToolTipText("Creates vision with the selected elements.");
 		actionCreateVisionFromSelected.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 			getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
 		
@@ -263,7 +194,7 @@ public class OntoUMLPrimeView extends ViewPart {
 				//showMessage("Action 2 executed");
 				//viewer.setContentProvider(new OntoUMLPrimeViewStereotypeContentProvider(OntoUMLPrimeView.this));
 				//((OntoUMLPrimeViewContentProvider)viewer.getContentProvider()).setAllVisibility(false);
-				OntoUMLDiagramTextProvider.updateDiagram();
+				//OntoUMLDiagramTextProvider.updateDiagram();
 			}
 		};
 		action2.setText("Set all invisible");
@@ -292,6 +223,11 @@ public class OntoUMLPrimeView extends ViewPart {
 						OntoUMLDiagramTextProvider.updateDiagram();
 					}
 					
+					//if(selectedObject instanceof ElementVisionTreeObject) {
+					//	ElementVision selectedElement = ((ElementVisionTreeObject) selectedObject).getElementVision();
+					//	selectedElement.setExists(exists);
+					//	OntoUMLDiagramTextProvider.updateDiagram();
+					//}
 					//((OntoUMLPrimeViewContentProvider) cp).handleSelection(viewer);
 				}
 				//if(cp instanceof OntoUMLPrimeViewStereotypeContentProvider) {
@@ -327,6 +263,7 @@ public class OntoUMLPrimeView extends ViewPart {
 			}
 		});
 	}
+	
 	private void showMessage(String message) {
 		MessageDialog.openInformation(
 			viewer.getControl().getShell(),

@@ -66,8 +66,15 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 				sequence_Category(context, (Category) semanticObject); 
 				return; 
 			case PrimeOntoUMLPackage.CHARACTERIZATION:
-				sequence_Characterization(context, (Characterization) semanticObject); 
-				return; 
+				if(context == grammarAccess.getCharacterizationRule()) {
+					sequence_Characterization(context, (Characterization) semanticObject); 
+					return; 
+				}
+				else if(context == grammarAccess.getCharacterizesRule()) {
+					sequence_Characterizes(context, (Characterization) semanticObject); 
+					return; 
+				}
+				else break;
 			case PrimeOntoUMLPackage.COLLECTIVE_UNIVERSAL:
 				sequence_CollectiveUniversal(context, (CollectiveUniversal) semanticObject); 
 				return; 
@@ -249,6 +256,19 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
+	 *     (
+	 *         (sourceLowerBound=CardinalityBound sourceUpperBound=CardinalityUpperBound)? 
+	 *         target=[IntrinsicMomentUniversal|ID] 
+	 *         (targetLowerBound=CardinalityBound targetUpperBound=CardinalityUpperBound)?
+	 *     )
+	 */
+	protected void sequence_Characterizes(EObject context, Characterization semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
 	 *     (isExtensional?='extensional'? name=ID characterizedBy+=Characterization*)
 	 */
 	protected void sequence_CollectiveUniversal(EObject context, CollectiveUniversal semanticObject) {
@@ -283,10 +303,10 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
-	 *         partIsEssential?='essential' 
-	 *         partIsInseparable?='inseparable' 
-	 *         partIsShareable?='shareable' 
-	 *         partIsImmutable?='immutable' 
+	 *         partIsEssential?='essential'? 
+	 *         partIsInseparable?='inseparable'? 
+	 *         partIsShareable?='shareable'? 
+	 *         partIsImmutable?='immutable'? 
 	 *         part=[SubstantialUniversal|ID] 
 	 *         (sourceLowerBound=CardinalityBound sourceUpperBound=CardinalityUpperBound)? 
 	 *         whole=[SubstantialUniversal|ID] 
@@ -341,10 +361,10 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
-	 *         partIsEssential?='essential' 
-	 *         partIsInseparable?='inseparable' 
-	 *         partIsShareable?='shareable' 
-	 *         partIsImmutable?='immutable' 
+	 *         partIsEssential?='essential'? 
+	 *         partIsInseparable?='inseparable'? 
+	 *         partIsShareable?='shareable'? 
+	 *         partIsImmutable?='immutable'? 
 	 *         part=[SubstantialUniversal|ID] 
 	 *         (sourceLowerBound=CardinalityBound sourceUpperBound=CardinalityUpperBound)? 
 	 *         whole=[SubstantialUniversal|ID] 
@@ -486,10 +506,10 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
-	 *         partIsEssential?='essential' 
-	 *         partIsInseparable?='inseparable' 
-	 *         partIsShareable?='shareable' 
-	 *         partIsImmutable?='immutable' 
+	 *         partIsEssential?='essential'? 
+	 *         partIsInseparable?='inseparable'? 
+	 *         partIsShareable?='shareable'? 
+	 *         partIsImmutable?='immutable'? 
 	 *         part=[SubstantialUniversal|ID] 
 	 *         (sourceLowerBound=CardinalityBound sourceUpperBound=CardinalityUpperBound)? 
 	 *         whole=[SubstantialUniversal|ID] 
@@ -513,9 +533,9 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	/**
 	 * Constraint:
 	 *     (
-	 *         partIsEssential?='essential' 
-	 *         partIsInseparable?='inseparable' 
-	 *         partIsImmutable?='immutable' 
+	 *         partIsEssential?='essential'? 
+	 *         partIsInseparable?='inseparable'? 
+	 *         partIsImmutable?='immutable'? 
 	 *         part=[SubstantialUniversal|ID] 
 	 *         (sourceLowerBound=CardinalityBound sourceUpperBound=CardinalityUpperBound)? 
 	 *         whole=[SubstantialUniversal|ID] 
