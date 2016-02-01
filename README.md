@@ -35,6 +35,7 @@ These instructions work for the following Eclipse version:
 1. Install the prerequesites:
   1. Graphviz (`http://www.graphviz.org/Download.php`). PlantUML uses it for the diagrams to be rendered. Check your system environment variables if you are using windows (`http://plantuml.com/graphvizdot.html`).
   2. The PlantUML plugin was added as a submodule, forked from `https://github.com/hallvard/plantuml.git`. So there's no need to install it separately anymore. Also, it is now possible to customize its code.
+  3. Be sure to install the Eclipse Modelling plugins (XText included).
 
 2. Clone the repository and initialize submodules.
   ```
