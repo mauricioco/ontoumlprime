@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,27 +13,27 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
 public class ModelView {
 	
-	private String visionName;
+	private String modelViewName;
 	
 	private Map<String, ModelElementView> elementMap;
 	
-	static ModelView newDefaultModelVision(EList<PackageableElement> elements) {
+	static ModelView newDefaultModelView(EList<PackageableElement> elements) {
 		ModelView v = new ModelView("Model");
 		v.addElements(elements);
 		return v;
 	}
 	
-	public ModelView(String visionName) {
-		this.visionName = visionName;
+	public ModelView(String modelViewName) {
+		this.modelViewName = modelViewName;
 		elementMap = new HashMap<>();
 	}
 	
-	public String getVisionName() {
-		return visionName;
+	public String getModelViewName() {
+		return modelViewName;
 	}
 
-	public void setVisionName(String visionName) {
-		this.visionName = visionName;
+	public void setModelViewName(String modelViewName) {
+		this.modelViewName = modelViewName;
 	}
 	
 	public void addElement(PackageableElement element) {
@@ -64,15 +64,15 @@ public class ModelView {
 		}
 	}
 	
-	public List<ModelElementView> getElementVisionList() {
+	public List<ModelElementView> getModelElementViewList() {
 		return new ArrayList<>(elementMap.values());
 	}
 	
-	public ModelElementView getElementVision(PackageableElement element) {
+	public ModelElementView getModelElementView(PackageableElement element) {
 		return elementMap.get(OntoUMLPrimeUtils.generateId(element));
 	}
 	
-	public ModelElementView getElementVision(String id) {
+	public ModelElementView getModelElementView(String id) {
 		return elementMap.get(id);
 	}
 	

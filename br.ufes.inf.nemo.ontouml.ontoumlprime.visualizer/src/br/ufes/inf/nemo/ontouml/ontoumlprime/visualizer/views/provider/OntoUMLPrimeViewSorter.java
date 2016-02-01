@@ -3,7 +3,7 @@ package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelElementTreeObject;
 
 public class OntoUMLPrimeViewSorter extends ViewerSorter {
 	private static final int ASCENDING = 0;
@@ -24,10 +24,10 @@ public class OntoUMLPrimeViewSorter extends ViewerSorter {
 	
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
-		if(e1 instanceof ElementVisionTreeObject && e2 instanceof ElementVisionTreeObject) {
-			ElementVisionTreeObject p1 = (ElementVisionTreeObject) e1;
-		    ElementVisionTreeObject p2 = (ElementVisionTreeObject) e2;
-		    return p1.getElementVision().getDisplayName().compareTo(p2.getElementVision().getDisplayName());
+		if(e1 instanceof ModelElementTreeObject && e2 instanceof ModelElementTreeObject) {
+			ModelElementTreeObject p1 = (ModelElementTreeObject) e1;
+		    ModelElementTreeObject p2 = (ModelElementTreeObject) e2;
+		    return p1.getModelElementView().getDisplayName().compareTo(p2.getModelElementView().getDisplayName());
 		}
 		
 	    return 0;

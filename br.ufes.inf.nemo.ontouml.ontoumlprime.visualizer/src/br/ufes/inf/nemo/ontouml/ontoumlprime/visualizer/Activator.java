@@ -5,7 +5,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 
 /**
  * The activator class controls the plug-in life cycle

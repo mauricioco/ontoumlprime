@@ -1,51 +1,20 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-
-
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredContentProvider;
-import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerSorter;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.PlatformUI;
-import org.eclipse.xtext.nodemodel.ICompositeNode;
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.ui.editor.XtextEditor;
-import org.eclipse.xtext.ui.editor.model.XtextDocument;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
-
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLPrime2PlantUML;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelElementTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelViewTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.RootTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelElementView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewList;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 
 
 public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
@@ -123,23 +92,23 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		*/
 		
 		String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
-		ModelViewList modelViewList = ModelViewManager.getVisionList(modelTitle);
+		ModelViewList modelViewList = ModelViewManager.getModelViewList(modelTitle);
 		if(modelViewList == null) {
 			return;
 		}
 		
 		System.out.println("Should update...");
 		
-		Iterator<ModelView> visionIterator = modelViewList.getVisionListIterator();
+		Iterator<ModelView> modelViewIterator = modelViewList.getModelViewListIterator();
 		
 		root = new RootTreeObject();	// invisible element.
-		while(visionIterator.hasNext()) {
-			ModelView vision = visionIterator.next();
+		while(modelViewIterator.hasNext()) {
+			ModelView modelView = modelViewIterator.next();
 			
-			ModelVisionTreeObject modelRoot = new ModelVisionTreeObject(vision);
+			ModelViewTreeObject modelRoot = new ModelViewTreeObject(modelView);
 			root.addChild(modelRoot);
-			for(ModelElementView modelElementView : vision.getElementVisionList()) {
-				modelRoot.addChild(new ElementVisionTreeObject(modelElementView));
+			for(ModelElementView modelElementView : modelView.getModelElementViewList()) {
+				modelRoot.addChild(new ModelElementTreeObject(modelElementView));
 			}
 			
 		}
