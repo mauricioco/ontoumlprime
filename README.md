@@ -1,4 +1,4 @@
-ontoumlprime
+OntoUMLPrime
 ============
 The purpose of this is to reimplement a metamodel for OntoUML that is independent of the UML. 
 The previous OntoUML metamodel implementation by Carraretto was based on the UML 2.0 implementation
@@ -25,8 +25,51 @@ Instructions
 Instructions - PlantUML visualization
 =====================================
 
-1. The PlantUML plugin was added as a submodule, forked from `https://github.com/hallvard/plantuml.git`. So there's no need to install it separately anymore. Also, it is now possible to customize its code and add more features to visualization.
-2. You need to install Graphviz (`http://www.graphviz.org/Download.php`). PlantUML uses it for the diagrams to be rendered. Just install it and check your system environment variables (`http://plantuml.com/graphvizdot.html`).
+These instructions work for the following Eclipse version:
+
+**Eclipse DSL Tools**
+
+**Version: Mars.1 Release (4.5.1)**
+**Build id: 20150924-1200**
+
+1. Install the prerequesites:
+  1. Graphviz (`http://www.graphviz.org/Download.php`). PlantUML uses it for the diagrams to be rendered. Check your system environment variables if you are using windows (`http://plantuml.com/graphvizdot.html`).
+  2. The PlantUML plugin was added as a submodule, forked from `https://github.com/hallvard/plantuml.git`. So there's no need to install it separately anymore. Also, it is now possible to customize its code.
+
+2. Clone the repository and initialize submodules.
+  ```
+  git clone -b plantuml_visualizer https://github.com/mauricioco/ontoumlprime.git
+  git submodule init
+  git submodule update
+  ```
+
+3. Import the OntoUMLPrime projects to Eclipse.
+  1. "File".
+  2. "Import...".
+  3. "Existing Maven Projects".
+  4. Select repository root as "Root Directory" (default is ./ontoumlprime).
+  5. Check all projects.
+  6. "Finish".
+
+4. Import required PlantUML projects to Eclipse. 
+  1. "File".
+  2. "Import...".
+  3. "Existing Projects into Workspace".
+  4. Select the plantuml submodule folder as "Root Directory" (default is ./ontoumlprime/plantuml).
+  5. Check "net.sourceforge.plantuml" and "net.sourceforge.plantuml.text".
+  6. "Finish".
+
+5. Fix "br.ufes.inf.nemo.ontouml.ontoumlprime.dsl.ui" because it isn't detecting source folders.
+  1. Select both project folders "src" and "src-gen".
+  2. Right click.
+  3. "Build Path".
+  4. "Use as Source Folder".
+
+6. Dsl language is already generated. Just run the visualizer project as an "Eclipse Application" and you're good to go!
+
+\* It's likely that errors are detected in Dsl.xtext, but that is just eclipse failing to link to the metamodel project when compiling in real-time.
+
+\*\* An error will be detected in ontoumlprime.xcore from the metamodel project. Ignore them.
 
 History:
 ========
