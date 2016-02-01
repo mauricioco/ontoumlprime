@@ -14,17 +14,24 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 public class ModelView {
 	
 	private String modelViewName;
+	private boolean isDefault = false;
 	
 	private Map<String, ModelElementView> elementMap;
 	
 	static ModelView newDefaultModelView(EList<PackageableElement> elements) {
-		ModelView v = new ModelView("Model");
+		ModelView v = new ModelView("Model", true);
 		v.addElements(elements);
 		return v;
 	}
 	
 	public ModelView(String modelViewName) {
 		this.modelViewName = modelViewName;
+		elementMap = new HashMap<>();
+	}
+	
+	private ModelView(String modelViewName, boolean isDefault) {
+		this.modelViewName = modelViewName;
+		this.isDefault = isDefault;
 		elementMap = new HashMap<>();
 	}
 	
@@ -36,6 +43,10 @@ public class ModelView {
 		this.modelViewName = modelViewName;
 	}
 	
+	public boolean isDefault() {
+		return isDefault;
+	}
+
 	public void addElement(PackageableElement element) {
 		String id = OntoUMLPrimeUtils.generateId(element);
 		if(elementMap.get(id) == null) {
@@ -58,7 +69,7 @@ public class ModelView {
 	public void reloadElements(Model newModel) {
 		elementMap.clear();
 		for(PackageableElement e : newModel.getElements()) {
-			String id = OntoUMLPrimeUtils.generateId(e);
+			//String id = OntoUMLPrimeUtils.generateId(e);
 			ModelElementView v = new ModelElementView(e);
 			elementMap.put(v.getId(), v);
 		}

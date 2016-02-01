@@ -119,10 +119,20 @@ public class OntoUMLPrimeView extends ViewPart {
 		final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
 		Iterator<ModelView> i = ModelViewManager.getModelViewList(modelTitle).getModelViewListIterator();
 		while(i.hasNext()) {
+			ModelView mv = i.next();
+			
+			if (mv.isDefault()){
+				continue;
+			}
+			
 			Action a = new Action() {
-				
+				@Override
+				public void run() {
+					createModelViewFromSelected();
+				}
 			};
-			a.setText(i.next().getModelViewName());
+
+			a.setText(mv.getModelViewName());
 			menuManager.add(a);
 		}
 		
