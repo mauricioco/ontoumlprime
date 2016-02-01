@@ -11,19 +11,19 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
-public class ModelVision {
+public class ModelView {
 	
 	private String visionName;
 	
-	private Map<String, ElementVision> elementMap;
+	private Map<String, ModelElementView> elementMap;
 	
-	static ModelVision newDefaultModelVision(EList<PackageableElement> elements) {
-		ModelVision v = new ModelVision("Model");
+	static ModelView newDefaultModelVision(EList<PackageableElement> elements) {
+		ModelView v = new ModelView("Model");
 		v.addElements(elements);
 		return v;
 	}
 	
-	public ModelVision(String visionName) {
+	public ModelView(String visionName) {
 		this.visionName = visionName;
 		elementMap = new HashMap<>();
 	}
@@ -39,7 +39,7 @@ public class ModelVision {
 	public void addElement(PackageableElement element) {
 		String id = OntoUMLPrimeUtils.generateId(element);
 		if(elementMap.get(id) == null) {
-			elementMap.put(id, new ElementVision(element));
+			elementMap.put(id, new ModelElementView(element));
 		}
 		//System.out.println("");
 	}
@@ -47,9 +47,9 @@ public class ModelVision {
 	public void addElements(List<PackageableElement> elements) {
 		for(PackageableElement e : elements) {
 			String id = OntoUMLPrimeUtils.generateId(e);
-			ElementVision v = elementMap.get(id);
+			ModelElementView v = elementMap.get(id);
 			if(v == null) {
-				v = new ElementVision(e);
+				v = new ModelElementView(e);
 				elementMap.put(v.getId(), v);
 			}
 		}
@@ -59,20 +59,20 @@ public class ModelVision {
 		elementMap.clear();
 		for(PackageableElement e : newModel.getElements()) {
 			String id = OntoUMLPrimeUtils.generateId(e);
-			ElementVision v = new ElementVision(e);
+			ModelElementView v = new ModelElementView(e);
 			elementMap.put(v.getId(), v);
 		}
 	}
 	
-	public List<ElementVision> getElementVisionList() {
+	public List<ModelElementView> getElementVisionList() {
 		return new ArrayList<>(elementMap.values());
 	}
 	
-	public ElementVision getElementVision(PackageableElement element) {
+	public ModelElementView getElementVision(PackageableElement element) {
 		return elementMap.get(OntoUMLPrimeUtils.generateId(element));
 	}
 	
-	public ElementVision getElementVision(String id) {
+	public ModelElementView getElementVision(String id) {
 		return elementMap.get(id);
 	}
 	

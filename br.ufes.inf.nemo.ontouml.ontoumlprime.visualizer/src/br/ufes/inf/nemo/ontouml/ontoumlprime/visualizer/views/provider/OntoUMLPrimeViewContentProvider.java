@@ -42,10 +42,10 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.Elem
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.RootTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ElementVision;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager;
 
 
 public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
@@ -123,23 +123,23 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		*/
 		
 		String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
-		VisionList visionList = VisionManager.getVisionList(modelTitle);
-		if(visionList == null) {
+		ModelViewList modelViewList = ModelViewManager.getVisionList(modelTitle);
+		if(modelViewList == null) {
 			return;
 		}
 		
 		System.out.println("Should update...");
 		
-		Iterator<ModelVision> visionIterator = visionList.getVisionListIterator();
+		Iterator<ModelView> visionIterator = modelViewList.getVisionListIterator();
 		
 		root = new RootTreeObject();	// invisible element.
 		while(visionIterator.hasNext()) {
-			ModelVision vision = visionIterator.next();
+			ModelView vision = visionIterator.next();
 			
 			ModelVisionTreeObject modelRoot = new ModelVisionTreeObject(vision);
 			root.addChild(modelRoot);
-			for(ElementVision elementVision : vision.getElementVisionList()) {
-				modelRoot.addChild(new ElementVisionTreeObject(elementVision));
+			for(ModelElementView modelElementView : vision.getElementVisionList()) {
+				modelRoot.addChild(new ElementVisionTreeObject(modelElementView));
 			}
 			
 		}

@@ -29,30 +29,30 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramT
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView;
 
-public class VisionManager {
+public class ModelViewManager {
 	
-	private static Map<String, VisionList> visionMap = new HashMap<>(); 
+	private static Map<String, ModelViewList> modelViewMap = new HashMap<>(); 
 	
-	public static VisionList initialize(String modelTitle, Model model) {
+	public static ModelViewList initialize(String modelTitle, Model model) {
 		System.out.println("Verifying vision list for " + modelTitle);
-		VisionList v = visionMap.get(modelTitle);
+		ModelViewList v = modelViewMap.get(modelTitle);
 		if (v == null) {
 			System.out.println("Creating vision list for " + modelTitle);
-			v = new VisionList(modelTitle, model);
-			visionMap.put(modelTitle, v);
+			v = new ModelViewList(modelTitle, model);
+			modelViewMap.put(modelTitle, v);
 		}
 		v.updateDefaultVision(model);
 		return v;
 	}
 	
-	public static VisionList getVisionList(String modelTitle) {
-		return visionMap.get(modelTitle);
+	public static ModelViewList getVisionList(String modelTitle) {
+		return modelViewMap.get(modelTitle);
 	}
 	
-	public static Iterator<ModelVision> getVisionListIterator(String modelName) {
-		VisionList visionList = visionMap.get(modelName);
-		if(visionList != null) {
-			return visionList.getVisionListIterator();
+	public static Iterator<ModelView> getVisionListIterator(String modelName) {
+		ModelViewList modelViewList = modelViewMap.get(modelName);
+		if(modelViewList != null) {
+			return modelViewList.getVisionListIterator();
 		} else {
 			return null;
 		}

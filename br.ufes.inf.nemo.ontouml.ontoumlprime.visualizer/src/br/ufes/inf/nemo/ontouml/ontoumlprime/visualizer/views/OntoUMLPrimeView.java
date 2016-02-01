@@ -15,10 +15,10 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPr
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ElementVision;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager;
 
 import org.eclipse.jface.viewers.*;
 import org.eclipse.jface.window.Window;
@@ -28,6 +28,8 @@ import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.*;
+import org.eclipse.ui.actions.ActionGroup;
+import org.eclipse.ui.application.ActionBarAdvisor;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.SWT;
 import org.eclipse.core.runtime.IAdaptable;
@@ -89,6 +91,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		hookSelectAction();
 		hookDoubleClickAction();
 		contributeToActionBars();
+	
 	}
 
 	private void hookContextMenu() {
@@ -120,6 +123,22 @@ public class OntoUMLPrimeView extends ViewPart {
 		//manager.add(showTaxonomicStructureAction);
 		manager.add(actionCreateVisionFromSelected);
 		
+		MenuManager menuManager = new MenuManager();
+		menuManager.setMenuText("Add to...");
+		final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+		Iterator<ModelView> i = ModelViewManager.getVisionList(modelTitle).getVisionListIterator();
+		while(i.hasNext()) {
+			Action a = new Action() {
+				
+			};
+			a.setText(i.next().getVisionName());
+			menuManager.add(a);
+		}
+		
+		menuManager.add(new Separator());
+		menuManager.add(actionCreateVisionFromSelected);
+		
+		manager.add(menuManager);
 		//manager.add(new Separator());
 		//drillDownAdapter.addNavigationActions(manager);
 		
@@ -154,9 +173,9 @@ public class OntoUMLPrimeView extends ViewPart {
 					return "Enter name for your vision.";
 				}
 				
-				Iterator<ModelVision> i = VisionManager.getVisionList(modelTitle).getVisionListIterator();
+				Iterator<ModelView> i = ModelViewManager.getVisionList(modelTitle).getVisionListIterator();
 				while(i.hasNext()) {
-					ModelVision v = i.next();
+					ModelView v = i.next();
 					if(v.getVisionName().equals(newText)) {
 						return "Vision name " + newText + " already exists.";
 					}
@@ -168,7 +187,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
 		switch(i.open()) {
 			case Window.OK:
-				VisionManager.getVisionList(modelTitle).addVision(i.getValue(), selectedElementList);
+				ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), selectedElementList);
 				refreshViewer();
 				break;
 			case Window.CANCEL:
@@ -218,8 +237,8 @@ public class OntoUMLPrimeView extends ViewPart {
 					Object selectedObject = selection.getFirstElement();
 					
 					if(selectedObject instanceof ModelVisionTreeObject) {
-						ModelVision selectedVision = ((ModelVisionTreeObject) selectedObject).getModelVision();
-						VisionManager.getVisionList(modelTitle).setSelectedVision(selectedVision);
+						ModelView selectedVision = ((ModelVisionTreeObject) selectedObject).getModelVision();
+						ModelViewManager.getVisionList(modelTitle).setSelectedVision(selectedVision);
 						OntoUMLDiagramTextProvider.updateDiagram();
 					}
 					

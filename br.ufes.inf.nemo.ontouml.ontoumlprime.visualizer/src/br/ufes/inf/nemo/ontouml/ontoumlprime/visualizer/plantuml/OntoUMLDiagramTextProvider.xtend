@@ -15,14 +15,14 @@ import org.eclipse.emf.ecore.EObject
 import org.eclipse.ui.PlatformUI
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionManager
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.VisionList
 import org.eclipse.ui.part.FileEditorInput
 import java.beans.PropertyChangeEvent
 import org.eclipse.ui.IWorkbenchPage
 import net.sourceforge.plantuml.eclipse.views.PlantUmlView
 import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView
 
 /**
  * This is the class that provides the PlantUML view with diagram code.
@@ -39,8 +39,8 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	private static boolean updateModel = true;
 
 	def static updateDiagram() {		
-		val v = VisionManager.initialize(currentModelTitle, currentModel);
-		VisionManager.updateView;
+		val v = ModelViewManager.initialize(currentModelTitle, currentModel);
+		ModelViewManager.updateView;
 		updateDiagramWithCode(generatePlantUMLCode(currentModel, v.selectedVision));
 	}
 	
@@ -96,8 +96,8 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	    	OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
 	    } else {
 	    	
-	    	val v = VisionManager.initialize(editorPart.title, model);
-		    VisionManager.updateView;
+	    	val v = ModelViewManager.initialize(editorPart.title, model);
+		    ModelViewManager.updateView;
 		    
 		    currentModel = model;
 		    currentModelTitle = editorPart.title;
@@ -112,7 +112,7 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
     //		«IF o == null || o.visible»
     // 	    «ENDIF»
     
-    def static String generatePlantUMLCode(Model it, ModelVision v) {
+    def static String generatePlantUMLCode(Model it, ModelView v) {
 		'''
 		@startuml
 		hide circle

@@ -6,7 +6,7 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
-public class ElementVision {
+public class ModelElementView {
 		
 	private PackageableElement modelElement;
 	
@@ -17,7 +17,7 @@ public class ElementVision {
 	
 	//private boolean isVisible = true;
 	
-	public ElementVision(PackageableElement modelElement) {
+	public ModelElementView(PackageableElement modelElement) {
 		this.modelElement = modelElement;
 		this.id = OntoUMLPrimeUtils.generateId(modelElement);
 	}

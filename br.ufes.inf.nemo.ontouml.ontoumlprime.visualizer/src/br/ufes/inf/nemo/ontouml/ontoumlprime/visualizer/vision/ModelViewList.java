@@ -11,20 +11,20 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
-public class VisionList {
+public class ModelViewList {
 
 	private Model model;
 	private String modelTitle;
 
-	private ModelVision defaultVision;
-	private List<ModelVision> visionList;
-	private ModelVision selectedVision;
+	private ModelView defaultVision;
+	private List<ModelView> visionList;
+	private ModelView selectedVision;
 	
-	public VisionList(String modelTitle, Model model) {
+	public ModelViewList(String modelTitle, Model model) {
 		this.model = model;
 		this.modelTitle = modelTitle;
 		this.visionList = new ArrayList<>(1);
-		this.defaultVision = ModelVision.newDefaultModelVision(model.getElements());
+		this.defaultVision = ModelView.newDefaultModelVision(model.getElements());
 		this.visionList.add(defaultVision);
 		selectedVision = defaultVision;
 		/*
@@ -41,7 +41,7 @@ public class VisionList {
 	}
 	
 	public void addVision(String visionName, List<PackageableElement> elementList) {
-		ModelVision newModelVision = new ModelVision(visionName);
+		ModelView newModelVision = new ModelView(visionName);
 		newModelVision.addElements(elementList);
 		visionList.add(newModelVision);
 	}
@@ -50,11 +50,11 @@ public class VisionList {
 		defaultVision.reloadElements(newModel);
 	}
 	
-	public ModelVision getDefaultVision() {
+	public ModelView getDefaultVision() {
 		return defaultVision;
 	}
 
-	public Iterator<ModelVision> getVisionListIterator() {
+	public Iterator<ModelView> getVisionListIterator() {
 		return visionList.iterator();
 	}
 
@@ -62,11 +62,11 @@ public class VisionList {
 		return model;
 	}
 
-	public ModelVision getSelectedVision() {
+	public ModelView getSelectedVision() {
 		return selectedVision;
 	}
 
-	public void setSelectedVision(ModelVision selectedVision) {
+	public void setSelectedVision(ModelView selectedVision) {
 		this.selectedVision = selectedVision;
 	}
 	

@@ -8,8 +8,8 @@ import org.eclipse.ui.PlatformUI;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ElementVision;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
 
 public class OntoUMLPrimeViewLabelProvider extends LabelProvider {
 	public String getText(NamedElement obj) {
@@ -19,10 +19,10 @@ public class OntoUMLPrimeViewLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		if(element instanceof ElementVisionTreeObject) {
-			ElementVision ev = ((ElementVisionTreeObject) element).getElementVision();
+			ModelElementView ev = ((ElementVisionTreeObject) element).getElementVision();
 			return ev.getDisplayName();
 		} else if (element instanceof ModelVisionTreeObject) {
-			ModelVision mv = ((ModelVisionTreeObject) element).getModelVision();
+			ModelView mv = ((ModelVisionTreeObject) element).getModelVision();
 			return mv.getVisionName();
 		}
 		return "Unknown";

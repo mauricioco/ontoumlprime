@@ -1,35 +1,35 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelVision;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
 
 public class ModelVisionTreeObject extends TreeObject {
 	
-	private ModelVision modelVision;
+	private ModelView modelView;
 	
-	public ModelVisionTreeObject(ModelVision modelVision) {
+	public ModelVisionTreeObject(ModelView modelView) {
 		super();
-		this.modelVision = modelVision;
+		this.modelView = modelView;
 	}
 	
-	public ModelVisionTreeObject(TreeObject parent, ModelVision modelVision) {
+	public ModelVisionTreeObject(TreeObject parent, ModelView modelView) {
 		super(parent);
-		this.modelVision = modelVision;
+		this.modelView = modelView;
 	}
 
-	public ModelVision getModelVision() {
-		return modelVision;
+	public ModelView getModelVision() {
+		return modelView;
 	}
 	
 	
 	// Both need to be defined here due to the nature of TreeViewer refresh.
 	@Override
 	public int hashCode() {
-		return modelVision.getVisionName().hashCode();
+		return modelView.getVisionName().hashCode();
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof ModelVisionTreeObject) {
-			return modelVision.getVisionName().equals(((ModelVisionTreeObject) obj).getModelVision().getVisionName());
+			return modelView.getVisionName().equals(((ModelVisionTreeObject) obj).getModelVision().getVisionName());
 		}
 		return false;
 	}
