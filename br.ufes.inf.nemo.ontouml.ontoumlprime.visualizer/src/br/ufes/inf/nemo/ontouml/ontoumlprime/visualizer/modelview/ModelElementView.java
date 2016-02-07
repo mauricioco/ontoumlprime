@@ -51,7 +51,7 @@ public class ModelElementView {
 	}
 
 	public String getDisplayName() {
-		if(modelElement instanceof NamedElement) {
+		if(modelElement instanceof NamedElement && ((NamedElement) modelElement).getName() != null) {
 			return ((NamedElement) modelElement).getName() + " <<"+OntoUMLPrimeUtils.getStereotype(modelElement)+">>";
 		} else {
 			return "<<"+OntoUMLPrimeUtils.getStereotype(modelElement)+">>";// + " " + modelElement.

@@ -16,7 +16,7 @@ public class ModelViewElementTreeObject extends TreeObject {
 		this.modelElementView = modelElementView;
 	}
 
-	public ModelElementView getElementVision() {
+	public ModelElementView getModelElementView() {
 		return modelElementView;
 	}
 	
@@ -28,7 +28,7 @@ public class ModelViewElementTreeObject extends TreeObject {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof ModelViewElementTreeObject) {
-			return modelElementView.getId().equals(((ModelViewElementTreeObject) obj).getElementVision().getId());
+			return modelElementView.getId().equals(((ModelViewElementTreeObject) obj).getModelElementView().getId());
 		}
 		return false;
 	}

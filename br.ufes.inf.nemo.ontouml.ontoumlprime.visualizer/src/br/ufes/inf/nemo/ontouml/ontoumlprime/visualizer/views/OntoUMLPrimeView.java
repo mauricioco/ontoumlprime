@@ -32,7 +32,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
@@ -51,7 +54,8 @@ public class OntoUMLPrimeView extends ViewPart {
 
 	private TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
-	private Action actionCreateVisionFromSelected;
+	private Action actionCreateModelViewFromSelected;
+	private Action actionCreateHierarquicalModelViewFromSelected;
 	private Action action2;
 	private Action selectAction;
 	private Action doubleClickAction;
@@ -119,14 +123,15 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 
 	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(actionCreateVisionFromSelected);
+		manager.add(actionCreateModelViewFromSelected);
 		manager.add(new Separator());
 		manager.add(action2);
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
 		//manager.add(showTaxonomicStructureAction);
-		manager.add(actionCreateVisionFromSelected);
+		manager.add(actionCreateModelViewFromSelected);
+		manager.add(actionCreateHierarquicalModelViewFromSelected);
 		
 		MenuManager menuManager = new MenuManager();
 		menuManager.setMenuText("Add to...");
@@ -141,7 +146,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		}
 		
 		menuManager.add(new Separator());
-		menuManager.add(actionCreateVisionFromSelected);
+		menuManager.add(actionCreateModelViewFromSelected);
 		
 		manager.add(menuManager);
 		//manager.add(new Separator());
@@ -152,13 +157,73 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(actionCreateVisionFromSelected);
+		manager.add(actionCreateModelViewFromSelected);
 		manager.add(action2);
 		manager.add(new Separator());
 		//drillDownAdapter.addNavigationActions(manager);
 	}
+	
+	private void createHierarquicalModelViewFromElement() {
+		final String modelTitle = ModelViewManager.getCurrentModelTitle();
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		
+		final List<PackageableElement> hierarquicalElements = new ArrayList<>();
+		
+		if(selection.size() == 1) {
+			PackageableElement elementToSearch = ((ModelViewElementTreeObject) selection.getFirstElement()).getModelElementView().getModelElement();
+			hierarquicalElements.add(elementToSearch);
+			
+			for(PackageableElement e : ModelViewManager.getCurrentModel().getElements()) {
+				if (e instanceof GeneralizationSet) {
+					
+					if (((GeneralizationSet) e).getSpecializedUniversal().equals(elementToSearch)) {
+						hierarquicalElements.add(e);
+						hierarquicalElements.addAll(((GeneralizationSet) e).getSpecializingUniversals());
+					}
+					
+					if (((GeneralizationSet) e).getSpecializingUniversals().contains(elementToSearch)) {
+						hierarquicalElements.add(e);
+						hierarquicalElements.add(((GeneralizationSet) e).getSpecializedUniversal());
+					}
+					
+				}
+			}
+			
+			IInputValidator validator = new IInputValidator() {
+				@Override
+				public String isValid(String newText) {
+					if(newText.isEmpty()) {
+						return "Enter name for your model view.";
+					}
+					
+					Iterator<ModelView> i = ModelViewManager.getVisionList(modelTitle).getVisionListIterator();
+					while(i.hasNext()) {
+						ModelView v = i.next();
+						if(v.getVisionName().equals(newText)) {
+							return "Model view " + newText + " already exists.";
+						}
+					}
+					return null;
+				}
+			};
+			
+			InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
+			switch(i.open()) {
+				case Window.OK:
+					ModelView mv = ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), hierarquicalElements);
+					refreshViewerAndSelectModelView(mv);
+					break;
+				case Window.CANCEL:
+				default:
+					break;
+			}
+			
+		} else {
+			Log.e(100, OntoUMLPrimeView.class, "cannot create hierarquical model view from multiple elements.");
+		}
+	}
 
-	private void createVisionFromSelected() {
+	private void createModelViewFromSelected() {
 		final String modelTitle = ModelViewManager.getCurrentModelTitle();
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		Iterator<Object> iterator = selection.iterator();
@@ -167,7 +232,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		while(iterator.hasNext()) {
 			Object obj = iterator.next();	
 			if(obj instanceof ModelViewElementTreeObject) {
-				selectedElementList.add(((ModelViewElementTreeObject) obj).getElementVision().getModelElement());
+				selectedElementList.add(((ModelViewElementTreeObject) obj).getModelElementView().getModelElement());
 			}
 		}
 		
@@ -175,14 +240,14 @@ public class OntoUMLPrimeView extends ViewPart {
 			@Override
 			public String isValid(String newText) {
 				if(newText.isEmpty()) {
-					return "Enter name for your vision.";
+					return "Enter name for your model view.";
 				}
 				
 				Iterator<ModelView> i = ModelViewManager.getVisionList(modelTitle).getVisionListIterator();
 				while(i.hasNext()) {
 					ModelView v = i.next();
 					if(v.getVisionName().equals(newText)) {
-						return "Vision name " + newText + " already exists.";
+						return "Model view " + newText + " already exists.";
 					}
 				}
 				return null;
@@ -203,15 +268,23 @@ public class OntoUMLPrimeView extends ViewPart {
 	
 	
 	private void makeActions() {
-		actionCreateVisionFromSelected = new Action() {
+		actionCreateModelViewFromSelected = new Action() {
 			public void run() {
-				createVisionFromSelected();
+				createModelViewFromSelected();
 			}
 		};
-		actionCreateVisionFromSelected.setText("Create vision...");
-		actionCreateVisionFromSelected.setToolTipText("Creates vision with the selected elements.");
-		actionCreateVisionFromSelected.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
+		actionCreateModelViewFromSelected.setText("Create model view...");
+		actionCreateModelViewFromSelected.setToolTipText("Creates model view containing the selected elements.");
+		actionCreateModelViewFromSelected.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 			getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
+		
+		actionCreateHierarquicalModelViewFromSelected = new Action() {
+			public void run() {
+				createHierarquicalModelViewFromElement();
+			}
+		};
+		actionCreateHierarquicalModelViewFromSelected.setText("Create hierarquical model view...");
+		actionCreateHierarquicalModelViewFromSelected.setToolTipText("Creates hierarquical model view from the selected element.");
 		
 		action2 = new Action() {
 			public void run() {

@@ -27,7 +27,7 @@ public class OntoUMLPrimeViewSorter extends ViewerSorter {
 		if(e1 instanceof ModelViewElementTreeObject && e2 instanceof ModelViewElementTreeObject) {
 			ModelViewElementTreeObject p1 = (ModelViewElementTreeObject) e1;
 		    ModelViewElementTreeObject p2 = (ModelViewElementTreeObject) e2;
-		    return p1.getElementVision().getDisplayName().compareTo(p2.getElementVision().getDisplayName());
+		    return p1.getModelElementView().getDisplayName().compareTo(p2.getModelElementView().getDisplayName());
 		}
 		
 	    return 0;

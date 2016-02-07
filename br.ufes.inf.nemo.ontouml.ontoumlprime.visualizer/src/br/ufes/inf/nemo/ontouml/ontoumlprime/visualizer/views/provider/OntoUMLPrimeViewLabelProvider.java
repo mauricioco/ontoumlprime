@@ -19,7 +19,7 @@ public class OntoUMLPrimeViewLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		if(element instanceof ModelViewElementTreeObject) {
-			ModelElementView ev = ((ModelViewElementTreeObject) element).getElementVision();
+			ModelElementView ev = ((ModelViewElementTreeObject) element).getModelElementView();
 			return ev.getDisplayName();
 		} else if (element instanceof ModelViewTreeObject) {
 			ModelView mv = ((ModelViewTreeObject) element).getModelVision();
