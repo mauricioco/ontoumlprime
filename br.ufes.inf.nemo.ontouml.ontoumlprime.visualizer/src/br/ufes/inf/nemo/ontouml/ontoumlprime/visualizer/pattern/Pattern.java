@@ -5,14 +5,9 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.pattern.RuleTaxonomy.Direction;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.pattern.RuleGeneralization.Direction;
 
 public class Pattern {
 	
@@ -21,8 +16,8 @@ public class Pattern {
 	
 	public static final Pattern LOWER_GENERALIZATION;
 	static {
-		LOWER_GENERALIZATION = new Pattern("GENSET");
-		LOWER_GENERALIZATION.addRule(new RuleTaxonomy(RelatorUniversal.class, Direction.FLOOD, 9));
+		LOWER_GENERALIZATION = new Pattern("Generalization Set Down");
+		LOWER_GENERALIZATION.addRule(new RuleGeneralization(Direction.DOWN, 9));
 	}
 	
 	public Pattern(String name) {
@@ -42,10 +37,8 @@ public class Pattern {
 		
 		for (Rule rule : ruleList) {
 			
-			if (rule instanceof RuleTaxonomy) {
-				for (EObject elementToProcess : selectedElements) {
-					rule.processElement(modelViewElements, elementToProcess);
-				}
+			for (EObject elementToProcess : selectedElements) {
+				rule.processElement(modelViewElements, elementToProcess);
 			}
 			
 		}

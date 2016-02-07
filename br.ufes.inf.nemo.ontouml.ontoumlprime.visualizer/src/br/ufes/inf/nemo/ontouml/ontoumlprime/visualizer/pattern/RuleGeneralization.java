@@ -5,31 +5,21 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 
-public class RuleTaxonomy extends Rule {
-	
+public class RuleGeneralization extends Rule {
 	public enum Direction {
 		DOWN, UP, BOTH, FLOOD
 	}
 	
-	private Class<? extends EObject> connectedType;
 	private Direction direction;
 	private int depth;
 	
-	public RuleTaxonomy(Class<? extends EObject> connectedType, Direction direction, int depth) {
+	public RuleGeneralization(Direction direction, int depth) {
 		super();
-		this.connectedType = connectedType;
 		this.direction = direction;
 		this.depth = depth;
-	}
-
-	public Class<? extends EObject> getConnectedType() {
-		return connectedType;
-	}
-
-	public void setConnectedType(Class<? extends EObject> connectedType) {
-		this.connectedType = connectedType;
 	}
 	
 	public Direction getDirection() {
@@ -55,7 +45,7 @@ public class RuleTaxonomy extends Rule {
 	
 	private boolean processElementInternal(int currentLevel, List<EObject> modelViewElements, EObject elementToProcess) {
 		for(EObject rel : elementToProcess.eCrossReferences()) {
-			if (connectedType.isInstance(rel)) {
+			if (rel instanceof GeneralizationSet) {
 				
 				List<EObject> refList = rel.eCrossReferences();
 				
