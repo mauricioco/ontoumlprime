@@ -8,7 +8,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
 public class ModelElementView {
 		
-	private PackageableElement modelElement;
+	private EObject modelElement;
 	
 	private String id;
 	
@@ -17,12 +17,12 @@ public class ModelElementView {
 	
 	//private boolean isVisible = true;
 	
-	public ModelElementView(PackageableElement modelElement) {
+	public ModelElementView(EObject modelElement) {
 		this.modelElement = modelElement;
 		this.id = OntoUMLPrimeUtils.generateId(modelElement);
 	}
 
-	public PackageableElement getModelElement() {
+	public EObject getModelElement() {
 		return modelElement;
 	}
 

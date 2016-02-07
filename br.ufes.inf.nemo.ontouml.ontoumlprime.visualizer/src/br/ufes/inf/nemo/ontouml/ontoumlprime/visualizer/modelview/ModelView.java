@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
@@ -13,27 +14,33 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
 public class ModelView {
 	
-	private String visionName;
+	private String modelViewName;
 	
 	private Map<String, ModelElementView> elementMap;
 	
 	static ModelView newDefaultModelVision(EList<PackageableElement> elements) {
 		ModelView v = new ModelView("Model");
-		v.addElements(elements);
+		
+		v.addElements(new ArrayList<>(elements));
 		return v;
 	}
 	
 	public ModelView(String visionName) {
-		this.visionName = visionName;
+		this.modelViewName = visionName;
 		elementMap = new HashMap<>();
 	}
-	
+	/*
+	public ModelView(String modelViewName, List<PackageableElement> elements) {
+		this.modelViewName = modelViewName;
+		addElements(elements);
+	}
+	*/
 	public String getVisionName() {
-		return visionName;
+		return modelViewName;
 	}
 
 	public void setVisionName(String visionName) {
-		this.visionName = visionName;
+		this.modelViewName = visionName;
 	}
 	
 	public void addElement(PackageableElement element) {
@@ -44,8 +51,8 @@ public class ModelView {
 		//System.out.println("");
 	}
 
-	public void addElements(List<PackageableElement> elements) {
-		for(PackageableElement e : elements) {
+	public void addElements(List<EObject> elements) {
+		for(EObject e : elements) {
 			String id = OntoUMLPrimeUtils.generateId(e);
 			ModelElementView v = elementMap.get(id);
 			if(v == null) {

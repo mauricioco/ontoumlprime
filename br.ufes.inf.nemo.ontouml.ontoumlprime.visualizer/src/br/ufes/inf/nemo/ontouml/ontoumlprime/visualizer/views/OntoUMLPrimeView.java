@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -32,12 +33,12 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.pattern.Pattern;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewLabelProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewSorter;
@@ -167,12 +168,44 @@ public class OntoUMLPrimeView extends ViewPart {
 		final String modelTitle = ModelViewManager.getCurrentModelTitle();
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		
+		Iterator<Object> iterator = selection.iterator();
+		
+		final List<EObject> selectedElementList = new ArrayList<>();
+		while(iterator.hasNext()) {
+			Object obj = iterator.next();	
+			if(obj instanceof ModelViewElementTreeObject) {
+				selectedElementList.add(((ModelViewElementTreeObject) obj).getModelElementView().getModelElement());
+			}
+		}
+		/*
 		final List<PackageableElement> hierarquicalElements = new ArrayList<>();
 		
 		if(selection.size() == 1) {
 			PackageableElement elementToSearch = ((ModelViewElementTreeObject) selection.getFirstElement()).getModelElementView().getModelElement();
-			hierarquicalElements.add(elementToSearch);
+			lowerHierarquicalElements.add(elementToSearch);
+			//Log.p(0, this.getClass(), " " + elementToSearch.eCrossReferences());
 			
+			for (int i=0; i<hierarquicalElements.size(); i++) {
+				// TODO check this. I don't know the correct method to use. This one is working... but...
+				Element elementToCheck = hierarquicalElements.get(i);
+				for(EObject e : elementToCheck.eCrossReferences()) {
+					if (e instanceof GeneralizationSet) {
+						//hierarquicalElements.add((PackageableElement) e);
+						Log.p(0, getClass(), ""+e.eCrossReferences());
+						if (((GeneralizationSet) e).getSpecializedUniversal().equals(elementToCheck)) {
+							hierarquicalElements.add((GeneralizationSet) e);
+							hierarquicalElements.addAll(((GeneralizationSet) e).getSpecializingUniversals());
+						}// else if (((GeneralizationSet) e).getSpecializingUniversals().contains(elementToCheck)) {
+							//hierarquicalElements.add((GeneralizationSet) e);
+							//hierarquicalElements.add(((GeneralizationSet) e).getSpecializedUniversal());
+						//}
+
+					}
+				}
+				Log.p(0, getClass(), ""+hierarquicalElements.size());
+			}
+			Log.p(0, getClass(), ""+hierarquicalElements);
+			/*
 			for(PackageableElement e : ModelViewManager.getCurrentModel().getElements()) {
 				if (e instanceof GeneralizationSet) {
 					
@@ -188,7 +221,8 @@ public class OntoUMLPrimeView extends ViewPart {
 					
 				}
 			}
-			
+			Log.p(0, getClass(), ""+hierarquicalElements.size());
+			*/
 			IInputValidator validator = new IInputValidator() {
 				@Override
 				public String isValid(String newText) {
@@ -210,7 +244,9 @@ public class OntoUMLPrimeView extends ViewPart {
 			InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
 			switch(i.open()) {
 				case Window.OK:
-					ModelView mv = ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), hierarquicalElements);
+					ModelView mv = Pattern.LOWER_GENERALIZATION.createModelView(i.getValue(), ModelViewManager.getCurrentModel(), selectedElementList);//ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), hierarquicalElements);
+					ModelViewManager.getVisionList(modelTitle).addModelView(mv);
+					//Log.p(0, this.getClass(), "" + mv.getElementVisionList().size());
 					refreshViewerAndSelectModelView(mv);
 					break;
 				case Window.CANCEL:
@@ -218,9 +254,9 @@ public class OntoUMLPrimeView extends ViewPart {
 					break;
 			}
 			
-		} else {
-			Log.e(100, OntoUMLPrimeView.class, "cannot create hierarquical model view from multiple elements.");
-		}
+		//} else {
+			//Log.e(100, OntoUMLPrimeView.class, "cannot create hierarquical model view from multiple elements.");
+		//}
 	}
 
 	private void createModelViewFromSelected() {
@@ -228,7 +264,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		Iterator<Object> iterator = selection.iterator();
 		
-		final List<PackageableElement> selectedElementList = new ArrayList<>();
+		final List<EObject> selectedElementList = new ArrayList<>();
 		while(iterator.hasNext()) {
 			Object obj = iterator.next();	
 			if(obj instanceof ModelViewElementTreeObject) {
@@ -254,10 +290,10 @@ public class OntoUMLPrimeView extends ViewPart {
 			}
 		};
 		
-		InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
+		InputDialog i = new InputDialog(getSite().getShell(), "Create new model view for "+modelTitle+"...", "", "", validator);
 		switch(i.open()) {
 			case Window.OK:
-				ModelView mv = ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), selectedElementList);
+				ModelView mv = ModelViewManager.getVisionList(modelTitle).addModelView(i.getValue(), selectedElementList);
 				refreshViewerAndSelectModelView(mv);
 				break;
 			case Window.CANCEL:

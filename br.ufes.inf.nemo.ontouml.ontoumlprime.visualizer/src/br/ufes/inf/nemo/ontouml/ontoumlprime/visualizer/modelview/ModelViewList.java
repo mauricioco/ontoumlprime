@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.ecore.EObject;
 
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
@@ -42,15 +43,19 @@ public class ModelViewList {
 	
 	/**
 	 * Adds new model view and returns it.
-	 * @param visionName
+	 * @param modelViewName
 	 * @param elementList
 	 * @return
 	 */
-	public ModelView addVision(String visionName, List<PackageableElement> elementList) {
-		ModelView newModelVision = new ModelView(visionName);
+	public ModelView addModelView(String modelViewName, List<EObject> elementList) {
+		ModelView newModelVision = new ModelView(modelViewName);
 		newModelVision.addElements(elementList);
 		visionList.add(newModelVision);
 		return newModelVision;
+	}
+	
+	public void addModelView(ModelView modelView) {
+		visionList.add(modelView);
 	}
 	
 	public void updateDefaultVision(Model newModel) {
