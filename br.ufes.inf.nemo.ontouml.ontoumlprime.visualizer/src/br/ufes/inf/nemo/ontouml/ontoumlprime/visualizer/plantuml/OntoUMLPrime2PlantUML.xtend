@@ -31,6 +31,7 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView
 
 class OntoUMLPrime2PlantUML {
 	
@@ -41,6 +42,27 @@ class OntoUMLPrime2PlantUML {
 			sharedInstance = new OntoUMLPrime2PlantUML();
 		}
 		return sharedInstance;
+	}
+	
+	def static String generatePlantUMLCode(Model it, ModelView v) {
+		'''
+		@startuml
+		hide circle
+		hide methods
+		skinparam classBackgroundColor white
+		skinparam classBorderColor black
+		skinparam classArrowColor black
+		
+		«FOR e : elements»
+		
+		«IF v.getElementVision(e) != null»
+		«OntoUMLPrime2PlantUML.toPlantUML(e)»
+		«ENDIF»
+		
+	    «ENDFOR»
+		
+		@enduml
+		'''
 	}
 	
 	def static String showPlantUMLMessage(String message)

@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview;
 
 import java.util.ArrayList;
 import java.util.HashMap;

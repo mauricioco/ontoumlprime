@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview;
 
 import org.eclipse.emf.ecore.EObject;
 

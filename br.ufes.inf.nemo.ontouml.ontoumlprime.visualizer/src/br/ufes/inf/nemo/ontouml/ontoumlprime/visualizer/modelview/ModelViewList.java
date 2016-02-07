@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,10 +40,17 @@ public class ModelViewList {
 		*/
 	}
 	
-	public void addVision(String visionName, List<PackageableElement> elementList) {
+	/**
+	 * Adds new model view and returns it.
+	 * @param visionName
+	 * @param elementList
+	 * @return
+	 */
+	public ModelView addVision(String visionName, List<PackageableElement> elementList) {
 		ModelView newModelVision = new ModelView(visionName);
 		newModelVision.addElements(elementList);
 		visionList.add(newModelVision);
+		return newModelVision;
 	}
 	
 	public void updateDefaultVision(Model newModel) {

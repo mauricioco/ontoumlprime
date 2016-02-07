@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-
 import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
@@ -14,6 +13,8 @@ import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
@@ -34,18 +35,19 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewList;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLPrime2PlantUML;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelViewElementTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelViewTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.RootTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.TreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelElementView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager;
 
 
 public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvider, ITreeContentProvider {
@@ -58,7 +60,27 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		this.ontoUMLPrimeView = ontoUMLPrimeView;
 	}
 	
+	public void inputChangedSelectingModelView(Viewer v, ModelView mv) {
+		inputChanged(v, null, null);
+		
+		if(v instanceof TreeViewer) {
+			// TODO check if refresh is asynchronous. If it is, this could get messy...
+			// Apparently it isn't. According to debug, it ran on main thread. Still, CHECK IT ONLINE!
+			((TreeViewer) v).refresh();
+			for (TreeObject mvto : root.getChildren()) {
+				if (((ModelViewTreeObject) mvto).getModelVision().equals(mv)) {
+					TreeSelection selection = new TreeSelection(new TreePath(new Object[]{root, mvto})); 
+					v.setSelection(selection);
+					break;
+				}
+			}
+		}
+
+	}
+	
+	@Override
 	public void inputChanged(Viewer v, Object oldInput, Object newInput) {
+		Log.p(400, OntoUMLPrimeViewContentProvider.class, "refreshing OntoUMLPrime tree view");
 		initialize();	// more like reinitialize... if it fails, content won't change.
 		if(v instanceof TreeViewer) {
 			((TreeViewer) v).refresh();
@@ -70,7 +92,7 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 	
 	public Object[] getElements(Object parent) {
 		if (parent.equals(ontoUMLPrimeView.getViewSite())) {
-			if(root == null) {
+			if(root == null && ModelViewManager.isCurrentModelViewListInitialized()) {
 				initialize();
 			}
 			return getChildren(root);
@@ -99,6 +121,11 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 	}
 	
 	private void initialize() {
+		if (root == null) {
+			Log.p(401, OntoUMLPrimeViewContentProvider.class, "initializing OntoUMLPrime view content provider tree");
+		} else {
+			Log.p(401, OntoUMLPrimeViewContentProvider.class, "re-initializing OntoUMLPrime view content provider tree");
+		}
 		/*
 		IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor();
 		IEditorInput editorInput = editor.getEditorInput();
@@ -122,38 +149,33 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		Model model = doc.<Model>readOnly(getModel);
 		*/
 		
-		String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
-		ModelViewList modelViewList = ModelViewManager.getVisionList(modelTitle);
+		ModelViewList modelViewList = ModelViewManager.getCurrentModelViewList();
 		if(modelViewList == null) {
+			Log.e(401, OntoUMLPrimeViewContentProvider.class, "cannot refresh the tree view for current model as it was not initialized yet");
 			return;
 		}
-		
-		System.out.println("Should update...");
-		
+				
 		Iterator<ModelView> visionIterator = modelViewList.getVisionListIterator();
 		
 		root = new RootTreeObject();	// invisible element.
 		while(visionIterator.hasNext()) {
 			ModelView vision = visionIterator.next();
 			
-			ModelVisionTreeObject modelRoot = new ModelVisionTreeObject(vision);
+			ModelViewTreeObject modelRoot = new ModelViewTreeObject(vision);
 			root.addChild(modelRoot);
 			for(ModelElementView modelElementView : vision.getElementVisionList()) {
-				modelRoot.addChild(new ElementVisionTreeObject(modelElementView));
+				modelRoot.addChild(new ModelViewElementTreeObject(modelElementView));
 			}
-			
+		
 		}
 		
+		Log.p(401, OntoUMLPrimeViewContentProvider.class, "OntoUMLPrime tree view built");
 	}
 	
 	
 	// ---------------------------------------------------------
-
-	
-	//public void 
 	
 	public void handleSelection(TreeViewer viewer) {
-		
 		/*
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		Iterator<Object> iterator = selection.iterator();

@@ -4,37 +4,42 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.part.*;
-
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml.OntoUMLDiagramTextProvider;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewLabelProvider;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewSorter;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ElementVisionTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelVisionTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelElementView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager;
-
-import org.eclipse.jface.viewers.*;
-import org.eclipse.jface.window.Window;
-import org.eclipse.swt.graphics.Image;
-import org.eclipse.jface.action.*;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.IMenuListener;
+import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.action.IToolBarManager;
+import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
-import org.eclipse.ui.*;
-import org.eclipse.ui.actions.ActionGroup;
-import org.eclipse.ui.application.ActionBarAdvisor;
-import org.eclipse.swt.widgets.Menu;
+import org.eclipse.jface.viewers.DoubleClickEvent;
+import org.eclipse.jface.viewers.IContentProvider;
+import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.ecore.EObject;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.part.DrillDownAdapter;
+import org.eclipse.ui.part.ViewPart;
+
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewLabelProvider;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewSorter;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelViewElementTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelViewTreeObject;
 
 
 public class OntoUMLPrimeView extends ViewPart {
@@ -125,7 +130,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		
 		MenuManager menuManager = new MenuManager();
 		menuManager.setMenuText("Add to...");
-		final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+		final String modelTitle = ModelViewManager.getCurrentModelTitle();
 		Iterator<ModelView> i = ModelViewManager.getVisionList(modelTitle).getVisionListIterator();
 		while(i.hasNext()) {
 			Action a = new Action() {
@@ -154,15 +159,15 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 
 	private void createVisionFromSelected() {
-		final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+		final String modelTitle = ModelViewManager.getCurrentModelTitle();
 		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		Iterator<Object> iterator = selection.iterator();
 		
 		final List<PackageableElement> selectedElementList = new ArrayList<>();
 		while(iterator.hasNext()) {
 			Object obj = iterator.next();	
-			if(obj instanceof ElementVisionTreeObject) {
-				selectedElementList.add(((ElementVisionTreeObject) obj).getElementVision().getModelElement());
+			if(obj instanceof ModelViewElementTreeObject) {
+				selectedElementList.add(((ModelViewElementTreeObject) obj).getElementVision().getModelElement());
 			}
 		}
 		
@@ -187,8 +192,8 @@ public class OntoUMLPrimeView extends ViewPart {
 		InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
 		switch(i.open()) {
 			case Window.OK:
-				ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), selectedElementList);
-				refreshViewer();
+				ModelView mv = ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), selectedElementList);
+				refreshViewerAndSelectModelView(mv);
 				break;
 			case Window.CANCEL:
 			default:
@@ -232,14 +237,15 @@ public class OntoUMLPrimeView extends ViewPart {
 			public void run() {
 				IContentProvider cp = viewer.getContentProvider();
 				if(cp instanceof OntoUMLPrimeViewContentProvider) {
-					final String modelTitle = OntoUMLDiagramTextProvider.currentModelTitle;
+					final String modelTitle = ModelViewManager.getCurrentModelTitle();
 					IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 					Object selectedObject = selection.getFirstElement();
 					
-					if(selectedObject instanceof ModelVisionTreeObject) {
-						ModelView selectedVision = ((ModelVisionTreeObject) selectedObject).getModelVision();
+					if(selectedObject instanceof ModelViewTreeObject) {
+						ModelView selectedVision = ((ModelViewTreeObject) selectedObject).getModelVision();
 						ModelViewManager.getVisionList(modelTitle).setSelectedVision(selectedVision);
-						OntoUMLDiagramTextProvider.updateDiagram();
+						ModelViewManager.updateOntoUMLPrimeView();
+						ModelViewManager.updatePlantUMLView();;
 					}
 					
 					//if(selectedObject instanceof ElementVisionTreeObject) {
@@ -301,5 +307,9 @@ public class OntoUMLPrimeView extends ViewPart {
 	
 	public void refreshViewer() {
 		viewer.getContentProvider().inputChanged(viewer, null, null);
+	}
+	
+	public void refreshViewerAndSelectModelView(ModelView mv) {
+		((OntoUMLPrimeViewContentProvider) viewer.getContentProvider()).inputChangedSelectingModelView(viewer, mv);	
 	}
 }

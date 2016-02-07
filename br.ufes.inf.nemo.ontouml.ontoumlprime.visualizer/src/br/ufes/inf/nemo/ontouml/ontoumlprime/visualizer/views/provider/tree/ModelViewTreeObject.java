@@ -1,17 +1,17 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 
-public class ModelVisionTreeObject extends TreeObject {
+public class ModelViewTreeObject extends TreeObject {
 	
 	private ModelView modelView;
 	
-	public ModelVisionTreeObject(ModelView modelView) {
+	public ModelViewTreeObject(ModelView modelView) {
 		super();
 		this.modelView = modelView;
 	}
 	
-	public ModelVisionTreeObject(TreeObject parent, ModelView modelView) {
+	public ModelViewTreeObject(TreeObject parent, ModelView modelView) {
 		super(parent);
 		this.modelView = modelView;
 	}
@@ -28,8 +28,8 @@ public class ModelVisionTreeObject extends TreeObject {
 	}
 	@Override
 	public boolean equals(Object obj) {
-		if(obj instanceof ModelVisionTreeObject) {
-			return modelView.getVisionName().equals(((ModelVisionTreeObject) obj).getModelVision().getVisionName());
+		if(obj instanceof ModelViewTreeObject) {
+			return modelView.getVisionName().equals(((ModelViewTreeObject) obj).getModelVision().getVisionName());
 		}
 		return false;
 	}
