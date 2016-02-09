@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider;
 /*
 import java.util.HashMap;
 import java.util.Map;

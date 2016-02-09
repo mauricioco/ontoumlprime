@@ -1,4 +1,4 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree;
 
 import java.util.ArrayList;
 import java.util.List;

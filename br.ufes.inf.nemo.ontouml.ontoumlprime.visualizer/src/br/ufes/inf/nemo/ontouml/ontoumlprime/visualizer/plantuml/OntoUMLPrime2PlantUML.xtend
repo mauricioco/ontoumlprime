@@ -28,9 +28,6 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewStereotypeContentProvider
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView
 
 class OntoUMLPrime2PlantUML {

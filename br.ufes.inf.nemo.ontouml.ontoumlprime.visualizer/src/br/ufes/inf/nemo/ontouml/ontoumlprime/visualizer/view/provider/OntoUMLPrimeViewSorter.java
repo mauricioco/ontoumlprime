@@ -1,9 +1,9 @@
-package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider;
+package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider;
 
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.tree.ModelViewElementTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 
 public class OntoUMLPrimeViewSorter extends ViewerSorter {
 	private static final int ASCENDING = 0;

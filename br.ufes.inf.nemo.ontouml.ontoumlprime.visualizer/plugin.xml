@@ -12,7 +12,7 @@
             name="OntoUMLPrime View"
             icon="icons/sample.gif"
             category="br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer"
-            class="br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView"
+            class="br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView"
             id="br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView">
       </view>
    </extension>
