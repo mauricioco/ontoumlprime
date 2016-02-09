@@ -1,15 +1,28 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager
-import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider
-import org.eclipse.jface.viewers.ISelection
 import org.eclipse.ui.IEditorPart
+import org.eclipse.ui.IEditorInput
 import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.xtext.ui.editor.model.XtextDocument
-
-import static br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager.*
+import net.sourceforge.plantuml.text.AbstractDiagramTextProvider
+import org.eclipse.jface.viewers.ISelection
+import org.eclipse.jface.text.TextSelection
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model
+import java.util.HashMap
+import java.util.Map
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element
+import org.eclipse.emf.ecore.EObject
+import org.eclipse.ui.PlatformUI
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider.OntoUMLPrimeViewContentProvider
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils
+import org.eclipse.ui.part.FileEditorInput
+import java.beans.PropertyChangeEvent
+import org.eclipse.ui.IWorkbenchPage
+import net.sourceforge.plantuml.eclipse.views.PlantUmlView
+import net.sourceforge.plantuml.eclipse.utils.DiagramTextProvider
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewManager
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelViewList
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.vision.ModelView
 
 /**
  * This is the class that provides the PlantUML view with diagram code.
@@ -19,7 +32,18 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	enum UpdateMethod {
 		
 	}
-		
+	
+	public static String currentModelTitle = "";
+	public static Model currentModel = null;
+	
+	private static boolean updateModel = true;
+
+	def static updateDiagram() {		
+		val v = ModelViewManager.initialize(currentModelTitle, currentModel);
+		ModelViewManager.updateView;
+		updateDiagramWithCode(generatePlantUMLCode(currentModel, v.selectedVision));
+	}
+	
 	/**
 	 * Returns true if the active eclipse editor is supported by this text provider.
 	 */
@@ -76,11 +100,38 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 		    ModelViewManager.currentModelTitle = editorPart.title;
 		    ModelViewManager.updateOntoUMLPrimeView;
 		    
-		    Log.p(100, OntoUMLDiagramTextProvider, "generating PlantUML code for visualizer");
-		    Log.p(100, OntoUMLDiagramTextProvider, "---------------------------------------");
-	    	return OntoUMLPrime2PlantUML.generatePlantUMLCode(model, modelView.selectedVision);
+		    currentModel = model;
+		    currentModelTitle = editorPart.title;
+		    //System.out.println("Current title: " + currentModelTitle);
+		    
+	    	generatePlantUMLCode(model, v.selectedVision);
+		    	
 	    }
         
     }
-    	  
+    //«val o = OntoUMLPrimeViewContentProvider.map.get(OntoUMLPrimeUtils.generateId(e))»
+    //		«IF o == null || o.visible»
+    // 	    «ENDIF»
+    
+    def static String generatePlantUMLCode(Model it, ModelView v) {
+		'''
+		@startuml
+		hide circle
+		hide methods
+		skinparam classBackgroundColor white
+		skinparam classBorderColor black
+		skinparam classArrowColor black
+		
+		«FOR e : elements»
+		
+		«IF v.getElementVision(e) != null»
+		«OntoUMLPrime2PlantUML.toPlantUML(e)»
+		«ENDIF»
+		
+	    «ENDFOR»
+		
+		@enduml
+		'''
+	}
+	  
 }

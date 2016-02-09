@@ -1,5 +1,5 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.provider;
-
+/*
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +29,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView;
 
 import static br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils.*;
-
+*/
 public class OntoUMLPrimeViewStereotypeContentProvider {/*implements IStructuredContentProvider, ITreeContentProvider {
 	/*
 	public static Map<String, OntoUMLPrimeStereotype> map = new HashMap();
