@@ -58,7 +58,7 @@ public class ModelViewList {
 		visionList.add(modelView);
 	}
 	
-	public void updateDefaultVision(Model newModel) {
+	public void updateDefaultModelView(Model newModel) {
 		defaultVision.reloadElements(newModel);
 	}
 	
@@ -66,7 +66,7 @@ public class ModelViewList {
 		return defaultVision;
 	}
 
-	public Iterator<ModelView> getVisionListIterator() {
+	public Iterator<ModelView> getModelViewListIterator() {
 		return visionList.iterator();
 	}
 

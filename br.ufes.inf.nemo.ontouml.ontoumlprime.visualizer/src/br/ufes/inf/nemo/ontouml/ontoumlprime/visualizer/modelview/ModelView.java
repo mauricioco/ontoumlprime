@@ -18,15 +18,15 @@ public class ModelView {
 	
 	private Map<String, ModelElementView> elementMap;
 	
+	public ModelView(String visionName) {
+		this.visionName = visionName;
+		elementMap = new HashMap<>();
+	}
+	
 	static ModelView newDefaultModelVision(EList<PackageableElement> elements) {
 		ModelView v = new ModelView("Model");
 		v.addElements(elements);
 		return v;
-	}
-	
-	public ModelView(String visionName) {
-		this.visionName = visionName;
-		elementMap = new HashMap<>();
 	}
 	
 	public String getVisionName() {
@@ -45,6 +45,18 @@ public class ModelView {
 		//System.out.println("");
 	}
 
+	// TODO: remember to check this. It's better to be most generic, so use EOBJECT!
+	public void addElements(EList<PackageableElement> elements) {
+		for(EObject e : elements) {
+			String id = OntoUMLPrimeUtils.generateId(e);
+			ModelElementView v = elementMap.get(id);
+			if(v == null) {
+				v = new ModelElementView(e);
+				elementMap.put(v.getId(), v);
+			}
+		}
+	}
+	
 	public void addElements(List<EObject> elements) {
 		for(EObject e : elements) {
 			String id = OntoUMLPrimeUtils.generateId(e);
