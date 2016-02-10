@@ -11,19 +11,14 @@ import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.Separator;
-import org.eclipse.jface.dialogs.IInputValidator;
-import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
-import org.eclipse.jface.viewers.IContentProvider;
 import org.eclipse.jface.viewers.IDoubleClickListener;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
-import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Menu;
@@ -33,17 +28,18 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.DrillDownAdapter;
 import org.eclipse.ui.part.ViewPart;
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.pattern.Pattern;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionCreateHierarquicalModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionCreateModelViewFromSelected;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionRemoveElementFromModelView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionSetParentModelViewActive;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewLabelProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewSorter;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.TreeObject;
 
 
 public class OntoUMLPrimeView extends ViewPart {
@@ -51,16 +47,13 @@ public class OntoUMLPrimeView extends ViewPart {
 	/**
 	 * The ID of the view as specified by the extension.
 	 */
-	public static final String ID = "br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.views.OntoUMLPrimeView";
+	public static final String ID = "br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView";
 
 	private TreeViewer viewer;
 	private DrillDownAdapter drillDownAdapter;
-	private Action actionCreateModelViewFromSelected;
-	private Action actionCreateHierarquicalModelViewFromSelected;
 	private Action action2;
 	private Action selectAction;
 	private Action doubleClickAction;
-	private Action showTaxonomicStructureAction;
 	
 	/**
 	 * The constructor.
@@ -77,7 +70,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		drillDownAdapter = new DrillDownAdapter(viewer);
 		viewer.setContentProvider(new OntoUMLPrimeViewContentProvider(this));
 		viewer.setLabelProvider(new OntoUMLPrimeViewLabelProvider());
-		
+		/*
 		ViewerFilter[] e = new ViewerFilter[1];
 		e[0] = new ViewerFilter() {
 			@Override
@@ -86,11 +79,10 @@ public class OntoUMLPrimeView extends ViewPart {
 				return false;
 			}
 		};
-		
+		*/
 		//viewer.setFilters(e);
 		viewer.setSorter(new OntoUMLPrimeViewSorter());
 		viewer.setInput(getViewSite());
-		//viewer.
 		
 		// Create the help context id for the viewer's control
 		PlatformUI.getWorkbench().getHelpSystem().setHelp(viewer.getControl(), "br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.viewer");
@@ -98,7 +90,7 @@ public class OntoUMLPrimeView extends ViewPart {
 		
 		makeActions();
 		hookContextMenu();
-		hookSelectAction();
+		hookSelectChangedListener();
 		hookDoubleClickAction();
 		contributeToActionBars();
 	
@@ -124,204 +116,80 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 
 	private void fillLocalPullDown(IMenuManager manager) {
-		manager.add(actionCreateModelViewFromSelected);
 		manager.add(new Separator());
 		manager.add(action2);
 	}
 
 	private void fillContextMenu(IMenuManager manager) {
-		//manager.add(showTaxonomicStructureAction);
-		manager.add(actionCreateModelViewFromSelected);
-		manager.add(actionCreateHierarquicalModelViewFromSelected);
 		
-		MenuManager menuManager = new MenuManager();
-		menuManager.setMenuText("Add to...");
-		final String modelTitle = ModelViewManager.getCurrentModelTitle();
-		Iterator<ModelView> i = ModelViewManager.getModelViewList(modelTitle).getModelViewListIterator();
-		while(i.hasNext()) {
-			Action a = new Action() {
-				
-			};
-			a.setText(i.next().getVisionName());
-			menuManager.add(a);
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
+		
+		if (selection.size() == 1 && selection.getFirstElement() instanceof ModelViewTreeObject) {			
+			drillDownAdapter.addNavigationActions(manager);
+		} else {
+			
+			if (selection.size() == 1) {
+				manager.add(ActionSetParentModelViewActive.sharedInstance());
+				manager.add(new Separator());
+			}
+			
+			manager.add(ActionCreateModelViewFromSelected.sharedInstance());
+			manager.add(ActionCreateHierarquicalModelView.sharedInstance());
+			manager.add(new Separator());
+			
+			// -----------------------------------------
+			MenuManager menuManager = new MenuManager();
+			menuManager.setMenuText("Add to...");
+			final String modelTitle = ModelViewManager.getCurrentModelTitle();
+			final List selectedElements = selection.toList();
+			
+			Iterator<ModelView> i = ModelViewManager.getModelViewList(modelTitle).getModelViewListIterator();
+			while(i.hasNext()) {
+				final ModelView current = i.next();
+				Action a = new Action() {
+
+					@Override
+					public void run() {
+						List<EObject> eObjectList = new ArrayList<EObject>();
+						for(Object o : selectedElements) {
+							if(o instanceof ModelViewElementTreeObject) {
+								eObjectList.add(((ModelViewElementTreeObject) o).getModelElementView().getModelElement());
+							}
+						}
+						
+						current.addElements(eObjectList);
+					}
+					
+				};
+				a.setText(current.getVisionName());
+				menuManager.add(a);
+			}
+			menuManager.add(new Separator());
+			Action createNewModelViewFromSelected = new ActionCreateModelViewFromSelected();
+			createNewModelViewFromSelected.setText("New model view...");
+			menuManager.add(createNewModelViewFromSelected);
+			// -----------------------------------------
+			manager.add(menuManager);
+			manager.add(ActionRemoveElementFromModelView.sharedInstance());
+			
+			manager.add(new Separator());			
+			
+			drillDownAdapter.addNavigationActions(manager);
 		}
-		
-		menuManager.add(new Separator());
-		menuManager.add(actionCreateModelViewFromSelected);
-		
-		manager.add(menuManager);
-		//manager.add(new Separator());
-		//drillDownAdapter.addNavigationActions(manager);
 		
 		// Other plug-ins can contribute there actions here... and this is not working well, so... DISABLED!
 		//manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 	}
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
-		manager.add(actionCreateModelViewFromSelected);
+		//manager.add(actionCreateModelViewFromSelected);
 		manager.add(action2);
 		manager.add(new Separator());
-		//drillDownAdapter.addNavigationActions(manager);
-	}
-	
-	private void createHierarquicalModelViewFromElement() {
-		final String modelTitle = ModelViewManager.getCurrentModelTitle();
-		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-		
-		Iterator<Object> iterator = selection.iterator();
-		
-		final List<EObject> selectedElementList = new ArrayList<>();
-		while(iterator.hasNext()) {
-			Object obj = iterator.next();	
-			if(obj instanceof ModelViewElementTreeObject) {
-				selectedElementList.add(((ModelViewElementTreeObject) obj).getModelElementView().getModelElement());
-			}
-		}
-		/*
-		final List<PackageableElement> hierarquicalElements = new ArrayList<>();
-		
-		if(selection.size() == 1) {
-			PackageableElement elementToSearch = ((ModelViewElementTreeObject) selection.getFirstElement()).getModelElementView().getModelElement();
-			lowerHierarquicalElements.add(elementToSearch);
-			//Log.p(0, this.getClass(), " " + elementToSearch.eCrossReferences());
-			
-			for (int i=0; i<hierarquicalElements.size(); i++) {
-				// TODO check this. I don't know the correct method to use. This one is working... but...
-				Element elementToCheck = hierarquicalElements.get(i);
-				for(EObject e : elementToCheck.eCrossReferences()) {
-					if (e instanceof GeneralizationSet) {
-						//hierarquicalElements.add((PackageableElement) e);
-						Log.p(0, getClass(), ""+e.eCrossReferences());
-						if (((GeneralizationSet) e).getSpecializedUniversal().equals(elementToCheck)) {
-							hierarquicalElements.add((GeneralizationSet) e);
-							hierarquicalElements.addAll(((GeneralizationSet) e).getSpecializingUniversals());
-						}// else if (((GeneralizationSet) e).getSpecializingUniversals().contains(elementToCheck)) {
-							//hierarquicalElements.add((GeneralizationSet) e);
-							//hierarquicalElements.add(((GeneralizationSet) e).getSpecializedUniversal());
-						//}
-
-					}
-				}
-				Log.p(0, getClass(), ""+hierarquicalElements.size());
-			}
-			Log.p(0, getClass(), ""+hierarquicalElements);
-			/*
-			for(PackageableElement e : ModelViewManager.getCurrentModel().getElements()) {
-				if (e instanceof GeneralizationSet) {
-					
-					if (((GeneralizationSet) e).getSpecializedUniversal().equals(elementToSearch)) {
-						hierarquicalElements.add(e);
-						hierarquicalElements.addAll(((GeneralizationSet) e).getSpecializingUniversals());
-					}
-					
-					if (((GeneralizationSet) e).getSpecializingUniversals().contains(elementToSearch)) {
-						hierarquicalElements.add(e);
-						hierarquicalElements.add(((GeneralizationSet) e).getSpecializedUniversal());
-					}
-					
-				}
-			}
-			Log.p(0, getClass(), ""+hierarquicalElements.size());
-			*/
-			IInputValidator validator = new IInputValidator() {
-				@Override
-				public String isValid(String newText) {
-					if(newText.isEmpty()) {
-						return "Enter name for your model view.";
-					}
-					
-					Iterator<ModelView> i = ModelViewManager.getModelViewList(modelTitle).getModelViewListIterator();
-					while(i.hasNext()) {
-						ModelView v = i.next();
-						if(v.getVisionName().equals(newText)) {
-							return "Model view " + newText + " already exists.";
-						}
-					}
-					return null;
-				}
-			};
-			
-			InputDialog i = new InputDialog(getSite().getShell(), "Create new vision for "+modelTitle+"...", "", "", validator);
-			switch(i.open()) {
-				case Window.OK:
-					ModelView mv = Pattern.LOWER_GENERALIZATION.createModelView(i.getValue(), ModelViewManager.getCurrentModel(), selectedElementList);//ModelViewManager.getVisionList(modelTitle).addVision(i.getValue(), hierarquicalElements);
-					ModelViewManager.getModelViewList(modelTitle).addModelView(mv);
-					//Log.p(0, this.getClass(), "" + mv.getElementVisionList().size());
-					refreshViewerAndSelectModelView(mv);
-					break;
-				case Window.CANCEL:
-				default:
-					break;
-			}
-			
-		//} else {
-			//Log.e(100, OntoUMLPrimeView.class, "cannot create hierarquical model view from multiple elements.");
-		//}
-	}
-
-	private void createModelViewFromSelected() {
-		final String modelTitle = ModelViewManager.getCurrentModelTitle();
-		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-		Iterator<Object> iterator = selection.iterator();
-		
-		final List<EObject> selectedElementList = new ArrayList<>();
-		while(iterator.hasNext()) {
-			Object obj = iterator.next();	
-			if(obj instanceof ModelViewElementTreeObject) {
-				selectedElementList.add(((ModelViewElementTreeObject) obj).getModelElementView().getModelElement());
-			}
-		}
-		
-		IInputValidator validator = new IInputValidator() {
-			@Override
-			public String isValid(String newText) {
-				if(newText.isEmpty()) {
-					return "Enter name for your model view.";
-				}
-				
-				Iterator<ModelView> i = ModelViewManager.getModelViewList(modelTitle).getModelViewListIterator();
-				while(i.hasNext()) {
-					ModelView v = i.next();
-					if(v.getVisionName().equals(newText)) {
-						return "Model view " + newText + " already exists.";
-					}
-				}
-				return null;
-			}
-		};
-		
-		InputDialog i = new InputDialog(getSite().getShell(), "Create new model view for "+modelTitle+"...", "", "", validator);
-		switch(i.open()) {
-			case Window.OK:
-				ModelView mv = ModelViewManager.getModelViewList(modelTitle).addModelView(i.getValue(), selectedElementList);
-				refreshViewerAndSelectModelView(mv);
-				break;
-			case Window.CANCEL:
-			default:
-				break;
-		}
+		drillDownAdapter.addNavigationActions(manager);
 	}
 	
 	
 	private void makeActions() {
-		actionCreateModelViewFromSelected = new Action() {
-			public void run() {
-				createModelViewFromSelected();
-			}
-		};
-		actionCreateModelViewFromSelected.setText("Create model view...");
-		actionCreateModelViewFromSelected.setToolTipText("Creates model view containing the selected elements.");
-		actionCreateModelViewFromSelected.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-			getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
-		
-		actionCreateHierarquicalModelViewFromSelected = new Action() {
-			public void run() {
-				createHierarquicalModelViewFromElement();
-			}
-		};
-		actionCreateHierarquicalModelViewFromSelected.setText("Create hierarquical model view...");
-		actionCreateHierarquicalModelViewFromSelected.setToolTipText("Creates hierarquical model view from the selected element.");
-		
 		action2 = new Action() {
 			public void run() {
 				//showMessage("Action 2 executed");
@@ -334,41 +202,14 @@ public class OntoUMLPrimeView extends ViewPart {
 		action2.setToolTipText("Sets all elements invisible.");
 		action2.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
 				getImageDescriptor(ISharedImages.IMG_OBJS_INFO_TSK));
-		
+		/*
 		showTaxonomicStructureAction = new Action("Show taxonomic structure", Action.AS_CHECK_BOX) {
 			@Override
 			public void run() {
 				//setChecked(!isChecked());
 			}
 		};
-		
-		selectAction = new Action() {
-			public void run() {
-				IContentProvider cp = viewer.getContentProvider();
-				if(cp instanceof OntoUMLPrimeViewContentProvider) {
-					final String modelTitle = ModelViewManager.getCurrentModelTitle();
-					IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-					Object selectedObject = selection.getFirstElement();
-					
-					if(selectedObject instanceof ModelViewTreeObject) {
-						ModelView selectedVision = ((ModelViewTreeObject) selectedObject).getModelVision();
-						ModelViewManager.getModelViewList(modelTitle).setSelectedVision(selectedVision);
-						ModelViewManager.updateOntoUMLPrimeView();
-						ModelViewManager.updatePlantUMLView();;
-					}
-					
-					//if(selectedObject instanceof ElementVisionTreeObject) {
-					//	ElementVision selectedElement = ((ElementVisionTreeObject) selectedObject).getElementVision();
-					//	selectedElement.setExists(exists);
-					//	OntoUMLDiagramTextProvider.updateDiagram();
-					//}
-					//((OntoUMLPrimeViewContentProvider) cp).handleSelection(viewer);
-				}
-				//if(cp instanceof OntoUMLPrimeViewStereotypeContentProvider) {
-				//	((OntoUMLPrimeViewStereotypeContentProvider) cp).handleSelection(viewer);
-				//}
-			}
-		};
+		*/
 		
 		doubleClickAction = new Action() {
 			public void run() {
@@ -382,18 +223,41 @@ public class OntoUMLPrimeView extends ViewPart {
 			
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-		        IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
-		        viewer.expandToLevel(selection.getFirstElement(), 1);
+				ActionSetParentModelViewActive.sharedInstance().run();
 			}
 			
 		});
 	}
 	
-	private void hookSelectAction() {
+	private void hookSelectChangedListener() {
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				selectAction.run();
+				/*final String modelTitle = ModelViewManager.getCurrentModelTitle();
+				IStructuredSelection selection = (IStructuredSelection) event.getSelection();
+				
+				if (selection.size() == 1 && selection.getFirstElement() instanceof ModelViewTreeObject) {
+					
+					ModelViewTreeObject selectedModelViewObject = (ModelViewTreeObject) selection.getFirstElement();
+					
+					ModelView selectedVision = ((ModelViewTreeObject) selectedModelViewObject).getModelVision();
+					ModelViewManager.getModelViewList(modelTitle).setSelectedVision(selectedVision);
+					ModelViewManager.updateOntoUMLPrimeView();
+					ModelViewManager.updatePlantUMLView();
+					
+				} else if (selection.size() > 1 && selection.getFirstElement() instanceof ModelViewTreeObject){
+				/*
+					List<ModelViewElementTreeObject> selectedList = selection.toList();
+					if(selectedList.size() > 1) {
+						if (!selectedList.get(0).getParent().equals(selectedList.get(1).getParent())) { 
+							selectedList.remove(0);
+						} else if (!selectedList.get(selectedList.size()-2).getParent().equals(selectedList.get(selectedList.size()-1).getParent())) {
+							selectedList.remove(selectedList.size()-1);
+						}
+					}
+				
+				}
+			*/	
 			}
 		});
 	}
@@ -421,4 +285,9 @@ public class OntoUMLPrimeView extends ViewPart {
 	public void refreshViewerAndSelectModelView(ModelView mv) {
 		((OntoUMLPrimeViewContentProvider) viewer.getContentProvider()).inputChangedSelectingModelView(viewer, mv);	
 	}
+
+	public ISelection getViewerSelection() {
+		return viewer.getSelection();
+	}
+	
 }

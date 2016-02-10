@@ -14,10 +14,28 @@ public class Pattern {
 	private String name;
 	private List<Rule> ruleList;
 	
-	public static final Pattern LOWER_GENERALIZATION;
+	public static final Pattern GENERALIZATION_DOWN;
 	static {
-		LOWER_GENERALIZATION = new Pattern("Generalization Set Down");
-		LOWER_GENERALIZATION.addRule(new RuleGeneralization(Direction.DOWN, 9));
+		GENERALIZATION_DOWN = new Pattern("Generalization Set Down");
+		GENERALIZATION_DOWN.addRule(new RuleGeneralization(Direction.DOWN, 9));
+	}
+	
+	public static final Pattern GENERALIZATION_UP;
+	static {
+		GENERALIZATION_UP = new Pattern("Generalization Set Up");
+		GENERALIZATION_UP.addRule(new RuleGeneralization(Direction.UP, 9));
+	}
+	
+	public static final Pattern GENERALIZATION_BOTH;
+	static {
+		GENERALIZATION_BOTH = new Pattern("Generalization Set Both");
+		GENERALIZATION_BOTH.addRule(new RuleGeneralization(Direction.BOTH, 9));
+	}
+	
+	public static final Pattern GENERALIZATION_FLOOD;
+	static {
+		GENERALIZATION_FLOOD = new Pattern("Generalization Set Down");
+		GENERALIZATION_FLOOD.addRule(new RuleGeneralization(Direction.FLOOD, 9));
 	}
 	
 	public Pattern(String name) {

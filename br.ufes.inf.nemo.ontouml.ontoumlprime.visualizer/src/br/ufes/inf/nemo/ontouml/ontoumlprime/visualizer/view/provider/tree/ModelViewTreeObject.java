@@ -16,7 +16,7 @@ public class ModelViewTreeObject extends TreeObject {
 		this.modelView = modelView;
 	}
 
-	public ModelView getModelVision() {
+	public ModelView getModelView() {
 		return modelView;
 	}
 	
@@ -29,7 +29,7 @@ public class ModelViewTreeObject extends TreeObject {
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof ModelViewTreeObject) {
-			return modelView.getVisionName().equals(((ModelViewTreeObject) obj).getModelVision().getVisionName());
+			return modelView.getVisionName().equals(((ModelViewTreeObject) obj).getModelView().getVisionName());
 		}
 		return false;
 	}

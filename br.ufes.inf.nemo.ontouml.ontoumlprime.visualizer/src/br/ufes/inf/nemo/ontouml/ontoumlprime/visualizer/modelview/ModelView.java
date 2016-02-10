@@ -15,16 +15,24 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 public class ModelView {
 	
 	private String visionName;
+	final private boolean isDefault;
 	
 	private Map<String, ModelElementView> elementMap;
 	
 	public ModelView(String visionName) {
 		this.visionName = visionName;
 		elementMap = new HashMap<>();
+		isDefault = false;
+	}
+	
+	private ModelView(String modelViewName, boolean isDefault) {
+		this.visionName = modelViewName;
+		this.elementMap = new HashMap<>();
+		this.isDefault = isDefault;
 	}
 	
 	static ModelView newDefaultModelVision(EList<PackageableElement> elements) {
-		ModelView v = new ModelView("Model");
+		ModelView v = new ModelView("Model", true);
 		v.addElements(elements);
 		return v;
 	}
@@ -77,6 +85,10 @@ public class ModelView {
 		}
 	}
 	
+	public void deleteElement(String id) {
+		elementMap.remove(id);
+	}
+	
 	public List<ModelElementView> getModelElementViewList() {
 		return new ArrayList<>(elementMap.values());
 	}
@@ -88,6 +100,12 @@ public class ModelView {
 	public ModelElementView getModelElementView(String id) {
 		return elementMap.get(id);
 	}
+
+	public boolean isDefault() {
+		return isDefault;
+	}
+	
+	
 	
 	// ------------------------------------------------------------------------
 	//public void setAllVisibility(boolean visibility) {

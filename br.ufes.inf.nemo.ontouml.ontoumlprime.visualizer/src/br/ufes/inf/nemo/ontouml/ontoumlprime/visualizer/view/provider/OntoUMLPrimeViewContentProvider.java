@@ -67,7 +67,7 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 			// Apparently it isn't. According to debug, it ran on main thread. Still, CHECK IT ONLINE!
 			((TreeViewer) v).refresh();
 			for (TreeObject mvto : root.getChildren()) {
-				if (((ModelViewTreeObject) mvto).getModelVision().equals(mv)) {
+				if (((ModelViewTreeObject) mvto).getModelView().equals(mv)) {
 					TreeSelection selection = new TreeSelection(new TreePath(new Object[]{root, mvto})); 
 					v.setSelection(selection);
 					break;

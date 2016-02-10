@@ -22,7 +22,7 @@ public class OntoUMLPrimeViewLabelProvider extends LabelProvider {
 			ModelElementView ev = ((ModelViewElementTreeObject) element).getModelElementView();
 			return ev.getDisplayName();
 		} else if (element instanceof ModelViewTreeObject) {
-			ModelView mv = ((ModelViewTreeObject) element).getModelVision();
+			ModelView mv = ((ModelViewTreeObject) element).getModelView();
 			return mv.getVisionName();
 		}
 		return "Unknown";
