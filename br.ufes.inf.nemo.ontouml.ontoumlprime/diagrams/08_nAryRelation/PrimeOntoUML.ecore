@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PrimeOntoUML" nsURI="http://nemo.inf.ufes.br/ontouml/ontoumlprime"
+    nsPrefix="ontouml-prime">
+  <eClassifiers xsi:type="ecore:EClass" name="Universal" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ExternallyDependentUniversal" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RelatorUniversal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="nAryMaterialRelation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="derivedFrom" lowerBound="1"
+        eType="#//RelatorUniversal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetRelata" upperBound="-1"
+        eType="#//ExternallyDependentUniversal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetEndNames" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceLowerBound" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceUpperBound" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="nAryFormalRelation">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetRelata" upperBound="-1"
+        eType="#//Universal"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetEndNames" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceLowerBound" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceUpperBound" unique="false"
+        upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+</ecore:EPackage>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PrimeOntoUML" nsURI="http://nemo.inf.ufes.br/ontouml/ontoumlprime"
+    nsPrefix="ontouml-prime">
+  <eClassifiers xsi:type="ecore:EClass" name="Universal" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isSpecializedVia" ordered="false"
+        upperBound="-1" eType="#//GeneralizationSet" transient="true" eOpposite="#//GeneralizationSet/specializedUniversal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specializesVia" ordered="false"
+        upperBound="-1" eType="#//GeneralizationSet" transient="true" eOpposite="#//GeneralizationSet/specializingUniversals"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GeneralizationSet">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isCovering" unique="false"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specializedUniversal" lowerBound="1"
+        eType="#//Universal" resolveProxies="false" eOpposite="#//Universal/isSpecializedVia"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="specializingUniversals"
+        ordered="false" lowerBound="1" upperBound="-1" eType="#//Universal" resolveProxies="false"
+        eOpposite="#//Universal/specializesVia"/>
+  </eClassifiers>
+</ecore:EPackage>

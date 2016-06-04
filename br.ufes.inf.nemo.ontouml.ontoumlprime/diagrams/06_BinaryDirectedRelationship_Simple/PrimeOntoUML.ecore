@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PrimeOntoUML" nsURI="http://nemo.inf.ufes.br/ontouml/ontoumlprime"
+    nsPrefix="ontouml-prime">
+  <eClassifiers xsi:type="ecore:EClass" name="MeronymicRelation" abstract="true" eSuperTypes="#//BinaryDirectedRelationship">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="partIsEssential" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="partIsInseparable" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="partIsShareable" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="partIsImmutable" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EBoolean"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ComponentOfRelation" eSuperTypes="#//MeronymicRelation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="MembershipRelation" eSuperTypes="#//MeronymicRelation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubCollectionRelation" eSuperTypes="#//MeronymicRelation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="SubQuantityRelation" eSuperTypes="#//MeronymicRelation"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BinaryDirectedRelationship" abstract="true">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceEndName" unique="false"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceLowerBound" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sourceUpperBound" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetEndName" unique="false"
+        eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetLowerBound" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="targetUpperBound" unique="false"
+        lowerBound="1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EInt"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BinaryMaterialRelation" eSuperTypes="#//BinaryDirectedRelationship"/>
+  <eClassifiers xsi:type="ecore:EClass" name="BinaryFormalRelation" eSuperTypes="#//BinaryDirectedRelationship"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Mediation" eSuperTypes="#//BinaryDirectedRelationship">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Characterization" eSuperTypes="#//BinaryDirectedRelationship">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="source" lowerBound="1"/>
+  </eClassifiers>
+</ecore:EPackage>

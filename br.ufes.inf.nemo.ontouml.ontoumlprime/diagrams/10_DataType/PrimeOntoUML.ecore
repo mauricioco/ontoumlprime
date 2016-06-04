@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="PrimeOntoUML" nsURI="http://nemo.inf.ufes.br/ontouml/ontoumlprime"
+    nsPrefix="ontouml-prime">
+  <eClassifiers xsi:type="ecore:EClass" name="DataType" abstract="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="PrimitiveDataType" eSuperTypes="#//DataType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="_type" unique="false" lowerBound="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UserDefinedDataType" abstract="true"
+      eSuperTypes="#//DataType"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ComplexDataType" eSuperTypes="#//UserDefinedDataType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="attributes" ordered="false"
+        lowerBound="2" upperBound="-1" eType="#//DataTypeAttribute" containment="true"
+        resolveProxies="false" eOpposite="#//DataTypeAttribute/complexDataType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DataTypeAttribute">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="isOfType" lowerBound="1"
+        eType="#//DataType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="complexDataType" lowerBound="1"
+        eType="#//ComplexDataType" eOpposite="#//ComplexDataType/attributes"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Enumeration" eSuperTypes="#//UserDefinedDataType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="enumerationLiterals" unique="false"
+        lowerBound="2" upperBound="-1" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="QualityUniversal">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datatypes" ordered="false"
+        upperBound="-1" eType="#//DataType"/>
+  </eClassifiers>
+</ecore:EPackage>
