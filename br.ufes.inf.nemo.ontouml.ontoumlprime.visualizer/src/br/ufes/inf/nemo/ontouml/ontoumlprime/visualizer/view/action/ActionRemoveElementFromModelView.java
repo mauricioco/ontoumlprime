@@ -7,7 +7,6 @@ import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView;
@@ -39,7 +38,6 @@ public class ActionRemoveElementFromModelView extends Action {
 			return;
 		}
 		
-		final String modelTitle = ModelViewManager.getCurrentModelTitle();
 		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
 		Iterator<Object> iterator = selection.iterator();
 		

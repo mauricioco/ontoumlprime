@@ -10,6 +10,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor
 import org.eclipse.xtext.ui.editor.model.XtextDocument
 
 import static br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager.*
+import org.eclipse.ui.IFileEditorInput
 
 /**
  * This is the class that provides the PlantUML view with diagram code.
@@ -67,11 +68,12 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	    	Log.e(100, OntoUMLDiagramTextProvider, "active editor is not an OntoUMLPrime Xtext editor");
 	    	return OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
 	    } else {
-	    	// TODO dude, editorPart.title?? Don't depend on UI parameters for model attributes.
-	    	Log.p(100, OntoUMLDiagramTextProvider, "retrieving model view for " + editorPart.title);
-	    	val modelView = ModelViewManager.initializeModelView(editorPart.title, model);
+	    	// Model names are based on the file name. If you rename it, it's gone.
+	    	val String modelName = (editorPart.editorInput as IFileEditorInput).file.name;
+	    	Log.p(100, OntoUMLDiagramTextProvider, "retrieving model view for " + modelName);
+	    	val modelView = ModelViewManager.initializeModelView(modelName, model);
 	    	
-	    	Log.p(100, OntoUMLDiagramTextProvider, "requesting OntoUMLPrime view update for " + editorPart.title);
+	    	Log.p(100, OntoUMLDiagramTextProvider, "requesting OntoUMLPrime view update for " + modelName);
 	    	ModelViewManager.currentModel = model;
 		    ModelViewManager.currentModelTitle = editorPart.title;
 		    ModelViewManager.updateOntoUMLPrimeView;

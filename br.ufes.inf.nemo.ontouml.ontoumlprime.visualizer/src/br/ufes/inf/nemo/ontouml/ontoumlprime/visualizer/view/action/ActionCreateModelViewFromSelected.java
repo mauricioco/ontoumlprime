@@ -11,13 +11,11 @@ import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 
@@ -42,19 +40,11 @@ public class ActionCreateModelViewFromSelected extends Action {
 	
 	@Override
 	public void run() {
-		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-		if (page == null) {
-			Log.e(200, this.getClass(), "there's no active workbench page");
+		OntoUMLPrimeView oumlView = ActionUtils.getOntoUMLPrimeView();
+		if (oumlView == null) {
 			return;
 		}
 		
-		IViewPart view = page.findView(OntoUMLPrimeView.ID);
-		if (view == null || !(view instanceof OntoUMLPrimeView)) {
-			Log.e(200, this.getClass(), "OntoUMLPrimeView not found");
-			return;
-		}
-		
-		OntoUMLPrimeView oumlView = ((OntoUMLPrimeView) view);
 		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
 		Iterator<Object> iterator = selection.iterator();
 		
