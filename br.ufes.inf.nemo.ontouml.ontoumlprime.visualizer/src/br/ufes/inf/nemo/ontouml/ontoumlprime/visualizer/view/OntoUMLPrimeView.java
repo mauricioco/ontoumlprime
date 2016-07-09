@@ -26,6 +26,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionAddSelectedToModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionCreateModelViewFromSelected;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionCreateModelViewWithCustomViewPoint;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionDeleteModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionLoadModelViewList;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionRemoveElementFromModelView;
@@ -139,11 +140,14 @@ public class OntoUMLPrimeView extends ViewPart {
 	
 	private void fillContextMenuForDefaultModelView(IMenuManager manager) {
 		manager.add(ActionSetModelViewActive.sharedInstance());
+		// TODO add create custom model view. Scope are all elements.
+		
 		manager.add(new Separator());
 	}
 	
 	private void fillContextMenuForOneModelView(IMenuManager manager, ModelView modelView) {
 		manager.add(ActionSetModelViewActive.sharedInstance());
+		// TODO add create custom model view. Scope are all elements.
 		
 		manager.add(ActionRenameModelView.newInstance(modelView));
 		manager.add(ActionDeleteModelView.sharedInstance());
@@ -152,6 +156,7 @@ public class OntoUMLPrimeView extends ViewPart {
 	
 	private void fillContextMenuForOneOrMoreModelViewElements(IMenuManager manager) {
 		manager.add(ActionCreateModelViewFromSelected.sharedInstance());
+		manager.add(ActionCreateModelViewWithCustomViewPoint.sharedInstance());
 		manager.add(new Separator());
 		// -----------------------------------------
 		MenuManager menuManager = new MenuManager();
