@@ -6,7 +6,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
@@ -19,11 +19,11 @@ public class OntoUMLPrimeViewLabelProvider extends LabelProvider {
 	@Override
 	public String getText(Object element) {
 		if(element instanceof ModelViewElementTreeObject) {
-			ModelElementView ev = ((ModelViewElementTreeObject) element).getModelElementView();
+			ModelViewElement ev = ((ModelViewElementTreeObject) element).getModelElementView();
 			return ev.getDisplayName();
 		} else if (element instanceof ModelViewTreeObject) {
 			ModelView mv = ((ModelViewTreeObject) element).getModelView();
-			return mv.getVisionName();
+			return mv.getName();
 		}
 		return "Unknown";
 	}

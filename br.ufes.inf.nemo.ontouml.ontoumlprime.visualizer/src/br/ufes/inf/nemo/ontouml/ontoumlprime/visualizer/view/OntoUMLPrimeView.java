@@ -30,7 +30,6 @@ import org.eclipse.ui.part.ViewPart;
 
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionCreateHierarquicalModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionCreateModelViewFromSelected;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionRemoveElementFromModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionSetParentModelViewActive;
@@ -134,7 +133,7 @@ public class OntoUMLPrimeView extends ViewPart {
 			}
 			
 			manager.add(ActionCreateModelViewFromSelected.sharedInstance());
-			manager.add(ActionCreateHierarquicalModelView.sharedInstance());
+			//manager.add(ActionCreateHierarquicalModelView.sharedInstance());
 			manager.add(new Separator());
 			
 			// -----------------------------------------
@@ -161,7 +160,7 @@ public class OntoUMLPrimeView extends ViewPart {
 					}
 					
 				};
-				a.setText(current.getVisionName());
+				a.setText(current.getName());
 				menuManager.add(a);
 			}
 			menuManager.add(new Separator());

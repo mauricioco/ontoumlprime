@@ -1,34 +1,34 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewElement;
 
 public class ModelViewElementTreeObject extends TreeObject {
 
-	private ModelElementView modelElementView;
+	private ModelViewElement modelViewElement;
 	
-	public ModelViewElementTreeObject(ModelElementView modelElementView) {
+	public ModelViewElementTreeObject(ModelViewElement modelViewElement) {
 		super();
-		this.modelElementView = modelElementView;
+		this.modelViewElement = modelViewElement;
 	}
 	
-	public ModelViewElementTreeObject(TreeObject parent, ModelElementView modelElementView) {
+	public ModelViewElementTreeObject(TreeObject parent, ModelViewElement modelViewElement) {
 		super(parent);
-		this.modelElementView = modelElementView;
+		this.modelViewElement = modelViewElement;
 	}
 
-	public ModelElementView getModelElementView() {
-		return modelElementView;
+	public ModelViewElement getModelElementView() {
+		return modelViewElement;
 	}
 	
 	// Both need to be defined here due to the nature of TreeViewer refresh.
 	@Override
 	public int hashCode() {
-		return modelElementView.getId().hashCode();
+		return modelViewElement.getId().hashCode();
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof ModelViewElementTreeObject) {
-			return modelElementView.getId().equals(((ModelViewElementTreeObject) obj).getModelElementView().getId());
+			return modelViewElement.getId().equals(((ModelViewElementTreeObject) obj).getModelElementView().getId());
 		}
 		return false;
 	}

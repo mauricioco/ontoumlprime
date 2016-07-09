@@ -24,12 +24,12 @@ public class ModelViewTreeObject extends TreeObject {
 	// Both need to be defined here due to the nature of TreeViewer refresh.
 	@Override
 	public int hashCode() {
-		return modelView.getVisionName().hashCode();
+		return modelView.getName().hashCode();
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if(obj instanceof ModelViewTreeObject) {
-			return modelView.getVisionName().equals(((ModelViewTreeObject) obj).getModelView().getVisionName());
+			return modelView.getName().equals(((ModelViewTreeObject) obj).getModelView().getName());
 		}
 		return false;
 	}

@@ -78,7 +78,7 @@ public class ActionCreateModelViewFromSelected extends Action {
 				Iterator<ModelView> i = ModelViewManager.getModelViewList(modelTitle).getModelViewListIterator();
 				while(i.hasNext()) {
 					ModelView v = i.next();
-					if(v.getVisionName().equals(newText)) {
+					if(v.getName().equals(newText)) {
 						return "Model view " + newText + " already exists.";
 					}
 				}

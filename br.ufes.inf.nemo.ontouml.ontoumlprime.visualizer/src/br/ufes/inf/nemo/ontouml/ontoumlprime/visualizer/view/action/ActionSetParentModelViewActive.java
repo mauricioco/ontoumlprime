@@ -53,7 +53,7 @@ public class ActionSetParentModelViewActive extends Action {
 			ModelViewTreeObject parentModelViewObject = (ModelViewTreeObject) selectedModelViewObject.getParent();
 			ModelView selectedModelView = parentModelViewObject.getModelView();
 			
-			ModelViewManager.getModelViewList(modelTitle).setSelectedVision(selectedModelView);
+			ModelViewManager.getModelViewList(modelTitle).setSelectedModelView(selectedModelView);
 			ModelViewManager.updateOntoUMLPrimeView();
 			ModelViewManager.updatePlantUMLView();
 			

@@ -35,7 +35,7 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelElementView;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewList;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
@@ -162,8 +162,8 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 			
 			ModelViewTreeObject modelRoot = new ModelViewTreeObject(vision);
 			root.addChild(modelRoot);
-			for(ModelElementView modelElementView : vision.getModelElementViewList()) {
-				modelRoot.addChild(new ModelViewElementTreeObject(modelElementView));
+			for(ModelViewElement modelViewElement : vision.getModelElementViewList()) {
+				modelRoot.addChild(new ModelViewElementTreeObject(modelViewElement));
 			}
 		
 		}

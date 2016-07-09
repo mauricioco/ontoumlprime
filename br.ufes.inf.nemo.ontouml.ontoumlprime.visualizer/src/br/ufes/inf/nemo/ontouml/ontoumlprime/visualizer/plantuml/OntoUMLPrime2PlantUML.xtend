@@ -29,6 +29,7 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MeronymicRelation
 
 class OntoUMLPrime2PlantUML {
 	
@@ -71,12 +72,40 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(int lowerBound, int upperBound) {
 		if(upperBound == 0 && lowerBound == 0) {
-			return ''''''
+			return '''''';
 		}
 		if(upperBound < 0) {
 			return '''" **«lowerBound»..* **"''';
 		}
-		return '''" **«lowerBound»..«upperBound»** "'''
+		return '''" **«lowerBound»..«upperBound»** "''';
+	}
+	
+	def static String toPlantUML(int lowerBound, int upperBound, String extraLabel) {
+		if(upperBound == 0 && lowerBound == 0) {
+			return extraLabel;
+		}
+		if(upperBound < 0) {
+			return '''" **«lowerBound»..* «extraLabel»**"''';
+		}
+		return '''" **«lowerBound»..«upperBound»** «extraLabel»"''';
+	}
+	
+	def static String meronymicPropertiesToPlantUML(MeronymicRelation it) {
+		if (isPartIsInseparable || isPartIsShareable || isPartIsImmutable) {
+			var result = ": {";
+			if (isPartIsInseparable) {
+				result += "inseparable, ";
+			}
+			if (isPartIsShareable) {
+				result += "shareable, ";
+			}
+			if (isPartIsImmutable) {
+				result += "immutable, ";
+			}
+			return result.substring(0, result.length - 2) + "}"
+		} else {
+			return "";
+		}
 	}
 	
 	def static dispatch String toPlantUML(BinaryFormalRelation it) {
@@ -129,7 +158,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(ComponentOfRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isComponentOf >
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound, "(C)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 	def static dispatch String toPlantUML(Enumeration it)
@@ -166,7 +195,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(MembershipRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isMemberOf
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound, "(M)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 	def static dispatch String toPlantUML(Mixin it)
@@ -275,7 +304,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(SubCollectionRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isSubCollectionOf
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound, "(C)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 	def static dispatch String toPlantUML(SubKind it)
@@ -290,7 +319,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(SubQuantityRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --* «toPlantUML(targetLowerBound, targetUpperBound)» «whole.name» : isSubQuantityOf
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --* «toPlantUML(targetLowerBound, targetUpperBound, "(Q)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 }

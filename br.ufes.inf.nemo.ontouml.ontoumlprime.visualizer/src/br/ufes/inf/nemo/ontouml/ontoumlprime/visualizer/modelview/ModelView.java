@@ -1,5 +1,6 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,54 +13,57 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
-public class ModelView {
+public class ModelView implements Serializable {
 	
-	private String visionName;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private String name;
 	final private boolean isDefault;
 	
-	private Map<String, ModelElementView> elementMap;
+	private Map<String, ModelViewElement> elementMap;
 	
-	public ModelView(String visionName) {
-		this.visionName = visionName;
+	public ModelView(String name) {
+		this.name = name;
 		elementMap = new HashMap<>();
 		isDefault = false;
 	}
 	
-	private ModelView(String modelViewName, boolean isDefault) {
-		this.visionName = modelViewName;
+	private ModelView(String name, boolean isDefault) {
+		this.name = name;
 		this.elementMap = new HashMap<>();
 		this.isDefault = isDefault;
 	}
 	
-	static ModelView newDefaultModelVision(EList<PackageableElement> elements) {
+	static ModelView newDefaultModelView(EList<PackageableElement> elements) {
 		ModelView v = new ModelView("Model", true);
 		v.addElements(elements);
 		return v;
 	}
 	
-	public String getVisionName() {
-		return visionName;
+	public String getName() {
+		return name;
 	}
 
-	public void setVisionName(String visionName) {
-		this.visionName = visionName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void addElement(PackageableElement element) {
 		String id = OntoUMLPrimeUtils.generateId(element);
 		if(elementMap.get(id) == null) {
-			elementMap.put(id, new ModelElementView(element));
+			elementMap.put(id, new ModelViewElement(element));
 		}
-		//System.out.println("");
 	}
 
-	// TODO: remember to check this. It's better to be most generic, so use EOBJECT!
 	public void addElements(EList<PackageableElement> elements) {
 		for(EObject e : elements) {
 			String id = OntoUMLPrimeUtils.generateId(e);
-			ModelElementView v = elementMap.get(id);
+			ModelViewElement v = elementMap.get(id);
 			if(v == null) {
-				v = new ModelElementView(e);
+				v = new ModelViewElement(e);
 				elementMap.put(v.getId(), v);
 			}
 		}
@@ -68,20 +72,35 @@ public class ModelView {
 	public void addElements(List<EObject> elements) {
 		for(EObject e : elements) {
 			String id = OntoUMLPrimeUtils.generateId(e);
-			ModelElementView v = elementMap.get(id);
+			ModelViewElement v = elementMap.get(id);
 			if(v == null) {
-				v = new ModelElementView(e);
+				v = new ModelViewElement(e);
 				elementMap.put(v.getId(), v);
 			}
 		}
 	}
 	
-	public void reloadElements(Model newModel) {
+	public void resetElements(Model newModel) {
 		elementMap.clear();
 		for(PackageableElement e : newModel.getElements()) {
 			//String id = OntoUMLPrimeUtils.generateId(e);
-			ModelElementView v = new ModelElementView(e);
+			ModelViewElement v = new ModelViewElement(e);
 			elementMap.put(v.getId(), v);
+		}
+	}
+	
+	/**
+	 * Updates the modelElements fields from all ModelElementsView.
+	 * It is possible that not all are updated (for instance, if the newModel
+	 * doesn't contain an old element).
+	 */
+	public void resyncWithModel(Model newModel) {
+		for(PackageableElement e : newModel.getElements()) {
+			String id = OntoUMLPrimeUtils.generateId(e);
+			ModelViewElement mve = elementMap.get(id);
+			if (mve != null) {
+				mve.setModelElement(e);
+			}
 		}
 	}
 	
@@ -89,29 +108,20 @@ public class ModelView {
 		elementMap.remove(id);
 	}
 	
-	public List<ModelElementView> getModelElementViewList() {
+	public List<ModelViewElement> getModelElementViewList() {
 		return new ArrayList<>(elementMap.values());
 	}
 	
-	public ModelElementView getModelElementView(PackageableElement element) {
+	public ModelViewElement getModelElementView(PackageableElement element) {
 		return elementMap.get(OntoUMLPrimeUtils.generateId(element));
 	}
 	
-	public ModelElementView getModelElementView(String id) {
+	public ModelViewElement getModelElementView(String id) {
 		return elementMap.get(id);
 	}
 
 	public boolean isDefault() {
 		return isDefault;
 	}
-	
-	
-	
-	// ------------------------------------------------------------------------
-	//public void setAllVisibility(boolean visibility) {
-	//	for(String key : elementMap.keySet()) {
-	//		elementMap.get(key).setVisible(visibility);
-	//	}
-	//}
 	
 }

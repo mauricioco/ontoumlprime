@@ -1,33 +1,34 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
+public class ModelViewList implements Serializable {
 
-public class ModelViewList {
-
-	private Model model;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private transient Model model;	// Is not serialized.
 	private String modelTitle;
 
-	private ModelView defaultVision;
-	private List<ModelView> visionList;
-	private ModelView selectedVision;
+	private ModelView defaultModelView;
+	private List<ModelView> modelViewList;
+	private ModelView selectedModelView;	// UI stuff only. Better put it elsewhere.
 	
 	public ModelViewList(String modelTitle, Model model) {
 		this.model = model;
 		this.modelTitle = modelTitle;
-		this.visionList = new ArrayList<>(1);
-		this.defaultVision = ModelView.newDefaultModelVision(model.getElements());
-		this.visionList.add(defaultVision);
-		selectedVision = defaultVision;
+		this.modelViewList = new ArrayList<>(1);
+		this.defaultModelView = ModelView.newDefaultModelView(model.getElements());
+		this.modelViewList.add(defaultModelView); // I think its better not to do this...
+		selectedModelView = defaultModelView;
 		/*
 		EList<PackageableElement> elements = model.getElements();
 		for(PackageableElement e : elements) {
@@ -48,40 +49,43 @@ public class ModelViewList {
 	 * @return
 	 */
 	public ModelView addModelView(String modelViewName, List<EObject> elementList) {
-		ModelView newModelVision = new ModelView(modelViewName);
-		newModelVision.addElements(elementList);
-		visionList.add(newModelVision);
-		return newModelVision;
+		ModelView newModelView = new ModelView(modelViewName);
+		newModelView.addElements(elementList);
+		modelViewList.add(newModelView);
+		return newModelView;
 	}
 	
 	public void addModelView(ModelView modelView) {
-		visionList.add(modelView);
+		modelViewList.add(modelView);
 	}
 	
 	public void updateDefaultModelView(Model newModel) {
-		defaultVision.reloadElements(newModel);
+		defaultModelView.resetElements(newModel);
 	}
 	
-	public ModelView getDefaultVision() {
-		return defaultVision;
+	public ModelView getDefaultModelView() {
+		return defaultModelView;
 	}
 
 	public Iterator<ModelView> getModelViewListIterator() {
-		return visionList.iterator();
+		return modelViewList.iterator();
 	}
 
 	public Model getModel() {
 		return model;
 	}
 
-	public ModelView getSelectedVision() {
-		return selectedVision;
+	// TODO: This is UI related. It does not belong here.
+	public ModelView getSelectedModelView() {
+		return selectedModelView;
 	}
 
-	public void setSelectedVision(ModelView selectedVision) {
-		this.selectedVision = selectedVision;
+	public void setSelectedModelView(ModelView selectedModelView) {
+		this.selectedModelView = selectedModelView;
 	}
 	
-	
+	public void removeModelView(ModelView modelView) {
+		this.modelViewList.remove(modelView);
+	}
 	
 }
