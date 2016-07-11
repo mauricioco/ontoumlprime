@@ -18,7 +18,7 @@ public class ModelViewList implements Serializable {
 	private transient Model model;	// Is not serialized.
 	private String modelTitle;
 
-	private ModelView defaultModelView;
+	private transient ModelView defaultModelView;	// Better not serialize it. Since it's synced to model, generate it again upon loading.
 	private List<ModelView> modelViewList;
 	private ModelView selectedModelView;	// TODO: This is UI related. It does not belong here. Better put it elsewhere.
 	
@@ -49,7 +49,11 @@ public class ModelViewList implements Serializable {
 	}
 	
 	public void updateDefaultModelView(Model newModel) {
-		defaultModelView.resetElements(newModel);
+		if (defaultModelView == null) {
+			defaultModelView = ModelView.newDefaultModelView(newModel.getElements());
+		} else {
+			defaultModelView.resetElements(newModel);
+		}
 		this.model = newModel;
 	}
 	
