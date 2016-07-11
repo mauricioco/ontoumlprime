@@ -104,6 +104,86 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		return false;
 	}
 	
+	private void processModelView(ModelView modelView) {
+		ModelViewTreeObject modelRoot = new ModelViewTreeObject(modelView);
+		root.addChild(modelRoot);
+		for(ModelViewElement modelViewElement : modelView.getModelViewElementList()) {
+			
+			EObject e = modelViewElement.getModelElement();
+			
+			if (e instanceof GeneralizationSet) {
+				// Generalization not gonna show anymore. Too messy.
+			} else if (e instanceof Universal) {
+				//EList<GeneralizationSet> isSpecializedVia = ((Universal) e).getIsSpecializedVia();
+				EList<GeneralizationSet> specializesVia = ((Universal) e).getSpecializesVia();
+
+				ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
+				modelRoot.addChild(modelViewElementRoot);
+				
+				for (GeneralizationSet g : specializesVia) {
+					if (g.getSpecializedUniversal() != null) {
+						modelViewElementRoot.addChild(new StringTreeObject("Generalization " + g.getSpecializedUniversal().getName()));
+					}
+				}
+				
+				if (e instanceof EndurantUniversal) {
+					for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
+						ModelViewElementTreeObject characterizationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(c));
+						modelViewElementRoot.addChild(characterizationRoot);
+						characterizationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(c.getTarget())));
+					}
+				}
+				
+				if (e instanceof RelatorUniversal) {
+					for (Mediation m : ((RelatorUniversal) e).getMediations()) {
+						ModelViewElementTreeObject mediationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(m));
+						modelViewElementRoot.addChild(mediationRoot);
+						mediationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(m.getTarget())));
+					}
+				}
+				
+			} else if (e instanceof BinaryDirectedRelationship) {
+				//ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
+				//modelRoot.addChild(modelViewElementRoot);
+				/*
+				if (e instanceof Characterization) {
+					modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getSource().getName() + " characterized by "));
+					modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getTarget().getName()));
+				} else if (e instanceof Mediation) {
+					modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getSource().getName() + " mediates "));
+					modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getTarget().getName()));
+				} else*/ if (e instanceof BinaryFormalRelation) {
+					ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
+					modelRoot.addChild(modelViewElementRoot);
+					modelViewElementRoot.addChild(new StringTreeObject(((BinaryFormalRelation) e).getSource().getName() + " " + ((BinaryFormalRelation) e).getName()));
+					modelViewElementRoot.addChild(new StringTreeObject(((BinaryFormalRelation) e).getTarget().getName()));
+				} else if (e instanceof BinaryMaterialRelation) {
+					ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
+					modelRoot.addChild(modelViewElementRoot);
+					modelViewElementRoot.addChild(new StringTreeObject(((BinaryMaterialRelation) e).getSource().getName() + " " + ((BinaryMaterialRelation) e).getName()));
+					modelViewElementRoot.addChild(new StringTreeObject(((BinaryMaterialRelation) e).getTarget().getName()));
+				} else if (e instanceof MeronymicRelation) {
+					// TODO finish this!
+				}
+				
+			}
+			
+			/*if (e instanceof RelatorUniversal) {
+				for (Mediation m : ((RelatorUniversal) e).getMediations()) {
+					modelViewElementRoot.addChild(new ModelViewElementTreeObject(new ModelViewElement(m)));
+				}
+				continue;
+			}
+			
+			if (e instanceof EndurantUniversal) {
+				for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
+					modelViewElementRoot.addChild(new ModelViewElementTreeObject(new ModelViewElement(c)));
+				}
+				continue;
+			}*/
+		}
+	}
+	
 	private void initialize() {
 		if (root == null) {
 			Log.p(401, OntoUMLPrimeViewContentProvider.class, "initializing OntoUMLPrime view content provider tree");
@@ -120,87 +200,10 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		Iterator<ModelView> modelViewIterator = modelViewList.getModelViewListIterator();
 		
 		root = new RootTreeObject();	// invisible element.
+		processModelView(modelViewList.getDefaultModelView()); // adding default model view first.
 		while(modelViewIterator.hasNext()) {
 			ModelView modelView = modelViewIterator.next();
-			
-			ModelViewTreeObject modelRoot = new ModelViewTreeObject(modelView);
-			root.addChild(modelRoot);
-			for(ModelViewElement modelViewElement : modelView.getModelViewElementList()) {
-				
-				EObject e = modelViewElement.getModelElement();
-				
-				if (e instanceof GeneralizationSet) {
-					// Generalization not gonna show anymore. Too messy.
-				} else if (e instanceof Universal) {
-					//EList<GeneralizationSet> isSpecializedVia = ((Universal) e).getIsSpecializedVia();
-					EList<GeneralizationSet> specializesVia = ((Universal) e).getSpecializesVia();
-
-					ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
-					modelRoot.addChild(modelViewElementRoot);
-					
-					for (GeneralizationSet g : specializesVia) {
-						if (g.getSpecializedUniversal() != null) {
-							modelViewElementRoot.addChild(new StringTreeObject("Generalization " + g.getSpecializedUniversal().getName()));
-						}
-					}
-					
-					if (e instanceof EndurantUniversal) {
-						for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
-							ModelViewElementTreeObject characterizationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(c));
-							modelViewElementRoot.addChild(characterizationRoot);
-							characterizationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(c.getTarget())));
-						}
-					}
-					
-					if (e instanceof RelatorUniversal) {
-						for (Mediation m : ((RelatorUniversal) e).getMediations()) {
-							ModelViewElementTreeObject mediationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(m));
-							modelViewElementRoot.addChild(mediationRoot);
-							mediationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(m.getTarget())));
-						}
-					}
-					
-				} else if (e instanceof BinaryDirectedRelationship) {
-					//ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
-					//modelRoot.addChild(modelViewElementRoot);
-					/*
-					if (e instanceof Characterization) {
-						modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getSource().getName() + " characterized by "));
-						modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getTarget().getName()));
-					} else if (e instanceof Mediation) {
-						modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getSource().getName() + " mediates "));
-						modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getTarget().getName()));
-					} else*/ if (e instanceof BinaryFormalRelation) {
-						ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
-						modelRoot.addChild(modelViewElementRoot);
-						modelViewElementRoot.addChild(new StringTreeObject(((BinaryFormalRelation) e).getSource().getName() + " " + ((BinaryFormalRelation) e).getName()));
-						modelViewElementRoot.addChild(new StringTreeObject(((BinaryFormalRelation) e).getTarget().getName()));
-					} else if (e instanceof BinaryMaterialRelation) {
-						ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
-						modelRoot.addChild(modelViewElementRoot);
-						modelViewElementRoot.addChild(new StringTreeObject(((BinaryMaterialRelation) e).getSource().getName() + " " + ((BinaryMaterialRelation) e).getName()));
-						modelViewElementRoot.addChild(new StringTreeObject(((BinaryMaterialRelation) e).getTarget().getName()));
-					} else if (e instanceof MeronymicRelation) {
-						// TODO finish this!
-					}
-					
-				}
-				
-				/*if (e instanceof RelatorUniversal) {
-					for (Mediation m : ((RelatorUniversal) e).getMediations()) {
-						modelViewElementRoot.addChild(new ModelViewElementTreeObject(new ModelViewElement(m)));
-					}
-					continue;
-				}
-				
-				if (e instanceof EndurantUniversal) {
-					for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
-						modelViewElementRoot.addChild(new ModelViewElementTreeObject(new ModelViewElement(c)));
-					}
-					continue;
-				}*/
-			}
-		
+			processModelView(modelView);
 		}
 		
 		Log.p(401, OntoUMLPrimeViewContentProvider.class, "OntoUMLPrime tree view built");

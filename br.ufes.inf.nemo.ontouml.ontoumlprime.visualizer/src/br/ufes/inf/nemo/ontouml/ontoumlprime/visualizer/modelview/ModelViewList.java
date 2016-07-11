@@ -20,26 +20,15 @@ public class ModelViewList implements Serializable {
 
 	private ModelView defaultModelView;
 	private List<ModelView> modelViewList;
-	private ModelView selectedModelView;	// UI stuff only. Better put it elsewhere.
+	private ModelView selectedModelView;	// TODO: This is UI related. It does not belong here. Better put it elsewhere.
 	
 	public ModelViewList(String modelTitle, Model model) {
 		this.model = model;
 		this.modelTitle = modelTitle;
 		this.modelViewList = new ArrayList<>(1);
 		this.defaultModelView = ModelView.newDefaultModelView(model.getElements());
-		this.modelViewList.add(defaultModelView); // I think its better not to do this...
+		//this.modelViewList.add(defaultModelView); // I think its better not to do this...
 		selectedModelView = defaultModelView;
-		/*
-		EList<PackageableElement> elements = model.getElements();
-		for(PackageableElement e : elements) {
-			String id = OntoUMLPrimeUtils.generateId(e);
-			OntoUMLPrimeModelElement o = elementMap.get(id);
-			if(o == null) {
-				o = new OntoUMLPrimeModelElement(e);
-				elementMap.put(o.getId(), o);
-			}
-		}
-		*/
 	}
 	
 	/**
@@ -51,7 +40,7 @@ public class ModelViewList implements Serializable {
 	public ModelView addModelView(String modelViewName, List<EObject> elementList) {
 		ModelView newModelView = new ModelView(modelViewName);
 		newModelView.addElements(elementList);
-		//modelViewList.add(newModelView);	// better not do this
+		modelViewList.add(newModelView);
 		return newModelView;
 	}
 	
@@ -76,7 +65,6 @@ public class ModelViewList implements Serializable {
 		return model;
 	}
 
-	// TODO: This is UI related. It does not belong here.
 	public ModelView getSelectedModelView() {
 		return selectedModelView;
 	}
