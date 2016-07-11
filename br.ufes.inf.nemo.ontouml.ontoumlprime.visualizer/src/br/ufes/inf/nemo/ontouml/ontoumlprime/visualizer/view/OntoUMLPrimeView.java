@@ -13,6 +13,7 @@ import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.ITreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -36,6 +37,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action.ActionSetMod
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewContentProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewLabelProvider;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewSorter;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.TreeObject;
 
@@ -206,7 +208,14 @@ public class OntoUMLPrimeView extends ViewPart {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				ActionSetModelViewActive.sharedInstance().run();
+				ITreeSelection selection = (ITreeSelection) event.getSelection();
+				if (selection.size() == 1) {
+					if (viewer.getExpandedState(selection.getPaths()[0])) {
+						viewer.collapseToLevel(selection.getPaths()[0], 1);
+					} else {
+						viewer.expandToLevel(selection.getPaths()[0], 1);
+					}
+				}
 			}
 		});
 	}

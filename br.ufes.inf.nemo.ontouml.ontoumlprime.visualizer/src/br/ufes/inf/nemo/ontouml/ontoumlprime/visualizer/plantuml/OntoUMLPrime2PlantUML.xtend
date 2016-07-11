@@ -1,35 +1,34 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.plantuml
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Enumeration
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.QualityUniversal
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubCollectionRelation
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubQuantityRelation
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComponentOfRelation
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Package
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Kind
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ModeUniversal
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.QuantityUniversal
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.CollectiveUniversal
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubKind
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Category
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mixin
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RoleMixin
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Role
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Phase
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PrimitiveDataType
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComplexDataType
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryMaterialRelation
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Category
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.CollectiveUniversal
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComplexDataType
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComponentOfRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Enumeration
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Kind
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MeronymicRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mixin
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ModeUniversal
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Package
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Phase
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PrimitiveDataType
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.QualityUniversal
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.QuantityUniversal
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Role
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RoleMixin
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubCollectionRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubKind
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubQuantityRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryFormalRelation
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.nAryMaterialRelation
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView
 
 class OntoUMLPrime2PlantUML {
 	
@@ -42,7 +41,7 @@ class OntoUMLPrime2PlantUML {
 		return sharedInstance;
 	}
 	
-	def static String generatePlantUMLCode(Model it, ModelView v) {
+	def static String generatePlantUMLCode(ModelView v) {
 		'''
 		@startuml
 		hide circle
@@ -51,12 +50,8 @@ class OntoUMLPrime2PlantUML {
 		skinparam classBorderColor black
 		skinparam classArrowColor black
 		
-		«FOR e : elements»
-		
-		«IF v.getModelElementView(e) != null»
-		«OntoUMLPrime2PlantUML.toPlantUML(e)»
-		«ENDIF»
-		
+		«FOR mve : v.modelViewElementList»
+		«OntoUMLPrime2PlantUML.toPlantUML(mve.modelElement)»
 	    «ENDFOR»
 		
 		@enduml
@@ -127,6 +122,11 @@ class OntoUMLPrime2PlantUML {
 	}
 	'''
 	
+	def static dispatch String toPlantUML(Characterization it)
+	'''
+	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<characterization>> <
+	'''
+	
 	def static dispatch String toPlantUML(String sourceName, Characterization it)
 	'''
 	«sourceName» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<characterization>> <
@@ -142,9 +142,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<collective>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(ComplexDataType it)
@@ -182,11 +179,12 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<kind>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
-		
+	
+	def static dispatch String toPlantUML(Mediation it)
+	'''
+	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : <<mediation>> >
+	'''
 	
 	def static dispatch String toPlantUML(String sourceName, Mediation it)
 	'''
@@ -210,9 +208,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<mode>> {
 
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(nAryFormalRelation it) // This one has no source...
@@ -239,9 +234,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<phase>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(PrimitiveDataType it) // not implemented...
@@ -256,12 +248,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<relator>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
-	«FOR m : mediations»
-	«toPlantUML(name, m)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(Role it)
@@ -269,9 +255,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<role>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(RoleMixin it)
@@ -286,10 +269,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<quality>> {
 		
 	}
-	«toPlantUML("characterizes", name, characterization)»
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(QuantityUniversal it)
@@ -297,9 +276,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<quantity>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(SubCollectionRelation it)
@@ -312,9 +288,6 @@ class OntoUMLPrime2PlantUML {
 	class «name» <<subkind>> {
 		
 	}
-	«FOR c : characterizedBy»
-	«toPlantUML(name, c)»
-	«ENDFOR»
 	'''
 	
 	def static dispatch String toPlantUML(SubQuantityRelation it)

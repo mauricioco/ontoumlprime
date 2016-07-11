@@ -190,7 +190,7 @@ public class ModelViewManager {
 		IViewPart view = page.findView("net.sourceforge.plantuml.eclipse.views.PlantUmlView");
 		if (view != null && view instanceof PlantUmlView) {
 			ModelViewList mvl = initializeModelView(currentModelTitle, currentModel);
-			String code = OntoUMLPrime2PlantUML.generatePlantUMLCode(currentModel, mvl.getSelectedModelView());
+			String code = OntoUMLPrime2PlantUML.generatePlantUMLCode(mvl.getSelectedModelView());
 			((PlantUmlView) view).updateDiagram(code);
 			Log.p(200, ModelViewManager.class, "PlantUML view refresh ended");
 		} else {

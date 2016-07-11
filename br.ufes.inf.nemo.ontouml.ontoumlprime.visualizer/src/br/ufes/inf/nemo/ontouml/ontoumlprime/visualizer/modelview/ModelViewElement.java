@@ -37,7 +37,7 @@ public class ModelViewElement implements Serializable {
 		return modelElement != null;
 	}
 
-	public void setModelElement(PackageableElement modelElement) {
+	public void setModelElement(EObject modelElement) {
 		this.modelElement = modelElement;
 	}
 

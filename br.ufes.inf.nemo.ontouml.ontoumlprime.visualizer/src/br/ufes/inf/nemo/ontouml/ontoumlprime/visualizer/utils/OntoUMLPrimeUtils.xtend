@@ -72,7 +72,7 @@ class OntoUMLPrimeUtils {
 	'''Category_«name»'''
 	
 	def static dispatch String generateId(Characterization it)
-	'''Characterization_(unique)'''
+	'''Characterization_«source.name»_«target.name»'''
 	
 	def static dispatch String generateId(CollectiveUniversal it)
 	'''CollectiveUniversal_«name»'''
@@ -96,7 +96,7 @@ class OntoUMLPrimeUtils {
 	'''Kind_«name»'''
 	
 	def static dispatch String generateId(Mediation it)
-	'''Mediation_(unique)'''
+	'''Mediation_«source.name»_«target.name»'''
 	
 	def static dispatch String generateId(MembershipRelation it)
 	'''MembershipRelation_(unique)'''

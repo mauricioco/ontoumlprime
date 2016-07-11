@@ -51,7 +51,7 @@ public class ModelViewList implements Serializable {
 	public ModelView addModelView(String modelViewName, List<EObject> elementList) {
 		ModelView newModelView = new ModelView(modelViewName);
 		newModelView.addElements(elementList);
-		modelViewList.add(newModelView);
+		//modelViewList.add(newModelView);	// better not do this
 		return newModelView;
 	}
 	
@@ -61,6 +61,7 @@ public class ModelViewList implements Serializable {
 	
 	public void updateDefaultModelView(Model newModel) {
 		defaultModelView.resetElements(newModel);
+		this.model = newModel;
 	}
 	
 	public ModelView getDefaultModelView() {
