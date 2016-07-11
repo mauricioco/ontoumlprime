@@ -1,21 +1,14 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action;
 
-import java.util.Iterator;
-
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.Model;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
 
 public class ActionSetModelViewActive extends Action {
@@ -32,9 +25,9 @@ public class ActionSetModelViewActive extends Action {
 	public ActionSetModelViewActive() {
 		super();
 		setText("Set model view as active...");
-		setToolTipText("Set the model view this element represents as active.");
+		setToolTipText("Set the selected model view as active.");
 		setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_DEF_VIEW));
+				getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
 	}
 
 	@Override

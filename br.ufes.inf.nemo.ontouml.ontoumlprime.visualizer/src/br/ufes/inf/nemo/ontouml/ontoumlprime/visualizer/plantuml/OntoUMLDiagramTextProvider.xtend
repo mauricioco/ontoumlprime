@@ -63,26 +63,31 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	        		return null;
 	        	}
 	        ];
-	    
-	    if (model == null) {
+	   	
+	   	val String modelName = (editorPart.editorInput as IFileEditorInput).file.name;
+	   	
+	   	return generatePlanutUMLCode(modelName, model);
+    }
+    
+    def String generatePlanutUMLCode(String modelName, Model model) {
+    	if (model == null) {
 	    	Log.e(100, OntoUMLDiagramTextProvider, "active editor is not an OntoUMLPrime Xtext editor");
 	    	return OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not an OntoUMLPrime Xtext editor");
 	    } else {
 	    	// Model names are based on the file name. If you rename it, it's gone.
-	    	val String modelName = (editorPart.editorInput as IFileEditorInput).file.name;
 	    	Log.p(100, OntoUMLDiagramTextProvider, "retrieving model view for " + modelName);
 	    	val modelView = ModelViewManager.initializeModelView(modelName, model);
 	    	
 	    	Log.p(100, OntoUMLDiagramTextProvider, "requesting OntoUMLPrime view update for " + modelName);
 	    	ModelViewManager.currentModel = model;
-		    ModelViewManager.currentModelTitle = editorPart.title;
+		    ModelViewManager.currentModelTitle = modelName;
 		    ModelViewManager.updateOntoUMLPrimeView;
 		    
 		    Log.p(100, OntoUMLDiagramTextProvider, "generating PlantUML code for visualizer");
 		    Log.p(100, OntoUMLDiagramTextProvider, "---------------------------------------");
 	    	return OntoUMLPrime2PlantUML.generatePlantUMLCode(modelView.selectedModelView);
 	    }
-        
     }
+    
     	  
 }

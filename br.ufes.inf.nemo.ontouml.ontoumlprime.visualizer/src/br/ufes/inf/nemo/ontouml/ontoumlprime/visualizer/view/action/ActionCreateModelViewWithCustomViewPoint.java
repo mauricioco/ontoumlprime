@@ -44,7 +44,7 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 		setText("Create model view from custom view point...");
 		setToolTipText("Creates a model view from a custom view point. Selected elements are the scope and the rules are set through a wizard.");
 		setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_OBJ_ADD));
+				getImageDescriptor(ISharedImages.IMG_TOOL_NEW_WIZARD));
 	}
 	
 	// TODO needs to be different for Characterization and Mediation.

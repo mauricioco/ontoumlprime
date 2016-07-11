@@ -193,8 +193,11 @@ public class OntoUMLPrimeView extends ViewPart {
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
 		manager.add(ActionLoadModelViewList.sharedInstance());
-		manager.add(new Separator());
 		manager.add(ActionSaveModelViewList.sharedInstance());
+		manager.add(new Separator());
+		manager.add(ActionCreateModelViewFromSelected.sharedInstance());
+		manager.add(ActionCreateModelViewWithCustomViewPoint.sharedInstance());
+		manager.add(ActionSetModelViewActive.sharedInstance());
 		manager.add(new Separator());
 		drillDownAdapter.addNavigationActions(manager);
 	}

@@ -34,7 +34,7 @@ public class ActionSetParentModelViewActive extends Action {
 		setText("Set parent model view as active...");
 		setToolTipText("Set the parent model view of this element as active.");
 		setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().
-				getImageDescriptor(ISharedImages.IMG_DEF_VIEW)); //TODO - change icon!
+				getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
 	}
 
 	@Override
