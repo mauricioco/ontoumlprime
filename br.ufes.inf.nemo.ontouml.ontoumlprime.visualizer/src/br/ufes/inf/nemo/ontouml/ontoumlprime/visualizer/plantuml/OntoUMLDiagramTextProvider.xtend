@@ -25,7 +25,7 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	 * Returns true if the active eclipse editor is supported by this text provider.
 	 */
 	override supportsEditor(IEditorPart editorPart) {
-		if (editorPart instanceof XtextEditor) {
+		if (editorPart != null && editorPart instanceof XtextEditor) {
 			return true;
 		} else {
 			Log.e(100, OntoUMLDiagramTextProvider, "editor not supported");

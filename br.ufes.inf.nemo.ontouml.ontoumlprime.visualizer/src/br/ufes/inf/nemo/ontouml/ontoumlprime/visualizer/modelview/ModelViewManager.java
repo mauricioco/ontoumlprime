@@ -216,7 +216,7 @@ public class ModelViewManager {
 			((PlantUmlView) view).updateDiagram(OntoUMLPrime2PlantUML.showPlantUMLMessage("Active editor is not a Xtext Editor"));
 			Log.p(200, ModelViewManager.class, "PlantUML view refresh ended");
 		} else {
-			Log.p(200, ModelViewManager.class, "PlantUML view not found");
+			Log.e(200, ModelViewManager.class, "PlantUML view not found");
 		}
 		
 	}

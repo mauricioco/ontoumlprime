@@ -51,7 +51,9 @@ class OntoUMLPrime2PlantUML {
 		skinparam classArrowColor black
 		
 		«FOR mve : v.modelViewElementList»
+		«IF mve.modelElement != null»
 		«OntoUMLPrime2PlantUML.toPlantUML(mve.modelElement)»
+	    «ENDIF»
 	    «ENDFOR»
 		
 		@enduml
