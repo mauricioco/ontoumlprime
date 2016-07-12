@@ -13,11 +13,13 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.EndurantUniversal;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Universal;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
@@ -107,45 +109,50 @@ public class ModelView implements Serializable {
 		if(elementMap.get(id) == null) {
 			elementMap.put(id, new ModelViewElement(element, this));
 		}
-		
-		if (element instanceof EndurantUniversal) {
-			for (Characterization c : ((EndurantUniversal) element).getCharacterizedBy()) {
-				addElement(c);
+			
+		if (isDefault) {
+			// Default model views add Characterizations and Mediations from their sources.
+			if (element instanceof EndurantUniversal) {
+				for (Characterization c : ((EndurantUniversal) element).getCharacterizedBy()) {
+					addElement(c);
+				}
+			}
+			if (element instanceof RelatorUniversal) {
+				for (Mediation m : ((RelatorUniversal) element).getMediations()) {
+					addElement(m);
+				}
+			}
+		} else {
+			// Custom model views force both source and target being added when a relation/genSet is added.
+			// However, deletion doesn't check this.
+			// TODO not tested...
+			if (element instanceof Characterization) {
+				addElement(((Characterization) element).getSource());
+				addElement(((Characterization) element).getTarget());
+			}
+			if (element instanceof Mediation) {
+				addElement(((Mediation) element).getSource());
+				addElement(((Mediation) element).getTarget());
+			}
+			if (element instanceof GeneralizationSet) {
+				addElement(((GeneralizationSet) element).getSpecializedUniversal());
+				for (Universal u : ((GeneralizationSet) element).getSpecializingUniversals()) {
+					addElement(u);
+				}
 			}
 		}
-		
-		if (element instanceof RelatorUniversal) {
-			for (Mediation m : ((RelatorUniversal) element).getMediations()) {
-				addElement(m);
-			}
-		}
-		
 	}
 
 	// Two equal methods just to make it easier for process stuff.
 	public void addElements(EList<PackageableElement> elements) {
 		for(EObject e : elements) {
 			addElement(e);
-			/*
-			String id = OntoUMLPrimeUtils.generateId(e);
-			ModelViewElement v = elementMap.get(id);
-			if(v == null) {
-				v = new ModelViewElement(e);
-				elementMap.put(v.getId(), v);
-			}
-			*/
 		}
 	}
 	
 	public void addElements(List<EObject> elements) {
 		for(EObject e : elements) {
 			addElement(e);
-			//String id = OntoUMLPrimeUtils.generateId(e);
-			//ModelViewElement v = elementMap.get(id);
-			//if(v == null) {
-			//	v = new ModelViewElement(e);
-			//	elementMap.put(v.getId(), v);
-			//}
 		}
 	}
 	
@@ -153,11 +160,9 @@ public class ModelView implements Serializable {
 		elementMap.clear();
 		for(EObject e : newModel.getElements()) {
 			try {
-				//ModelViewElement v = new ModelViewElement(e);
-				//elementMap.put(v.getId(), v);
 				addElement(e);
 			} catch (NullPointerException ex) {
-				
+				// TODO handle.
 			}
 		}
 	}
@@ -174,27 +179,6 @@ public class ModelView implements Serializable {
 			if (mve != null) {
 				mve.setModelElement(e);
 			}
-			
-			if (e instanceof EndurantUniversal) {
-				for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
-					String idChar = OntoUMLPrimeUtils.generateId(c);
-					ModelViewElement mveChar = elementMap.get(idChar);
-					if (mveChar != null) {
-						mveChar.setModelElement(e);
-					}
-				}
-			}
-			
-			if (e instanceof RelatorUniversal) {
-				for (Mediation m : ((RelatorUniversal) e).getMediations()) {
-					String idMed = OntoUMLPrimeUtils.generateId(m);
-					ModelViewElement mveMed = elementMap.get(idMed);
-					if (mveMed != null) {
-						mveMed.setModelElement(e);
-					}
-				}
-			}
-			
 		}
 	}
 	
