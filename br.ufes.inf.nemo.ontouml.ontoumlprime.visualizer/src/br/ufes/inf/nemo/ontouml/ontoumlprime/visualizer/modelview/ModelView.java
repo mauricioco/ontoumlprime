@@ -81,7 +81,8 @@ public class ModelView implements Serializable {
 		
 		if (e instanceof BinaryMaterialRelation) {
 			if(((BinaryMaterialRelation) e).getSource() == null
-					|| ((BinaryMaterialRelation) e).getTarget() == null) {
+					|| ((BinaryMaterialRelation) e).getTarget() == null
+					|| ((BinaryMaterialRelation) e).getDerivedFrom() == null) {
 				return true;
 			}
 		}

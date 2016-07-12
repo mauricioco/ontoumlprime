@@ -87,7 +87,7 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 		    ModelViewManager.updateOntoUMLPrimeView;
 		    
 		    Log.p(100, OntoUMLDiagramTextProvider, "generating PlantUML code for visualizer");
-		    Log.p(100, OntoUMLDiagramTextProvider, "---------------------------------------");
+		    Log.printDivider;
 	    	return OntoUMLPrime2PlantUML.generatePlantUMLCode(modelView.selectedModelView);
 	    }
     }
