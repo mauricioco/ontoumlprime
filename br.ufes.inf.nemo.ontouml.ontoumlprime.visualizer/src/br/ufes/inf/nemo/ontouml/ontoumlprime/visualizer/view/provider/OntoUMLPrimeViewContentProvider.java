@@ -19,7 +19,6 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.EndurantUniversal;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MeronymicRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Universal;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
@@ -104,6 +103,8 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		return false;
 	}
 	
+	// TODO CHECK FOR MODELVIEWELEMENT EXISTENCE BEFORE ADDING TO LIST!!!
+	// If Endurant or Relator dont exist but its characterizations/mediations do, show on list
 	private void processModelView(ModelView modelView) {
 		ModelViewTreeObject modelRoot = new ModelViewTreeObject(modelView);
 		root.addChild(modelRoot);
@@ -121,38 +122,57 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 				modelRoot.addChild(modelViewElementRoot);
 				
 				for (GeneralizationSet g : specializesVia) {
-					if (g.getSpecializedUniversal() != null) {
-						modelViewElementRoot.addChild(new StringTreeObject("Generalization " + g.getSpecializedUniversal().getName()));
+					if (g.getSpecializedUniversal() != null && modelView.getModelViewElement(g) != null) {
+						//modelViewElementRoot.addChild(new StringTreeObject("Generalization " + g.getSpecializedUniversal().getName()));
+						ModelViewElementTreeObject genRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(g));
+						modelViewElementRoot.addChild(genRoot);
+						for (Universal otherSpec : g.getSpecializingUniversals()) {
+							if (!otherSpec.equals(e) && modelView.getModelViewElement(otherSpec) != null) {
+								//genRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(otherSpec)));
+								genRoot.addChild(new StringTreeObject("also " + modelView.getModelViewElement(otherSpec).getDisplayName()));
+							}
+						}
 					}
 				}
 				
 				if (e instanceof EndurantUniversal) {
 					for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
+						if (modelView.getModelViewElement(c) == null) {
+							continue;
+						}
 						ModelViewElementTreeObject characterizationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(c));
 						modelViewElementRoot.addChild(characterizationRoot);
-						characterizationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(c.getTarget())));
+						//characterizationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(c.getTarget())));
 					}
 				}
 				
 				if (e instanceof RelatorUniversal) {
 					for (Mediation m : ((RelatorUniversal) e).getMediations()) {
+						if (modelView.getModelViewElement(m) == null) {
+							continue;
+						}
 						ModelViewElementTreeObject mediationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(m));
 						modelViewElementRoot.addChild(mediationRoot);
-						mediationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(m.getTarget())));
+						//mediationRoot.addChild(new ModelViewElementTreeObject(modelView.getModelViewElement(m.getTarget())));
 					}
 				}
 				
 			} else if (e instanceof BinaryDirectedRelationship) {
 				//ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
 				//modelRoot.addChild(modelViewElementRoot);
-				/*
+				
 				if (e instanceof Characterization) {
-					modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getSource().getName() + " characterized by "));
-					modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getTarget().getName()));
+					//modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getSource().getName() + " characterized by "));
+					//modelViewElementRoot.addChild(new StringTreeObject(((Characterization) e).getTarget().getName()));
 				} else if (e instanceof Mediation) {
-					modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getSource().getName() + " mediates "));
-					modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getTarget().getName()));
-				} else*/ if (e instanceof BinaryFormalRelation) {
+					//modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getSource().getName() + " mediates "));
+					//modelViewElementRoot.addChild(new StringTreeObject(((Mediation) e).getTarget().getName()));
+					RelatorUniversal source = ((Mediation) e).getSource();
+					if (modelView.getModelViewElement(source) == null) {
+						ModelViewElementTreeObject mediationRoot = new ModelViewElementTreeObject(modelView.getModelViewElement(e));
+						modelRoot.addChild(mediationRoot);
+					}
+				} else if (e instanceof BinaryFormalRelation) {
 					ModelViewElementTreeObject modelViewElementRoot = new ModelViewElementTreeObject(modelViewElement);
 					modelRoot.addChild(modelViewElementRoot);
 					modelViewElementRoot.addChild(new StringTreeObject(((BinaryFormalRelation) e).getSource().getName() + " " + ((BinaryFormalRelation) e).getName()));
@@ -167,20 +187,6 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 				}
 				
 			}
-			
-			/*if (e instanceof RelatorUniversal) {
-				for (Mediation m : ((RelatorUniversal) e).getMediations()) {
-					modelViewElementRoot.addChild(new ModelViewElementTreeObject(new ModelViewElement(m)));
-				}
-				continue;
-			}
-			
-			if (e instanceof EndurantUniversal) {
-				for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
-					modelViewElementRoot.addChild(new ModelViewElementTreeObject(new ModelViewElement(c)));
-				}
-				continue;
-			}*/
 		}
 	}
 	

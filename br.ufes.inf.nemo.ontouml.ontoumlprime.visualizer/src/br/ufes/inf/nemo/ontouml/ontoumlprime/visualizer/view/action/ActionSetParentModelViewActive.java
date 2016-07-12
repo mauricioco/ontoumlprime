@@ -1,16 +1,10 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action;
 
-import java.util.Iterator;
-
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.ISharedImages;
-import org.eclipse.ui.IViewPart;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.internal.Model;
 
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
@@ -44,7 +38,7 @@ public class ActionSetParentModelViewActive extends Action {
 			return;
 		}
 		
-		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
+		TreeSelection selection = (TreeSelection) oumlView.getViewerSelection();
 		final String modelTitle = ModelViewManager.getCurrentModelTitle();
 		
 		if (selection.size() == 1 && selection.getFirstElement() instanceof ModelViewElementTreeObject) {

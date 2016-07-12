@@ -9,6 +9,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.window.Window;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -45,7 +46,7 @@ public class ActionCreateModelViewFromSelected extends Action {
 			return;
 		}
 		
-		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
+		TreeSelection selection = (TreeSelection) oumlView.getViewerSelection();
 		Iterator<Object> iterator = selection.iterator();
 		
 		final List<EObject> selectedElementList = new ArrayList<>();

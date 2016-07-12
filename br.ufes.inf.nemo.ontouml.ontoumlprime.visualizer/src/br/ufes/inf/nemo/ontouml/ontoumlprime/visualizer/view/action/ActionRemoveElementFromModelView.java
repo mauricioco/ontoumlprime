@@ -3,7 +3,7 @@ package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action;
 import java.util.Iterator;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -11,7 +11,6 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManag
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
 
 public class ActionRemoveElementFromModelView extends Action {
 	private static ActionRemoveElementFromModelView sharedInstance = new ActionRemoveElementFromModelView();
@@ -38,17 +37,14 @@ public class ActionRemoveElementFromModelView extends Action {
 			return;
 		}
 		
-		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
+		TreeSelection selection = (TreeSelection) oumlView.getViewerSelection();
 		Iterator<Object> iterator = selection.iterator();
 		
 		while(iterator.hasNext()) {
 			Object obj = iterator.next();	
 			if(obj instanceof ModelViewElementTreeObject) {
 				ModelViewElementTreeObject mveto = ((ModelViewElementTreeObject) obj);
-				ModelViewTreeObject mvto = (ModelViewTreeObject) mveto.getParent();
-				if (!mvto.getModelView().isDefault()) {
-					mvto.getModelView().deleteElement(mveto.getModelElementView().getId());
-				}
+				mveto.getModelElementView().deleteFromModelView();
 			}
 		}
 		// TODO needs clearing selection.		

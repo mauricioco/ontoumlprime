@@ -56,6 +56,9 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
         val document = (editorPart as XtextEditor).getDocumentProvider().getDocument(editorPart.editorInput) as XtextDocument;
         
         val Model model = document.readOnly[
+        		if (contents == null) {
+        			return null;
+        		}
 	        	val result = contents.head;
 	        	if(result instanceof Model) {
 	        		return result as Model;

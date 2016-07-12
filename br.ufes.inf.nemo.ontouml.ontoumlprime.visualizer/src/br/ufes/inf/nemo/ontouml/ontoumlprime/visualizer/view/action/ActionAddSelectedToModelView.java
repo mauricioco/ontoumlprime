@@ -6,6 +6,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeSelection;
 
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
@@ -38,7 +39,7 @@ public class ActionAddSelectedToModelView extends Action {
 			return;
 		}
 		
-		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
+		TreeSelection selection = (TreeSelection) oumlView.getViewerSelection();
 		
 		List<EObject> eObjectList = new ArrayList<EObject>();
 		for(Object o : selection.toList()) {

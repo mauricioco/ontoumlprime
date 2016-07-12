@@ -104,7 +104,7 @@ public class ModelView implements Serializable {
 		
 		String id = OntoUMLPrimeUtils.generateId(element);
 		if(elementMap.get(id) == null) {
-			elementMap.put(id, new ModelViewElement(element));
+			elementMap.put(id, new ModelViewElement(element, this));
 		}
 		
 		if (element instanceof EndurantUniversal) {

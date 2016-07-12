@@ -26,12 +26,13 @@ public class OntoUMLPrimeViewSorter extends ViewerSorter {
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
 		// Alphabetic order.
-		if(e1 instanceof ModelViewElementTreeObject && e2 instanceof ModelViewElementTreeObject) {
+		if(e1 != null && e2 != null && e1 instanceof ModelViewElementTreeObject && e2 instanceof ModelViewElementTreeObject) {
 			ModelViewElementTreeObject p1 = (ModelViewElementTreeObject) e1;
 		    ModelViewElementTreeObject p2 = (ModelViewElementTreeObject) e2;
 		    ModelViewElement mve1 = p1.getModelElementView();
 		    ModelViewElement mve2 = p2.getModelElementView();
-		    		    
+		    
+		    
 		    return mve1.getDisplayName().compareTo(mve2.getDisplayName());
 		}
 		

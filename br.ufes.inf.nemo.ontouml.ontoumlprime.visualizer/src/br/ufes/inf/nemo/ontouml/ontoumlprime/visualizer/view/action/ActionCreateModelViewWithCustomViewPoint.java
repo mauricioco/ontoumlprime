@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -17,7 +17,6 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.EndurantUniversal;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
@@ -98,7 +97,7 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 			return;
 		}
 		
-		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
+		TreeSelection selection = (TreeSelection) oumlView.getViewerSelection();
 		Iterator<Object> iterator = selection.iterator();
 		
 		final List<EObject> scope = new ArrayList<>();

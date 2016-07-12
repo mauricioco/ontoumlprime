@@ -1,7 +1,7 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.action;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
@@ -39,7 +39,7 @@ public class ActionDeleteModelView extends Action {
 			return;
 		}
 		
-		IStructuredSelection selection = (IStructuredSelection) oumlView.getViewerSelection();
+		TreeSelection selection = (TreeSelection) oumlView.getViewerSelection();
 		
 		if (selection.size() == 1 && selection.getFirstElement() instanceof ModelViewTreeObject) {
 			

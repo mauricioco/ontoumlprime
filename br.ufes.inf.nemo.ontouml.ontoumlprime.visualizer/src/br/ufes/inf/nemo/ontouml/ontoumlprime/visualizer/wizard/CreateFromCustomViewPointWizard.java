@@ -1,44 +1,11 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.wizard;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.eclipse.jface.viewers.ArrayContentProvider;
-import org.eclipse.jface.viewers.CheckboxTableViewer;
-import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.Wizard;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.jface.wizard.WizardPage;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.dialogs.ListSelectionDialog;
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Category;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.CollectiveUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComplexDataType;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ComponentOfRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Element;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Enumeration;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Kind;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MembershipRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mixin;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ModeUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Phase;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.QualityUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.QuantityUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Role;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RoleMixin;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubCollectionRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubKind;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.SubQuantityRelation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.BinaryFormalRelationImpl;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.BinaryMaterialRelationImpl;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.CategoryImpl;
@@ -61,9 +28,8 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.RoleMixinImpl;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.SubCollectionRelationImpl;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.SubKindImpl;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.impl.SubQuantityRelationImpl;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.wizard.page.SpecializationRulesWizardPage;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.wizard.page.SelectStereotypeWizardPage;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.wizard.page.SpecializationRulesWizardPage;
 
 public class CreateFromCustomViewPointWizard extends Wizard {
 
@@ -100,6 +66,7 @@ public class CreateFromCustomViewPointWizard extends Wizard {
 	// TODO if none are selected in p2, skip to p4.
 	// TODO if none are selected in p1 AND p2, STAHP!
 	// TODO now that everything is Impl, display name is not good anymore...
+	// TODO new page detected... create a generalization page - what stereotypes are allowed in generalizations of universals allowed in p1.
 
 	SelectStereotypeWizardPage p1 = new SelectStereotypeWizardPage("Monadic Universal Rules", "Select allowed Monadic Universal stereotypes...", null, new Class[] {
 			CategoryImpl.class

@@ -1,6 +1,8 @@
 package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
@@ -12,8 +14,11 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.viewers.ITreeSelection;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.TreePath;
+import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
@@ -39,6 +44,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPri
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.OntoUMLPrimeViewSorter;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.StringTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.TreeObject;
 
 
@@ -118,7 +124,7 @@ public class OntoUMLPrimeView extends ViewPart {
 				} else {
 					fillContextMenuForOneModelView(manager, selectedModelView);
 				}
-			} else {
+			} else if (selectedObject instanceof ModelViewElementTreeObject) {
 				fillContextMenuForOneOrMoreModelViewElements(manager);
 			}
 		} else {
@@ -211,8 +217,8 @@ public class OntoUMLPrimeView extends ViewPart {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			@Override
 			public void doubleClick(DoubleClickEvent event) {
-				ITreeSelection selection = (ITreeSelection) event.getSelection();
-				if (selection.size() == 1) {
+				TreeSelection selection = (TreeSelection) viewer.getSelection();	// Use viewer's.
+				if (selection.getPaths().length == 1) {
 					if (viewer.getExpandedState(selection.getPaths()[0])) {
 						viewer.collapseToLevel(selection.getPaths()[0], 1);
 					} else {
@@ -224,51 +230,29 @@ public class OntoUMLPrimeView extends ViewPart {
 	}
 	
 	private void hookSelectChangedListener() {
-		/* Selection handler ignored because of permormance issues.
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
-			
-			private TreeObject firstElement = null;
+			private boolean makeNoChanges = false;
 			
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
-				StructuredSelection viewerSelection = (StructuredSelection) viewer.getSelection();
-				StructuredSelection eventSelection = (StructuredSelection) event.getSelection();
-				
-				if (eventSelection.size() == 0) {
-					// Unselected everything. Do nothing.
-					firstElement = null;
-					return;
-				}
-				if (eventSelection.size() == 1) {
-					// Brand new selection. Do nothing.
+				if (makeNoChanges) {	// I hope this is enough to prevent StackOverflowException...
+					makeNoChanges = false;
 					return;
 				}
 				
-				if (firstElement == null) {
-					firstElement = (TreeObject) eventSelection.getFirstElement();
-				}
-				TreeObject newSelected = (TreeObject) eventSelection.toList().get(eventSelection.toList().size()-1);
+				TreeSelection s = (TreeSelection) event.getSelection();
+				List<TreePath> allowedPathList = new ArrayList<>();
 				
-				Log.e(100, this.getClass(), "Size: " + eventSelection.toList().size());
-				
-				if (firstElement instanceof ModelViewTreeObject) {
-					// Only one model view can be selected at a time (as of now).
-					List<?> selectionList = new ArrayList<>(eventSelection.toList());
-					selectionList.remove(newSelected);
-					StructuredSelection selectionUpdated = new StructuredSelection(selectionList);
-					viewer.setSelection(selectionUpdated);
-				} else if (firstElement instanceof ModelViewElementTreeObject) {
-					if (!(newSelected instanceof ModelViewElementTreeObject)) {
-						// In a selection of model view elements, a model view is not allowed.
-						List<?> selectionList = new ArrayList<>(eventSelection.toList());
-						selectionList.remove(newSelected);
-						StructuredSelection selectionUpdated = new StructuredSelection(selectionList);
-						viewer.setSelection(selectionUpdated);
+				for (TreePath tp : s.getPaths()) {
+					if (!(tp.getLastSegment() instanceof StringTreeObject)) {
+						allowedPathList.add(tp);
 					}
 				}
+
+				makeNoChanges = true;
+				viewer.setSelection(new TreeSelection(allowedPathList.toArray(new TreePath[allowedPathList.size()])));
 			}
 		});
-		*/
 	}
 	
 	private void showMessage(String message) {

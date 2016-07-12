@@ -4,8 +4,9 @@ import java.io.Serializable;
 
 import org.eclipse.emf.ecore.EObject;
 
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
 public class ModelViewElement implements Serializable {
@@ -23,10 +24,12 @@ public class ModelViewElement implements Serializable {
 	private transient EObject modelElement;
 	
 	private String id;
+	private ModelView modelView;
 	
-	public ModelViewElement(EObject modelElement) {
+	public ModelViewElement(EObject modelElement, ModelView modelView) {
 		this.modelElement = modelElement;
 		this.id = OntoUMLPrimeUtils.generateId(modelElement);
+		this.modelView = modelView;
 	}
 
 	public EObject getModelElement() {
@@ -45,9 +48,23 @@ public class ModelViewElement implements Serializable {
 		return id;
 	}
 
+	public ModelView getModelView() {
+		return modelView;
+	}
+	
+	public void deleteFromModelView() {
+		modelView.deleteElement(id);
+	}
+
 	public String getDisplayName() {
 		if (modelElement instanceof NamedElement && ((NamedElement) modelElement).getName() != null) {
 			return ((NamedElement) modelElement).getName() + " <<"+OntoUMLPrimeUtils.getStereotype(modelElement)+">>";
+		} else if (modelElement instanceof GeneralizationSet
+				//&& ((GeneralizationSet)modelElement).getSpecializedUniversal()
+				) {
+			return "<<Generalization>> of " + ((GeneralizationSet) modelElement).getSpecializedUniversal().getName();
+		} else if (modelElement instanceof Mediation) {
+			return "<<"+OntoUMLPrimeUtils.getStereotype(modelElement)+">> " + ((Mediation) modelElement).getTarget().getName();
 		} else if (modelElement != null) {
 			return "<<"+OntoUMLPrimeUtils.getStereotype(modelElement)+">>";// + " " + modelElement.
 		} else {
