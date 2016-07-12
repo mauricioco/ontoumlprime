@@ -112,8 +112,7 @@ public class ModelViewManager {
 		} else {
 			modelViewFile = new File(workspacePath + folderPath, modelName + MODEL_VIEW_FILE_EXTENSION);
 		}
-
-		// TODO treat. If exists, asks if wants to overwrite.
+		
 		modelViewFile.createNewFile();
 		
 		FileOutputStream fout = new FileOutputStream(modelViewFile);
@@ -204,7 +203,7 @@ public class ModelViewManager {
 	 */
 	public static void showMessageInPlantUMLView(String message) {
 		Log.p(200, ModelViewManager.class, "PlantUML view refresh begun");		
-		// TODO improve code reuse.
+
 		IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
 		if (page == null) {
 			Log.p(200, ModelViewManager.class, "there's no active workbench page");

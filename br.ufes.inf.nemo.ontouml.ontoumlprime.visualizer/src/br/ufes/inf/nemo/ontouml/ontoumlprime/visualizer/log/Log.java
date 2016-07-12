@@ -6,8 +6,6 @@ package br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log;
  */
 public class Log {
 
-	// TODO make class name stand out.
-
 	private static int currentLevel = 1000000;
 
 	public static void setLogLevel(int level) {
