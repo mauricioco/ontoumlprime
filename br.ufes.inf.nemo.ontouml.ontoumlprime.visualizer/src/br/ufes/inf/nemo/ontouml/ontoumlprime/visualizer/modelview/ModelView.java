@@ -125,7 +125,6 @@ public class ModelView implements Serializable {
 		} else {
 			// Custom model views force both source and target being added when a relation/genSet is added.
 			// However, deletion doesn't check this.
-			// TODO not tested...
 			if (element instanceof Characterization) {
 				addElement(((Characterization) element).getSource());
 				addElement(((Characterization) element).getTarget());
@@ -191,6 +190,9 @@ public class ModelView implements Serializable {
 	}
 	
 	public ModelViewElement getModelViewElement(EObject element) {
+		if (checkElement(element)) {
+			return null;
+		}
 		return elementMap.get(OntoUMLPrimeUtils.generateId(element));
 	}
 	
