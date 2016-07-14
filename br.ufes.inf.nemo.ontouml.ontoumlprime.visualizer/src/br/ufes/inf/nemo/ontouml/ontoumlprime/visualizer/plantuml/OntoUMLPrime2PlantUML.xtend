@@ -119,9 +119,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(Category it)
 	'''
-	class «name» <<category>> {
-		
-	}
+	class «name» <<category>>
 	'''
 	
 	def static dispatch String toPlantUML(Characterization it)
@@ -141,9 +139,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(CollectiveUniversal it)
 	'''
-	class «name» <<collective>> {
-		
-	}
+	class «name» <<collective>>
 	'''
 	
 	def static dispatch String toPlantUML(ComplexDataType it)
@@ -178,9 +174,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(Kind it)
 	'''
-	class «name» <<kind>> {
-		
-	}
+	class «name» <<kind>>
 	'''
 	
 	def static dispatch String toPlantUML(Mediation it)
@@ -200,16 +194,12 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(Mixin it)
 	'''
-	class «name» <<mixin>> {
-		
-	}
+	class «name» <<mixin>>
 	'''
 	
 	def static dispatch String toPlantUML(ModeUniversal it)
 	'''
-	class «name» <<mode>> {
-
-	}
+	class «name» <<mode>>
 	'''
 	
 	def static dispatch String toPlantUML(nAryFormalRelation it) // This one has no source...
@@ -233,51 +223,37 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(Phase it)
 	'''
-	class «name» <<phase>> {
-		
-	}
+	class «name» <<phase>>
 	'''
 	
 	def static dispatch String toPlantUML(PrimitiveDataType it) // not implemented...
 	'''
-	class «name» <<primitivetype>> {
-		
-	}
+	class «name» <<primitivetype>>
 	'''
 	
 	def static dispatch String toPlantUML(RelatorUniversal it)
 	'''
-	class «name» <<relator>> {
-		
-	}
+	class «name» <<relator>>
 	'''
 	
 	def static dispatch String toPlantUML(Role it)
 	'''
-	class «name» <<role>> {
-		
-	}
+	class «name» <<role>>
 	'''
 	
 	def static dispatch String toPlantUML(RoleMixin it)
 	'''
-	class «name» <<rolemixin>> {
-		
-	}
+	class «name» <<rolemixin>>
 	'''
 	
 	def static dispatch String toPlantUML(QualityUniversal it)
 	'''
-	class «name» <<quality>> {
-		
-	}
+	class «name» <<quality>>
 	'''
 	
 	def static dispatch String toPlantUML(QuantityUniversal it)
 	'''
-	class «name» <<quantity>> {
-		
-	}
+	class «name» <<quantity>>
 	'''
 	
 	def static dispatch String toPlantUML(SubCollectionRelation it)
@@ -287,9 +263,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(SubKind it)
 	'''
-	class «name» <<subkind>> {
-		
-	}
+	class «name» <<subkind>>
 	'''
 	
 	def static dispatch String toPlantUML(SubQuantityRelation it)

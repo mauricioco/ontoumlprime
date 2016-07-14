@@ -21,13 +21,12 @@ import org.eclipse.swt.widgets.Text;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 
-// TODO refactor class as it it doesnt contain only specializations stuff.
-public class SpecializationRulesWizardPage extends WizardPage {
+public class RuleOptionsWizardPage extends WizardPage {
 	
 	private int generalizationMaxLevel = 0;
 	private String modelViewName = "";
 	
-	public SpecializationRulesWizardPage(String pageName, String title, ImageDescriptor titleImage) {
+	public RuleOptionsWizardPage(String pageName, String title, ImageDescriptor titleImage) {
 		super(pageName, title, titleImage);
 	}
 

@@ -148,17 +148,17 @@ public class OntoUMLPrimeView extends ViewPart {
 	
 	private void fillContextMenuForDefaultModelView(IMenuManager manager) {
 		manager.add(ActionSetModelViewActive.sharedInstance());
-		// TODO add create custom model view. Scope are all elements.
-		
+		manager.add(new Separator());
+		manager.add(ActionCreateModelViewWithCustomViewPoint.sharedInstance());
 		manager.add(new Separator());
 	}
 	
 	private void fillContextMenuForOneModelView(IMenuManager manager, ModelView modelView) {
 		manager.add(ActionSetModelViewActive.sharedInstance());
-		// TODO add create custom model view. Scope are all elements.
-		
+		manager.add(new Separator());
 		manager.add(ActionRenameModelView.newInstance(modelView));
 		manager.add(ActionDeleteModelView.sharedInstance());
+		manager.add(ActionCreateModelViewWithCustomViewPoint.sharedInstance());
 		manager.add(new Separator());
 	}
 	
@@ -198,6 +198,7 @@ public class OntoUMLPrimeView extends ViewPart {
 	}	
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
+		// TODO improve... allow for selection for both modelview and modelviewelement.
 		manager.add(ActionLoadModelViewList.sharedInstance());
 		manager.add(ActionSaveModelViewList.sharedInstance());
 		manager.add(new Separator());

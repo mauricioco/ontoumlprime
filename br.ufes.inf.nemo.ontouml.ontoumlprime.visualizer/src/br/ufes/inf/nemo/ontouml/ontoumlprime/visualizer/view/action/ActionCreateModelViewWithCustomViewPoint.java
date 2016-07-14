@@ -12,9 +12,14 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryDirectedRelationship;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.EndurantUniversal;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ExternallyDependentUniversal;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.IntrinsicMomentUniversal;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MeronymicRelation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
@@ -25,6 +30,7 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManag
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewElementTreeObject;
+import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.provider.tree.ModelViewTreeObject;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.wizard.CreateFromCustomViewPointWizard;
 
 public class ActionCreateModelViewWithCustomViewPoint extends Action {
@@ -46,50 +52,6 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 				getImageDescriptor(ISharedImages.IMG_TOOL_NEW_WIZARD));
 	}
 	
-	// TODO needs to be different for Characterization and Mediation.
-	private void addRelation(BinaryDirectedRelationship e, final List<String> selectedElementNameList, final List<EObject> selectedElementList, CreateFromCustomViewPointWizard w) {
-		String sourceName = ((BinaryDirectedRelationship) e).getSourceEndName();
-		String targetName = ((BinaryDirectedRelationship) e).getTargetEndName();
-		
-		Log.p(500, this.getClass(), "Relation: " + e);
-		Log.p(500, this.getClass(), "Source: " + sourceName);
-		Log.p(500, this.getClass(), "Target: " + targetName);
-		/*
-		if (selectedElementNameList.contains(sourceName)
-				&& selectedElementNameList.contains(targetName)) {
-			// Both are allowed. Nothing to be done.
-			selectedElementList.add(e);
-			Log.p(500, this.getClass(), "Relation added.");
-			return;
-		}
-		*/
-		String checkForName = "";
-		if (selectedElementNameList.contains(sourceName)) {
-			checkForName = targetName;
-		}
-		if (selectedElementNameList.contains(targetName)) {
-			checkForName = sourceName;
-		}
-		
-		if (checkForName == null || checkForName.isEmpty()) {
-			Log.p(500, this.getClass(), "Relation not allowed.");
-			return;
-		}
-		
-		Log.p(500, this.getClass(), "Check for name: " + checkForName);
-		
-		ModelView defaultModelView = ModelViewManager.getCurrentModelViewList().getDefaultModelView();
-		ModelViewElement relatedModelViewElement = defaultModelView.getModelViewElementWithElementName(checkForName);
-		
-		Log.p(500, this.getClass(), "Related element found: " + relatedModelViewElement);
-		if (relatedModelViewElement != null 
-				&& w.getCheckedRelatedMonadicUniversals().contains(relatedModelViewElement.getModelElement().getClass())) {
-			// Check! Element allowed! Phew...
-			selectedElementList.add(relatedModelViewElement.getModelElement());
-			Log.p(500, this.getClass(), "Relation added.");
-		}
-	}
-	
 	@Override
 	public void run() {
 		OntoUMLPrimeView oumlView = ActionUtils.getOntoUMLPrimeView();
@@ -103,8 +65,10 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 		final List<EObject> scope = new ArrayList<>();
 		while(iterator.hasNext()) {
 			Object obj = iterator.next();	
-			if(obj instanceof ModelViewElementTreeObject) {
+			if (obj instanceof ModelViewElementTreeObject) {
 				scope.add(((ModelViewElementTreeObject) obj).getModelElementView().getModelElement());
+			} else if (obj instanceof ModelViewTreeObject) {
+				scope.addAll(((ModelViewTreeObject) obj).getModelView().getModelElementList());
 			}
 		}
 		
@@ -112,63 +76,36 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 		
 		CreateFromCustomViewPointWizard w = new CreateFromCustomViewPointWizard();
 		WizardDialog wd = new WizardDialog(oumlView.getSite().getShell(), w);
+		wd.setMinimumPageSize(0, 300);
 		switch(wd.open()) {
 			case WizardDialog.OK:
-				final List<EObject> selectedElementList = new ArrayList<>();
-				final List<String> selectedElementNameList = new ArrayList<>();	// Workaround to speed up Parts II and III.
+				final List<EObject> allowedElementList = new ArrayList<>();
+				final List<String> allowedElementNameList = new ArrayList<>();	// Workaround to speed up Parts II and III.
 				
 				// TODO Modularize this later... sheesh.
 				
-				// Part I: filtering monadic universals...
-				Log.p(500, this.getClass(), "List of allowed monadic universals: " + w.getCheckedMonadicUniversals());
+				// Part I: filtering elements...
+				Log.p(500, this.getClass(), "List of allowed monadic universals: " + w.getCheckedFilteredStereotypes());
 				for (EObject e : scope) {
-					// TODO not everybody is named.
-					Log.p(600, this.getClass(), "Checking " + ((NamedElement) e).getName() + " of metaclass " + e.getClass());
+					Log.p(600, this.getClass(), "Checking " + e);
 					/* Why equals instead of isIstance or similar? Efficiency.
 					 * Classes are static objects, so better check directly if the elements in scope have
 					 * the exact allowed classes.
 					 */
-					if (w.getCheckedMonadicUniversals().contains(e.getClass())) {
-						selectedElementList.add(e);
-						selectedElementNameList.add(((NamedElement) e).getName());
+					if (w.getCheckedFilteredStereotypes().contains(e.getClass())) {
+						allowedElementList.add(e);
+						if (e instanceof NamedElement) {
+							allowedElementNameList.add(((NamedElement) e).getName());
+						}
 					}
 				}
-				Log.p(500, this.getClass(), "Allowed elements names: " + selectedElementNameList);
+				Log.p(500, this.getClass(), "Allowed elements names: " + allowedElementNameList);
 				
-				// Part II and III:
-				// Relationships in OntoUMLPrime only have the name of related elements.
-				// We have to iterate over ALL OF THEM and check...
-				List<EObject> newScope = new ArrayList<>(selectedElementList);
+				// TODO Part II: filtering generalization sets...
 				
-				Model currentModel = ModelViewManager.getCurrentModelViewList().getModel();
+				Log.p(500, this.getClass(), "Allowed elements: " + allowedElementList);
 				
-				for (EObject e : currentModel.getElements()) {
-					
-					// Remember that relator is also an endurant.
-					if (e instanceof RelatorUniversal) {
-						Log.p(500, this.getClass(), "Relator found");
-						for (Mediation m : ((RelatorUniversal) e).getMediations()) {
-							addRelation(m, selectedElementNameList, selectedElementList, w);
-						}
-						continue;
-					}
-					
-					if (e instanceof EndurantUniversal) {
-						Log.p(500, this.getClass(), "Endurant found");
-						for (Characterization c : ((EndurantUniversal) e).getCharacterizedBy()) {
-							addRelation(c, selectedElementNameList, selectedElementList, w);
-						}
-						continue;
-					}
-					
-					if (e instanceof BinaryDirectedRelationship) {
-						addRelation((BinaryDirectedRelationship) e, selectedElementNameList, selectedElementList, w);
-					}
-					
-				}
-				Log.p(500, this.getClass(), "Allowed elements: " + selectedElementList);
-				
-				ModelView mv = ModelViewManager.getModelViewList(modelTitle).addModelView(w.getModelViewName(), selectedElementList);
+				ModelView mv = ModelViewManager.getModelViewList(modelTitle).addModelView(w.getModelViewName(), allowedElementList);
 				oumlView.refreshViewerAndSelectModelView(mv);
 				
 				break;

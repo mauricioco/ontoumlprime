@@ -24,6 +24,10 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
 public class ModelView implements Serializable {
+	/* TODO confirm this: relationship may only be in modelview if related elements are as well.
+	 * If single relationship is added to modelview, add its related elements as well.
+	 * If single relationship is removed from modelview, remove its related elements as well.
+	 */
 	
 	/**
 	 * 
@@ -189,6 +193,14 @@ public class ModelView implements Serializable {
 		return new ArrayList<>(elementMap.values());
 	}
 	
+	public List<EObject> getModelElementList() {
+		List<EObject> modelElementList = new ArrayList<>(elementMap.size());
+		for (ModelViewElement mve : elementMap.values()) {
+			modelElementList.add(mve.getModelElement());
+		}
+		return modelElementList;
+	}
+	
 	public ModelViewElement getModelViewElement(EObject element) {
 		if (checkElement(element)) {
 			return null;
@@ -200,17 +212,6 @@ public class ModelView implements Serializable {
 		return elementMap.get(id);
 	}
 	
-	// Inneficcient! And only works for NamedElements.
-	public ModelViewElement getModelViewElementWithElementName(String elementName) {
-		for (ModelViewElement mve : elementMap.values()) {
-			if (mve.getModelElement() instanceof NamedElement 
-					&& elementName.equals(((NamedElement) mve.getModelElement()).getName())) {
-				return mve;
-			}
-		}
-		return null;
-	}
-
 	public boolean isDefault() {
 		return isDefault;
 	}
