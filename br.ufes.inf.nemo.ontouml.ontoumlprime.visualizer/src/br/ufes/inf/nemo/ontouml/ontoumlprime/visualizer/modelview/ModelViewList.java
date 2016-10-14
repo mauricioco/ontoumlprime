@@ -20,7 +20,7 @@ public class ModelViewList implements Serializable {
 
 	private transient ModelView defaultModelView;	// Better not serialize it. Since it's synced to model, generate it again upon loading.
 	private List<ModelView> modelViewList;
-	private ModelView selectedModelView;	// TODO: This is UI related. It does not belong here. Better put it elsewhere.
+	private ModelView selectedModelView;	// This is UI related. It does not belong here. Better put it elsewhere.
 	
 	public ModelViewList(String modelTitle, Model model) {
 		this.model = model;

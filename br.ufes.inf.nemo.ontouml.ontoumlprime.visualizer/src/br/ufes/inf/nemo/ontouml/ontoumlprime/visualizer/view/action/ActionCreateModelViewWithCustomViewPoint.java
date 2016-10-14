@@ -89,7 +89,7 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 				}
 				Log.p(500, this.getClass(), "Allowed elements names: " + allowedElementNameList);
 				
-				// TODO Part II: filtering generalization sets...
+				// Part II: filtering generalization sets...
 				final int maxDepth = w.getGeneralizationMaxLevel();
 				final List<EObject> allowedSpecializedElementList = new ArrayList<>();
 				for (EObject e : allowedElementList) {

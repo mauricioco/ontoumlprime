@@ -198,7 +198,6 @@ public class OntoUMLPrimeView extends ViewPart {
 	}	
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
-		// TODO improve... allow for selection for both modelview and modelviewelement.
 		manager.add(ActionLoadModelViewList.sharedInstance());
 		manager.add(ActionSaveModelViewList.sharedInstance());
 		manager.add(new Separator());

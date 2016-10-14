@@ -25,10 +25,6 @@ import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.OntoUMLPrimeUtils;
 
 public class ModelView implements Serializable {
-	/* TODO confirm this: relationship may only be in modelview if related elements are as well.
-	 * If single relationship is added to modelview, add its related elements as well.
-	 * If single relationship is removed from modelview, remove its related elements as well.
-	 */
 	
 	/**
 	 * 

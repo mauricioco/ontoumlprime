@@ -108,7 +108,6 @@ public class OntoUMLPrimeViewContentProvider implements IStructuredContentProvid
 		return false;
 	}
 	
-	// TODO CHECK FOR MODELVIEWELEMENT EXISTENCE BEFORE ADDING TO LIST!!!
 	// If Endurant or Relator dont exist but its characterizations/mediations do, show on list
 	private void processModelView(ModelView modelView) {
 		ModelViewTreeObject modelRoot = new ModelViewTreeObject(modelView);

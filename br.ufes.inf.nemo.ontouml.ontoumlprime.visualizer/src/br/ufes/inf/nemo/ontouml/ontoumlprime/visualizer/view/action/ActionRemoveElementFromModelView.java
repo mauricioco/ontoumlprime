@@ -47,7 +47,8 @@ public class ActionRemoveElementFromModelView extends Action {
 				mveto.getModelElementView().deleteFromModelView();
 			}
 		}
-		// TODO needs clearing selection.		
+		
+		// Needs clearing selection?		
 		ModelViewManager.updateOntoUMLPrimeView();
 		ModelViewManager.updatePlantUMLView();
 		
