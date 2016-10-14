@@ -186,7 +186,7 @@ public class ModelViewManager {
 			return;
 		}
 		
-		IViewPart view = page.findView("net.sourceforge.plantuml.eclipse.views.PlantUmlView");
+		IViewPart view = page.findView("net.sourceforge.plantuml.eclipse.views.PrimePlantUmlView");
 		if (view != null && view instanceof PlantUmlView) {
 			ModelViewList mvl = initializeModelView(currentModelTitle, currentModel);
 			String code = OntoUMLPrime2PlantUML.generatePlantUMLCode(mvl.getSelectedModelView());

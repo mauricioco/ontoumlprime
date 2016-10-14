@@ -86,9 +86,9 @@ ruleModel returns [EObject current=null]
 )(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getModelAccess().getElementsElementParserRuleCall_1_0()); 
+	        newCompositeNode(grammarAccess.getModelAccess().getElementsPackageableElementParserRuleCall_1_0()); 
 	    }
-		lv_elements_1_0=ruleElement		{
+		lv_elements_1_0=rulePackageableElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getModelRule());
 	        }
@@ -96,7 +96,7 @@ ruleModel returns [EObject current=null]
        			$current, 
        			"elements",
         		lv_elements_1_0, 
-        		"Element");
+        		"PackageableElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -108,23 +108,23 @@ ruleModel returns [EObject current=null]
 
 
 
-// Entry rule entryRuleElement
-entryRuleElement returns [EObject current=null] 
+// Entry rule entryRulePackageableElement
+entryRulePackageableElement returns [EObject current=null] 
 	:
-	{ newCompositeNode(grammarAccess.getElementRule()); }
-	 iv_ruleElement=ruleElement 
-	 { $current=$iv_ruleElement.current; } 
+	{ newCompositeNode(grammarAccess.getPackageableElementRule()); }
+	 iv_rulePackageableElement=rulePackageableElement 
+	 { $current=$iv_rulePackageableElement.current; } 
 	 EOF 
 ;
 
-// Rule Element
-ruleElement returns [EObject current=null] 
+// Rule PackageableElement
+rulePackageableElement returns [EObject current=null] 
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
 (
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getPackageParserRuleCall_0()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getPackageParserRuleCall_0()); 
     }
     this_Package_0=rulePackage
     { 
@@ -134,7 +134,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getGeneralizationSetParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getGeneralizationSetParserRuleCall_1()); 
     }
     this_GeneralizationSet_1=ruleGeneralizationSet
     { 
@@ -144,7 +144,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getPrimitiveDataTypeParserRuleCall_2()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getPrimitiveDataTypeParserRuleCall_2()); 
     }
     this_PrimitiveDataType_2=rulePrimitiveDataType
     { 
@@ -154,7 +154,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getComplexDataTypeParserRuleCall_3()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getComplexDataTypeParserRuleCall_3()); 
     }
     this_ComplexDataType_3=ruleComplexDataType
     { 
@@ -164,7 +164,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getEnumerationParserRuleCall_4()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getEnumerationParserRuleCall_4()); 
     }
     this_Enumeration_4=ruleEnumeration
     { 
@@ -174,7 +174,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getMeronymicRelationParserRuleCall_5()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getMeronymicRelationParserRuleCall_5()); 
     }
     this_MeronymicRelation_5=ruleMeronymicRelation
     { 
@@ -184,7 +184,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getKindParserRuleCall_6()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getKindParserRuleCall_6()); 
     }
     this_Kind_6=ruleKind
     { 
@@ -194,7 +194,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getQuantityUniversalParserRuleCall_7()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getQuantityUniversalParserRuleCall_7()); 
     }
     this_QuantityUniversal_7=ruleQuantityUniversal
     { 
@@ -204,7 +204,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getCollectiveUniversalParserRuleCall_8()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getCollectiveUniversalParserRuleCall_8()); 
     }
     this_CollectiveUniversal_8=ruleCollectiveUniversal
     { 
@@ -214,7 +214,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getSubKindParserRuleCall_9()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getSubKindParserRuleCall_9()); 
     }
     this_SubKind_9=ruleSubKind
     { 
@@ -224,7 +224,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getRoleParserRuleCall_10()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getRoleParserRuleCall_10()); 
     }
     this_Role_10=ruleRole
     { 
@@ -234,7 +234,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getPhaseParserRuleCall_11()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getPhaseParserRuleCall_11()); 
     }
     this_Phase_11=rulePhase
     { 
@@ -244,7 +244,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getCategoryParserRuleCall_12()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getCategoryParserRuleCall_12()); 
     }
     this_Category_12=ruleCategory
     { 
@@ -254,7 +254,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getMixinParserRuleCall_13()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getMixinParserRuleCall_13()); 
     }
     this_Mixin_13=ruleMixin
     { 
@@ -264,7 +264,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getRoleMixinParserRuleCall_14()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getRoleMixinParserRuleCall_14()); 
     }
     this_RoleMixin_14=ruleRoleMixin
     { 
@@ -274,7 +274,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getRelatorUniversalParserRuleCall_15()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getRelatorUniversalParserRuleCall_15()); 
     }
     this_RelatorUniversal_15=ruleRelatorUniversal
     { 
@@ -284,7 +284,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getBinaryMaterialRelationParserRuleCall_16()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getBinaryMaterialRelationParserRuleCall_16()); 
     }
     this_BinaryMaterialRelation_16=ruleBinaryMaterialRelation
     { 
@@ -294,7 +294,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getBinaryFormalRelationParserRuleCall_17()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getBinaryFormalRelationParserRuleCall_17()); 
     }
     this_BinaryFormalRelation_17=ruleBinaryFormalRelation
     { 
@@ -304,7 +304,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getModeUniversalParserRuleCall_18()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getModeUniversalParserRuleCall_18()); 
     }
     this_ModeUniversal_18=ruleModeUniversal
     { 
@@ -314,7 +314,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getQualityUniversalParserRuleCall_19()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getQualityUniversalParserRuleCall_19()); 
     }
     this_QualityUniversal_19=ruleQualityUniversal
     { 
@@ -324,7 +324,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getNAryMaterialRelationParserRuleCall_20()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getNAryMaterialRelationParserRuleCall_20()); 
     }
     this_nAryMaterialRelation_20=rulenAryMaterialRelation
     { 
@@ -334,7 +334,7 @@ ruleElement returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getElementAccess().getNAryFormalRelationParserRuleCall_21()); 
+        newCompositeNode(grammarAccess.getPackageableElementAccess().getNAryFormalRelationParserRuleCall_21()); 
     }
     this_nAryFormalRelation_21=rulenAryFormalRelation
     { 
@@ -405,9 +405,9 @@ rulePackage returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getPackageAccess().getElementsElementParserRuleCall_4_0()); 
+	        newCompositeNode(grammarAccess.getPackageAccess().getElementsPackageableElementParserRuleCall_4_0()); 
 	    }
-		lv_elements_4_0=ruleElement		{
+		lv_elements_4_0=rulePackageableElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getPackageRule());
 	        }
@@ -415,7 +415,7 @@ rulePackage returns [EObject current=null]
        			$current, 
        			"elements",
         		lv_elements_4_0, 
-        		"Element");
+        		"PackageableElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3012,9 +3012,17 @@ ruleQualityUniversal returns [EObject current=null]
 	    }
 
 )
-)	otherlv_2='characterizes' 
+)	otherlv_2='{' 
     {
-    	newLeafNode(otherlv_2, grammarAccess.getQualityUniversalAccess().getCharacterizesKeyword_2());
+    	newLeafNode(otherlv_2, grammarAccess.getQualityUniversalAccess().getLeftCurlyBracketKeyword_2());
+    }
+(	otherlv_3='datatypes' 
+    {
+    	newLeafNode(otherlv_3, grammarAccess.getQualityUniversalAccess().getDatatypesKeyword_3_0());
+    }
+	otherlv_4='(' 
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getQualityUniversalAccess().getLeftParenthesisKeyword_3_1());
     }
 (
 (
@@ -3023,23 +3031,15 @@ ruleQualityUniversal returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getQualityUniversalRule());
 	        }
         }
-	otherlv_3=RULE_ID
+	otherlv_5=RULE_ID
 	{
-		newLeafNode(otherlv_3, grammarAccess.getQualityUniversalAccess().getCharacterizationCharacterizationCrossReference_3_0()); 
+		newLeafNode(otherlv_5, grammarAccess.getQualityUniversalAccess().getDatatypesDataTypeCrossReference_3_2_0()); 
 	}
 
 )
-)	otherlv_4='{' 
+)(	otherlv_6=',' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getQualityUniversalAccess().getLeftCurlyBracketKeyword_4());
-    }
-(	otherlv_5='datatypes' 
-    {
-    	newLeafNode(otherlv_5, grammarAccess.getQualityUniversalAccess().getDatatypesKeyword_5_0());
-    }
-	otherlv_6='(' 
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getQualityUniversalAccess().getLeftParenthesisKeyword_5_1());
+    	newLeafNode(otherlv_6, grammarAccess.getQualityUniversalAccess().getCommaKeyword_3_3_0());
     }
 (
 (
@@ -3050,52 +3050,35 @@ ruleQualityUniversal returns [EObject current=null]
         }
 	otherlv_7=RULE_ID
 	{
-		newLeafNode(otherlv_7, grammarAccess.getQualityUniversalAccess().getDatatypesDataTypeCrossReference_5_2_0()); 
+		newLeafNode(otherlv_7, grammarAccess.getQualityUniversalAccess().getDatatypesDataTypeCrossReference_3_3_1_0()); 
 	}
 
 )
-)(	otherlv_8=',' 
+))*	otherlv_8=')' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getQualityUniversalAccess().getCommaKeyword_5_3_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getQualityUniversalRule());
-	        }
-        }
-	otherlv_9=RULE_ID
-	{
-		newLeafNode(otherlv_9, grammarAccess.getQualityUniversalAccess().getDatatypesDataTypeCrossReference_5_3_1_0()); 
-	}
-
-)
-))*	otherlv_10=')' 
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getQualityUniversalAccess().getRightParenthesisKeyword_5_4());
+    	newLeafNode(otherlv_8, grammarAccess.getQualityUniversalAccess().getRightParenthesisKeyword_3_4());
     }
 )?(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getQualityUniversalAccess().getCharacterizedByCharacterizationParserRuleCall_6_0()); 
+	        newCompositeNode(grammarAccess.getQualityUniversalAccess().getCharacterizedByCharacterizationParserRuleCall_4_0()); 
 	    }
-		lv_characterizedBy_11_0=ruleCharacterization		{
+		lv_characterizedBy_9_0=ruleCharacterization		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getQualityUniversalRule());
 	        }
        		add(
        			$current, 
        			"characterizedBy",
-        		lv_characterizedBy_11_0, 
+        		lv_characterizedBy_9_0, 
         		"Characterization");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)*	otherlv_12='}' 
+)*	otherlv_10='}' 
     {
-    	newLeafNode(otherlv_12, grammarAccess.getQualityUniversalAccess().getRightCurlyBracketKeyword_7());
+    	newLeafNode(otherlv_10, grammarAccess.getQualityUniversalAccess().getRightCurlyBracketKeyword_5());
     }
 )
 ;
@@ -3615,8 +3598,6 @@ ruleCharacterization returns [EObject current=null]
 
 
 
-
-
 // Entry rule entryRuleMediation
 entryRuleMediation returns [EObject current=null] 
 	:
@@ -3637,59 +3618,59 @@ ruleMediation returns [EObject current=null]
             grammarAccess.getMediationAccess().getMediationAction_0(),
             $current);
     }
-)	otherlv_1='mediates' 
+)(	otherlv_1='[' 
     {
-    	newLeafNode(otherlv_1, grammarAccess.getMediationAccess().getMediatesKeyword_1());
-    }
-(	otherlv_2='[' 
-    {
-    	newLeafNode(otherlv_2, grammarAccess.getMediationAccess().getLeftSquareBracketKeyword_2_0());
+    	newLeafNode(otherlv_1, grammarAccess.getMediationAccess().getLeftSquareBracketKeyword_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMediationAccess().getSourceLowerBoundCardinalityBoundParserRuleCall_2_1_0()); 
+	        newCompositeNode(grammarAccess.getMediationAccess().getSourceLowerBoundCardinalityBoundParserRuleCall_1_1_0()); 
 	    }
-		lv_sourceLowerBound_3_0=ruleCardinalityBound		{
+		lv_sourceLowerBound_2_0=ruleCardinalityBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMediationRule());
 	        }
        		set(
        			$current, 
        			"sourceLowerBound",
-        		lv_sourceLowerBound_3_0, 
+        		lv_sourceLowerBound_2_0, 
         		"CardinalityBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_4='..' 
+)	otherlv_3='..' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getMediationAccess().getFullStopFullStopKeyword_2_2());
+    	newLeafNode(otherlv_3, grammarAccess.getMediationAccess().getFullStopFullStopKeyword_1_2());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getMediationAccess().getSourceUpperBoundCardinalityUpperBoundParserRuleCall_2_3_0()); 
+	        newCompositeNode(grammarAccess.getMediationAccess().getSourceUpperBoundCardinalityUpperBoundParserRuleCall_1_3_0()); 
 	    }
-		lv_sourceUpperBound_5_0=ruleCardinalityUpperBound		{
+		lv_sourceUpperBound_4_0=ruleCardinalityUpperBound		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getMediationRule());
 	        }
        		set(
        			$current, 
        			"sourceUpperBound",
-        		lv_sourceUpperBound_5_0, 
+        		lv_sourceUpperBound_4_0, 
         		"CardinalityUpperBound");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_6=']' 
+)	otherlv_5=']' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getMediationAccess().getRightSquareBracketKeyword_2_4());
+    	newLeafNode(otherlv_5, grammarAccess.getMediationAccess().getRightSquareBracketKeyword_1_4());
     }
-)?(
+)?	otherlv_6='mediates' 
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getMediationAccess().getMediatesKeyword_2());
+    }
+(
 (
 		{
 			if ($current==null) {

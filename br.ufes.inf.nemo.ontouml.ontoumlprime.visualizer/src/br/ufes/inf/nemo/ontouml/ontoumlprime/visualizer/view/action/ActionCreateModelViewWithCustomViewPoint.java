@@ -11,21 +11,11 @@ import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryDirectedRelationship;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryFormalRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.BinaryMaterialRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.EndurantUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.ExternallyDependentUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.IntrinsicMomentUniversal;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MeronymicRelation;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Universal;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.log.Log;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelView;
-import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewElement;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.modelview.ModelViewManager;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.utils.ActionUtils;
 import br.ufes.inf.nemo.ontouml.ontoumlprime.visualizer.view.OntoUMLPrimeView;
@@ -80,10 +70,8 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 		switch(wd.open()) {
 			case WizardDialog.OK:
 				final List<EObject> allowedElementList = new ArrayList<>();
-				final List<String> allowedElementNameList = new ArrayList<>();	// Workaround to speed up Parts II and III.
-				
-				// TODO Modularize this later... sheesh.
-				
+				final List<String> allowedElementNameList = new ArrayList<>();	// Workaround to speed up Part II.
+								
 				// Part I: filtering elements...
 				Log.p(500, this.getClass(), "List of allowed monadic universals: " + w.getCheckedFilteredStereotypes());
 				for (EObject e : scope) {
@@ -102,18 +90,41 @@ public class ActionCreateModelViewWithCustomViewPoint extends Action {
 				Log.p(500, this.getClass(), "Allowed elements names: " + allowedElementNameList);
 				
 				// TODO Part II: filtering generalization sets...
+				final int maxDepth = w.getGeneralizationMaxLevel();
+				final List<EObject> allowedSpecializedElementList = new ArrayList<>();
+				for (EObject e : allowedElementList) {
+					if (e instanceof Universal) {
+						checkGenSets(w, maxDepth, (Universal) e, allowedSpecializedElementList);
+					}
+				}
+				Log.p(500, this.getClass(), "Allowed specialized elements: " + allowedElementList);
 				
-				Log.p(500, this.getClass(), "Allowed elements: " + allowedElementList);
+				allowedElementList.addAll(allowedSpecializedElementList);
 				
 				ModelView mv = ModelViewManager.getModelViewList(modelTitle).addModelView(w.getModelViewName(), allowedElementList);
 				oumlView.refreshViewerAndSelectModelView(mv);
-				
 				break;
 			case WizardDialog.CANCEL:
 			default:
 				break;
 		}
-		
 	}
-	
+
+	private void checkGenSets(CreateFromCustomViewPointWizard w, int depth, Universal e, List<EObject> allowedSpecializedElementList) {
+		if (depth < 0) {
+			return;
+		}
+		allowedSpecializedElementList.add(e);
+		List<GeneralizationSet> specializedVia = ((Universal) e).getIsSpecializedVia();
+		for (GeneralizationSet g : specializedVia) {
+			for (Universal specializingUniversal : g.getSpecializingUniversals()) {
+				if (w.getCheckedSpecializedStereotypes().contains(specializingUniversal.getClass())) {
+					checkGenSets(w, depth-1, specializingUniversal, allowedSpecializedElementList);
+					if (depth >= 0) {
+						allowedSpecializedElementList.add(g);
+					}
+				}
+			}
+		}
+	}
 }

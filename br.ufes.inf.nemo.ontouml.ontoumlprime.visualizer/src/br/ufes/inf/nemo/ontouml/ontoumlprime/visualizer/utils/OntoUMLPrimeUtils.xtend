@@ -99,7 +99,7 @@ class OntoUMLPrimeUtils {
 	'''Mediation_«source.name»_«target.name»'''
 	
 	def static dispatch String generateId(MembershipRelation it)
-	'''MembershipRelation_(unique)'''
+	'''MembershipRelation_«part.name»_«whole.name»'''
 	//has part and whole
 	
 	def static dispatch String generateId(Mixin it)
@@ -142,13 +142,13 @@ class OntoUMLPrimeUtils {
 	'''QuantityUniversal_«name»'''
 	
 	def static dispatch String generateId(SubCollectionRelation it)
-	'''SubCollectionRelation_(unique)'''
+	'''SubCollectionRelation_«part.name»_«whole.name»'''
 	
 	def static dispatch String generateId(SubKind it)
 	'''SubKind_«name»'''
 	
 	def static dispatch String generateId(SubQuantityRelation it)
-	'''SubQuantityRelation_(unique)'''
+	'''SubQuantityRelation_«part.name»_«whole.name»'''
 	
 	// ---------------------------------------------------
 	

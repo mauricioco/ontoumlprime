@@ -17,10 +17,6 @@ import org.eclipse.ui.IFileEditorInput
  */
 class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 	
-	enum UpdateMethod {
-		
-	}
-		
 	/**
 	 * Returns true if the active eclipse editor is supported by this text provider.
 	 */
@@ -88,7 +84,11 @@ class OntoUMLDiagramTextProvider implements DiagramTextProvider {
 		    
 		    Log.p(100, OntoUMLDiagramTextProvider, "generating PlantUML code for visualizer");
 		    Log.printDivider;
-	    	return OntoUMLPrime2PlantUML.generatePlantUMLCode(modelView.selectedModelView);
+		    try {
+	    		return OntoUMLPrime2PlantUML.generatePlantUMLCode(modelView.selectedModelView);
+	    	} catch (NullPointerException e) {
+	    		return "";
+	    	}
 	    }
     }
     

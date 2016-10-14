@@ -37,7 +37,7 @@ public class DslParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
-					put(grammarAccess.getElementAccess().getAlternatives(), "rule__Element__Alternatives");
+					put(grammarAccess.getPackageableElementAccess().getAlternatives(), "rule__PackageableElement__Alternatives");
 					put(grammarAccess.getEndurantUniversalAccess().getAlternatives(), "rule__EndurantUniversal__Alternatives");
 					put(grammarAccess.getUniversalAccess().getAlternatives(), "rule__Universal__Alternatives");
 					put(grammarAccess.getDataTypeAccess().getAlternatives(), "rule__DataType__Alternatives");
@@ -101,8 +101,8 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getBinaryFormalRelationAccess().getGroup_6(), "rule__BinaryFormalRelation__Group_6__0");
 					put(grammarAccess.getModeUniversalAccess().getGroup(), "rule__ModeUniversal__Group__0");
 					put(grammarAccess.getQualityUniversalAccess().getGroup(), "rule__QualityUniversal__Group__0");
-					put(grammarAccess.getQualityUniversalAccess().getGroup_5(), "rule__QualityUniversal__Group_5__0");
-					put(grammarAccess.getQualityUniversalAccess().getGroup_5_3(), "rule__QualityUniversal__Group_5_3__0");
+					put(grammarAccess.getQualityUniversalAccess().getGroup_3(), "rule__QualityUniversal__Group_3__0");
+					put(grammarAccess.getQualityUniversalAccess().getGroup_3_3(), "rule__QualityUniversal__Group_3_3__0");
 					put(grammarAccess.getNAryMaterialRelationAccess().getGroup(), "rule__NAryMaterialRelation__Group__0");
 					put(grammarAccess.getNAryMaterialRelationAccess().getGroup_4(), "rule__NAryMaterialRelation__Group_4__0");
 					put(grammarAccess.getNAryMaterialRelationAccess().getGroup_4_1(), "rule__NAryMaterialRelation__Group_4_1__0");
@@ -116,11 +116,8 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCharacterizationAccess().getGroup(), "rule__Characterization__Group__0");
 					put(grammarAccess.getCharacterizationAccess().getGroup_1(), "rule__Characterization__Group_1__0");
 					put(grammarAccess.getCharacterizationAccess().getGroup_4(), "rule__Characterization__Group_4__0");
-					put(grammarAccess.getCharacterizesAccess().getGroup(), "rule__Characterizes__Group__0");
-					put(grammarAccess.getCharacterizesAccess().getGroup_1(), "rule__Characterizes__Group_1__0");
-					put(grammarAccess.getCharacterizesAccess().getGroup_4(), "rule__Characterizes__Group_4__0");
 					put(grammarAccess.getMediationAccess().getGroup(), "rule__Mediation__Group__0");
-					put(grammarAccess.getMediationAccess().getGroup_2(), "rule__Mediation__Group_2__0");
+					put(grammarAccess.getMediationAccess().getGroup_1(), "rule__Mediation__Group_1__0");
 					put(grammarAccess.getMediationAccess().getGroup_4(), "rule__Mediation__Group_4__0");
 					put(grammarAccess.getDataTypeAttributeAccess().getGroup(), "rule__DataTypeAttribute__Group__0");
 					put(grammarAccess.getEIntAccess().getGroup(), "rule__EInt__Group__0");
@@ -224,10 +221,9 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getModeUniversalAccess().getNameAssignment_1(), "rule__ModeUniversal__NameAssignment_1");
 					put(grammarAccess.getModeUniversalAccess().getCharacterizedByAssignment_3(), "rule__ModeUniversal__CharacterizedByAssignment_3");
 					put(grammarAccess.getQualityUniversalAccess().getNameAssignment_1(), "rule__QualityUniversal__NameAssignment_1");
-					put(grammarAccess.getQualityUniversalAccess().getCharacterizationAssignment_3(), "rule__QualityUniversal__CharacterizationAssignment_3");
-					put(grammarAccess.getQualityUniversalAccess().getDatatypesAssignment_5_2(), "rule__QualityUniversal__DatatypesAssignment_5_2");
-					put(grammarAccess.getQualityUniversalAccess().getDatatypesAssignment_5_3_1(), "rule__QualityUniversal__DatatypesAssignment_5_3_1");
-					put(grammarAccess.getQualityUniversalAccess().getCharacterizedByAssignment_6(), "rule__QualityUniversal__CharacterizedByAssignment_6");
+					put(grammarAccess.getQualityUniversalAccess().getDatatypesAssignment_3_2(), "rule__QualityUniversal__DatatypesAssignment_3_2");
+					put(grammarAccess.getQualityUniversalAccess().getDatatypesAssignment_3_3_1(), "rule__QualityUniversal__DatatypesAssignment_3_3_1");
+					put(grammarAccess.getQualityUniversalAccess().getCharacterizedByAssignment_4(), "rule__QualityUniversal__CharacterizedByAssignment_4");
 					put(grammarAccess.getNAryMaterialRelationAccess().getDerivedFromAssignment_2(), "rule__NAryMaterialRelation__DerivedFromAssignment_2");
 					put(grammarAccess.getNAryMaterialRelationAccess().getNameAssignment_3(), "rule__NAryMaterialRelation__NameAssignment_3");
 					put(grammarAccess.getNAryMaterialRelationAccess().getTargetRelataAssignment_4_0(), "rule__NAryMaterialRelation__TargetRelataAssignment_4_0");
@@ -248,13 +244,8 @@ public class DslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getCharacterizationAccess().getTargetAssignment_3(), "rule__Characterization__TargetAssignment_3");
 					put(grammarAccess.getCharacterizationAccess().getTargetLowerBoundAssignment_4_1(), "rule__Characterization__TargetLowerBoundAssignment_4_1");
 					put(grammarAccess.getCharacterizationAccess().getTargetUpperBoundAssignment_4_3(), "rule__Characterization__TargetUpperBoundAssignment_4_3");
-					put(grammarAccess.getCharacterizesAccess().getSourceLowerBoundAssignment_1_1(), "rule__Characterizes__SourceLowerBoundAssignment_1_1");
-					put(grammarAccess.getCharacterizesAccess().getSourceUpperBoundAssignment_1_3(), "rule__Characterizes__SourceUpperBoundAssignment_1_3");
-					put(grammarAccess.getCharacterizesAccess().getTargetAssignment_3(), "rule__Characterizes__TargetAssignment_3");
-					put(grammarAccess.getCharacterizesAccess().getTargetLowerBoundAssignment_4_1(), "rule__Characterizes__TargetLowerBoundAssignment_4_1");
-					put(grammarAccess.getCharacterizesAccess().getTargetUpperBoundAssignment_4_3(), "rule__Characterizes__TargetUpperBoundAssignment_4_3");
-					put(grammarAccess.getMediationAccess().getSourceLowerBoundAssignment_2_1(), "rule__Mediation__SourceLowerBoundAssignment_2_1");
-					put(grammarAccess.getMediationAccess().getSourceUpperBoundAssignment_2_3(), "rule__Mediation__SourceUpperBoundAssignment_2_3");
+					put(grammarAccess.getMediationAccess().getSourceLowerBoundAssignment_1_1(), "rule__Mediation__SourceLowerBoundAssignment_1_1");
+					put(grammarAccess.getMediationAccess().getSourceUpperBoundAssignment_1_3(), "rule__Mediation__SourceUpperBoundAssignment_1_3");
 					put(grammarAccess.getMediationAccess().getTargetAssignment_3(), "rule__Mediation__TargetAssignment_3");
 					put(grammarAccess.getMediationAccess().getTargetLowerBoundAssignment_4_1(), "rule__Mediation__TargetLowerBoundAssignment_4_1");
 					put(grammarAccess.getMediationAccess().getTargetUpperBoundAssignment_4_3(), "rule__Mediation__TargetUpperBoundAssignment_4_3");

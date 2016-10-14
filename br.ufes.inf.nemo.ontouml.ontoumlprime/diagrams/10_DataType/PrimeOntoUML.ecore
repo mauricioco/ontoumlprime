@@ -4,7 +4,14 @@
     nsPrefix="ontouml-prime">
   <eClassifiers xsi:type="ecore:EClass" name="DataType" abstract="true"/>
   <eClassifiers xsi:type="ecore:EClass" name="PrimitiveDataType" eSuperTypes="#//DataType">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="_type" unique="false" lowerBound="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="_type" unique="false" lowerBound="1"
+        eType="#//PrimitiveDataTypeType"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="PrimitiveDataTypeType">
+    <eLiterals name="Boolean"/>
+    <eLiterals name="String"/>
+    <eLiterals name="Real"/>
+    <eLiterals name="UnlimitedNatural"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UserDefinedDataType" abstract="true"
       eSuperTypes="#//DataType"/>

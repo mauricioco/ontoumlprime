@@ -66,15 +66,8 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 				sequence_Category(context, (Category) semanticObject); 
 				return; 
 			case PrimeOntoUMLPackage.CHARACTERIZATION:
-				if(context == grammarAccess.getCharacterizationRule()) {
-					sequence_Characterization(context, (Characterization) semanticObject); 
-					return; 
-				}
-				else if(context == grammarAccess.getCharacterizesRule()) {
-					sequence_Characterizes(context, (Characterization) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_Characterization(context, (Characterization) semanticObject); 
+				return; 
 			case PrimeOntoUMLPackage.COLLECTIVE_UNIVERSAL:
 				sequence_CollectiveUniversal(context, (CollectiveUniversal) semanticObject); 
 				return; 
@@ -91,8 +84,8 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 				sequence_Enumeration(context, (Enumeration) semanticObject); 
 				return; 
 			case PrimeOntoUMLPackage.GENERALIZATION_SET:
-				if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getGeneralizationSetRule()) {
+				if(context == grammarAccess.getGeneralizationSetRule() ||
+				   context == grammarAccess.getPackageableElementRule()) {
 					sequence_AnonymousGeneralizationSet_CompleteGeneralizationSet_GeneralizationSet(context, (GeneralizationSet) semanticObject); 
 					return; 
 				}
@@ -256,19 +249,6 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (
-	 *         (sourceLowerBound=CardinalityBound sourceUpperBound=CardinalityUpperBound)? 
-	 *         target=[IntrinsicMomentUniversal|ID] 
-	 *         (targetLowerBound=CardinalityBound targetUpperBound=CardinalityUpperBound)?
-	 *     )
-	 */
-	protected void sequence_Characterizes(EObject context, Characterization semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
-	}
-	
-	
-	/**
-	 * Constraint:
 	 *     (isExtensional?='extensional'? name=ID characterizedBy+=Characterization*)
 	 */
 	protected void sequence_CollectiveUniversal(EObject context, CollectiveUniversal semanticObject) {
@@ -396,7 +376,7 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (elements+=Element*)
+	 *     (elements+=PackageableElement*)
 	 */
 	protected void sequence_Model(EObject context, Model semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -414,7 +394,7 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=ID elements+=Element+)
+	 *     (name=ID elements+=PackageableElement+)
 	 */
 	protected void sequence_Package(EObject context, br.ufes.inf.nemo.ontouml.PrimeOntoUML.Package semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -451,7 +431,7 @@ public abstract class AbstractDslSemanticSequencer extends AbstractDelegatingSem
 	
 	/**
 	 * Constraint:
-	 *     (name=ID characterization=[Characterization|ID] (datatypes+=[DataType|ID] datatypes+=[DataType|ID]*)? characterizedBy+=Characterization*)
+	 *     (name=ID (datatypes+=[DataType|ID] datatypes+=[DataType|ID]*)? characterizedBy+=Characterization*)
 	 */
 	protected void sequence_QualityUniversal(EObject context, QualityUniversal semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

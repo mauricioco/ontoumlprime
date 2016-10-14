@@ -23,31 +23,27 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cModelAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cElementsAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cElementsElementParserRuleCall_1_0 = (RuleCall)cElementsAssignment_1.eContents().get(0);
+		private final RuleCall cElementsPackageableElementParserRuleCall_1_0 = (RuleCall)cElementsAssignment_1.eContents().get(0);
 		
-		/// *
-		// * Characterization
-		// * Derivation
-		// * Mediation
-		// * / Model:
-		//	{Model} elements+=Element*;
+		//Model:
+		//	{Model} elements+=PackageableElement*;
 		@Override public ParserRule getRule() { return rule; }
 
-		//{Model} elements+=Element*
+		//{Model} elements+=PackageableElement*
 		public Group getGroup() { return cGroup; }
 
 		//{Model}
 		public Action getModelAction_0() { return cModelAction_0; }
 
-		//elements+=Element*
+		//elements+=PackageableElement*
 		public Assignment getElementsAssignment_1() { return cElementsAssignment_1; }
 
-		//Element
-		public RuleCall getElementsElementParserRuleCall_1_0() { return cElementsElementParserRuleCall_1_0; }
+		//PackageableElement
+		public RuleCall getElementsPackageableElementParserRuleCall_1_0() { return cElementsPackageableElementParserRuleCall_1_0; }
 	}
 
-	public class ElementElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Element");
+	public class PackageableElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "PackageableElement");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cPackageParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cGeneralizationSetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
@@ -72,7 +68,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNAryMaterialRelationParserRuleCall_20 = (RuleCall)cAlternatives.eContents().get(20);
 		private final RuleCall cNAryFormalRelationParserRuleCall_21 = (RuleCall)cAlternatives.eContents().get(21);
 		
-		//Element returns PackageableElement:
+		//PackageableElement:
 		//	Package | GeneralizationSet | PrimitiveDataType | ComplexDataType | Enumeration | MeronymicRelation | Kind |
 		//	QuantityUniversal | CollectiveUniversal | SubKind | Role | Phase | Category | Mixin | RoleMixin | RelatorUniversal |
 		//	BinaryMaterialRelation | BinaryFormalRelation | ModeUniversal | QualityUniversal | nAryMaterialRelation |
@@ -318,14 +314,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cNameIDTerminalRuleCall_2_0 = (RuleCall)cNameAssignment_2.eContents().get(0);
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Assignment cElementsAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final RuleCall cElementsElementParserRuleCall_4_0 = (RuleCall)cElementsAssignment_4.eContents().get(0);
+		private final RuleCall cElementsPackageableElementParserRuleCall_4_0 = (RuleCall)cElementsAssignment_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//Package:
-		//	{Package} "package" name=ID "{" elements+=Element+ "}";
+		//	{Package} "package" name=ID "{" elements+=PackageableElement+ "}";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{Package} "package" name=ID "{" elements+=Element+ "}"
+		//{Package} "package" name=ID "{" elements+=PackageableElement+ "}"
 		public Group getGroup() { return cGroup; }
 
 		//{Package}
@@ -343,11 +339,11 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"{"
 		public Keyword getLeftCurlyBracketKeyword_3() { return cLeftCurlyBracketKeyword_3; }
 
-		//elements+=Element+
+		//elements+=PackageableElement+
 		public Assignment getElementsAssignment_4() { return cElementsAssignment_4; }
 
-		//Element
-		public RuleCall getElementsElementParserRuleCall_4_0() { return cElementsElementParserRuleCall_4_0; }
+		//PackageableElement
+		public RuleCall getElementsPackageableElementParserRuleCall_4_0() { return cElementsPackageableElementParserRuleCall_4_0; }
 
 		//"}"
 		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
@@ -359,13 +355,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCompleteGeneralizationSetParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
 		private final RuleCall cAnonymousGeneralizationSetParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
-		//// complete generalizationSet gender specializes Person into Man, Woman
-		//// => GeographicalSpace specializes SpatialThing
-		//// => GeographicalSpace, FooBar specialize SpatialThing
-		//// => GeographicalSpace specializationOf SpatialThing
-		//// GeographicalSpace => SpatialThing
-		//// GeographicalSpace, MultiDimensionalSpace => SpatialThing
-		//GeneralizationSet:
+		/// *
+		// * complete generalizationSet gender specializes Person into Man, Woman
+		// * => GeographicalSpace specializes SpatialThing
+		// * => GeographicalSpace, FooBar specialize SpatialThing
+		// * => GeographicalSpace specializationOf SpatialThing
+		// * GeographicalSpace => SpatialThing
+		// * GeographicalSpace, MultiDimensionalSpace => SpatialThing
+		// * / GeneralizationSet:
 		//	CompleteGeneralizationSet | AnonymousGeneralizationSet;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1750,11 +1747,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cCharacterizedByCharacterizationParserRuleCall_4_0 = (RuleCall)cCharacterizedByAssignment_4.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		/// *
-		// * Example
-		// * 
-		// * 
-		// * / Phase:
+		//Phase:
 		//	{Phase} "Phase" name=ID "{" characterizedBy+=Characterization* "}";
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1796,11 +1789,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		/// *
-		// * Example
-		// * 
-		// * 
-		// * / Category:
+		//Category:
 		//	{Category} "Category" name=ID "{" "}";
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1836,11 +1825,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		private final Keyword cRightCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
-		/// *
-		// * Example
-		// * 
-		// * 
-		// * / Mixin:
+		//Mixin:
 		//	{Mixin} "Mixin" name=ID "{" "}";
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1875,11 +1860,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Keyword cRightCurlyBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
-		/// *
-		// * Example
-		// * 
-		// * 
-		// * / RoleMixin:
+		//RoleMixin:
 		//	"RoleMixin" name=ID "{" "}";
 		@Override public ParserRule getRule() { return rule; }
 
@@ -1998,7 +1979,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		/// *
 		// * Example
 		// * 
-		// * material rel Parent[1..2] parentOf OffSpring[1..*];
+		// * material rel Parent[1..2] parentOf(Registration) OffSpring[1..*];
 		// * / BinaryMaterialRelation:
 		//	"material" "rel" source=[ExternallyDependentUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 		//	sourceUpperBound=CardinalityUpperBound "]")? name=ID ("(" derivedFrom=[RelatorUniversal] ")")?
@@ -2290,26 +2271,22 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cQualityUniversalKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
-		private final Keyword cCharacterizesKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cCharacterizationAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cCharacterizationCharacterizationCrossReference_3_0 = (CrossReference)cCharacterizationAssignment_3.eContents().get(0);
-		private final RuleCall cCharacterizationCharacterizationIDTerminalRuleCall_3_0_1 = (RuleCall)cCharacterizationCharacterizationCrossReference_3_0.eContents().get(1);
-		private final Keyword cLeftCurlyBracketKeyword_4 = (Keyword)cGroup.eContents().get(4);
-		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
-		private final Keyword cDatatypesKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
-		private final Keyword cLeftParenthesisKeyword_5_1 = (Keyword)cGroup_5.eContents().get(1);
-		private final Assignment cDatatypesAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
-		private final CrossReference cDatatypesDataTypeCrossReference_5_2_0 = (CrossReference)cDatatypesAssignment_5_2.eContents().get(0);
-		private final RuleCall cDatatypesDataTypeIDTerminalRuleCall_5_2_0_1 = (RuleCall)cDatatypesDataTypeCrossReference_5_2_0.eContents().get(1);
-		private final Group cGroup_5_3 = (Group)cGroup_5.eContents().get(3);
-		private final Keyword cCommaKeyword_5_3_0 = (Keyword)cGroup_5_3.eContents().get(0);
-		private final Assignment cDatatypesAssignment_5_3_1 = (Assignment)cGroup_5_3.eContents().get(1);
-		private final CrossReference cDatatypesDataTypeCrossReference_5_3_1_0 = (CrossReference)cDatatypesAssignment_5_3_1.eContents().get(0);
-		private final RuleCall cDatatypesDataTypeIDTerminalRuleCall_5_3_1_0_1 = (RuleCall)cDatatypesDataTypeCrossReference_5_3_1_0.eContents().get(1);
-		private final Keyword cRightParenthesisKeyword_5_4 = (Keyword)cGroup_5.eContents().get(4);
-		private final Assignment cCharacterizedByAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final RuleCall cCharacterizedByCharacterizationParserRuleCall_6_0 = (RuleCall)cCharacterizedByAssignment_6.eContents().get(0);
-		private final Keyword cRightCurlyBracketKeyword_7 = (Keyword)cGroup.eContents().get(7);
+		private final Keyword cLeftCurlyBracketKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Keyword cDatatypesKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
+		private final Keyword cLeftParenthesisKeyword_3_1 = (Keyword)cGroup_3.eContents().get(1);
+		private final Assignment cDatatypesAssignment_3_2 = (Assignment)cGroup_3.eContents().get(2);
+		private final CrossReference cDatatypesDataTypeCrossReference_3_2_0 = (CrossReference)cDatatypesAssignment_3_2.eContents().get(0);
+		private final RuleCall cDatatypesDataTypeIDTerminalRuleCall_3_2_0_1 = (RuleCall)cDatatypesDataTypeCrossReference_3_2_0.eContents().get(1);
+		private final Group cGroup_3_3 = (Group)cGroup_3.eContents().get(3);
+		private final Keyword cCommaKeyword_3_3_0 = (Keyword)cGroup_3_3.eContents().get(0);
+		private final Assignment cDatatypesAssignment_3_3_1 = (Assignment)cGroup_3_3.eContents().get(1);
+		private final CrossReference cDatatypesDataTypeCrossReference_3_3_1_0 = (CrossReference)cDatatypesAssignment_3_3_1.eContents().get(0);
+		private final RuleCall cDatatypesDataTypeIDTerminalRuleCall_3_3_1_0_1 = (RuleCall)cDatatypesDataTypeCrossReference_3_3_1_0.eContents().get(1);
+		private final Keyword cRightParenthesisKeyword_3_4 = (Keyword)cGroup_3.eContents().get(4);
+		private final Assignment cCharacterizedByAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cCharacterizedByCharacterizationParserRuleCall_4_0 = (RuleCall)cCharacterizedByAssignment_4.eContents().get(0);
+		private final Keyword cRightCurlyBracketKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		/// *
 		// * Example
@@ -2318,12 +2295,17 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * Possible source of confusion:
 		// * It must have a characterization with target = self
+		// * 
+		// * It has to be like ModeUniversal. Allow it to be instantiated without a characterization...
+		// * But, it'll generate an error, warning the modeler that it has to characterize something.
 		// * / QualityUniversal:
-		//	"QualityUniversal" name=ID "characterizes" characterization=[Characterization] "{" //TODO: review this
+		//	"QualityUniversal" name=ID //characterization = Characterizes
+		//	"{" //TODO: review this
 		//	("datatypes" "(" datatypes+=[DataType] ("," datatypes+=[DataType])* ")")? characterizedBy+=Characterization* "}";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"QualityUniversal" name=ID "characterizes" characterization=[Characterization] "{" //TODO: review this
+		//"QualityUniversal" name=ID //characterization = Characterizes
+		//"{" //TODO: review this
 		//("datatypes" "(" datatypes+=[DataType] ("," datatypes+=[DataType])* ")")? characterizedBy+=Characterization* "}"
 		public Group getGroup() { return cGroup; }
 
@@ -2336,65 +2318,54 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//"characterizes"
-		public Keyword getCharacterizesKeyword_2() { return cCharacterizesKeyword_2; }
-
-		//characterization=[Characterization]
-		public Assignment getCharacterizationAssignment_3() { return cCharacterizationAssignment_3; }
-
-		//[Characterization]
-		public CrossReference getCharacterizationCharacterizationCrossReference_3_0() { return cCharacterizationCharacterizationCrossReference_3_0; }
-
-		//ID
-		public RuleCall getCharacterizationCharacterizationIDTerminalRuleCall_3_0_1() { return cCharacterizationCharacterizationIDTerminalRuleCall_3_0_1; }
-
+		////characterization = Characterizes
 		//"{"
-		public Keyword getLeftCurlyBracketKeyword_4() { return cLeftCurlyBracketKeyword_4; }
+		public Keyword getLeftCurlyBracketKeyword_2() { return cLeftCurlyBracketKeyword_2; }
 
 		//("datatypes" "(" datatypes+=[DataType] ("," datatypes+=[DataType])* ")")?
-		public Group getGroup_5() { return cGroup_5; }
+		public Group getGroup_3() { return cGroup_3; }
 
 		//"datatypes"
-		public Keyword getDatatypesKeyword_5_0() { return cDatatypesKeyword_5_0; }
+		public Keyword getDatatypesKeyword_3_0() { return cDatatypesKeyword_3_0; }
 
 		//"("
-		public Keyword getLeftParenthesisKeyword_5_1() { return cLeftParenthesisKeyword_5_1; }
+		public Keyword getLeftParenthesisKeyword_3_1() { return cLeftParenthesisKeyword_3_1; }
 
 		//datatypes+=[DataType]
-		public Assignment getDatatypesAssignment_5_2() { return cDatatypesAssignment_5_2; }
+		public Assignment getDatatypesAssignment_3_2() { return cDatatypesAssignment_3_2; }
 
 		//[DataType]
-		public CrossReference getDatatypesDataTypeCrossReference_5_2_0() { return cDatatypesDataTypeCrossReference_5_2_0; }
+		public CrossReference getDatatypesDataTypeCrossReference_3_2_0() { return cDatatypesDataTypeCrossReference_3_2_0; }
 
 		//ID
-		public RuleCall getDatatypesDataTypeIDTerminalRuleCall_5_2_0_1() { return cDatatypesDataTypeIDTerminalRuleCall_5_2_0_1; }
+		public RuleCall getDatatypesDataTypeIDTerminalRuleCall_3_2_0_1() { return cDatatypesDataTypeIDTerminalRuleCall_3_2_0_1; }
 
 		//("," datatypes+=[DataType])*
-		public Group getGroup_5_3() { return cGroup_5_3; }
+		public Group getGroup_3_3() { return cGroup_3_3; }
 
 		//","
-		public Keyword getCommaKeyword_5_3_0() { return cCommaKeyword_5_3_0; }
+		public Keyword getCommaKeyword_3_3_0() { return cCommaKeyword_3_3_0; }
 
 		//datatypes+=[DataType]
-		public Assignment getDatatypesAssignment_5_3_1() { return cDatatypesAssignment_5_3_1; }
+		public Assignment getDatatypesAssignment_3_3_1() { return cDatatypesAssignment_3_3_1; }
 
 		//[DataType]
-		public CrossReference getDatatypesDataTypeCrossReference_5_3_1_0() { return cDatatypesDataTypeCrossReference_5_3_1_0; }
+		public CrossReference getDatatypesDataTypeCrossReference_3_3_1_0() { return cDatatypesDataTypeCrossReference_3_3_1_0; }
 
 		//ID
-		public RuleCall getDatatypesDataTypeIDTerminalRuleCall_5_3_1_0_1() { return cDatatypesDataTypeIDTerminalRuleCall_5_3_1_0_1; }
+		public RuleCall getDatatypesDataTypeIDTerminalRuleCall_3_3_1_0_1() { return cDatatypesDataTypeIDTerminalRuleCall_3_3_1_0_1; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_5_4() { return cRightParenthesisKeyword_5_4; }
+		public Keyword getRightParenthesisKeyword_3_4() { return cRightParenthesisKeyword_3_4; }
 
 		//characterizedBy+=Characterization*
-		public Assignment getCharacterizedByAssignment_6() { return cCharacterizedByAssignment_6; }
+		public Assignment getCharacterizedByAssignment_4() { return cCharacterizedByAssignment_4; }
 
 		//Characterization
-		public RuleCall getCharacterizedByCharacterizationParserRuleCall_6_0() { return cCharacterizedByCharacterizationParserRuleCall_6_0; }
+		public RuleCall getCharacterizedByCharacterizationParserRuleCall_4_0() { return cCharacterizedByCharacterizationParserRuleCall_4_0; }
 
 		//"}"
-		public Keyword getRightCurlyBracketKeyword_7() { return cRightCurlyBracketKeyword_7; }
+		public Keyword getRightCurlyBracketKeyword_5() { return cRightCurlyBracketKeyword_5; }
 	}
 
 	public class NAryMaterialRelationElements extends AbstractParserRuleElementFinder {
@@ -2439,10 +2410,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		// * 
 		// * material assoc Teaching[1..2] happensAt Class[*], Teacher[1..*], Student[1..*];
 		// * 
-		// * Possible source of confusion:
-		// * It must have a characterization with target = self
-		// * / //QUESTION: Why does it have multiple source bounds it there is only 1 source (derivedFrom)
-		//nAryMaterialRelation:
+		// * QUESTION: Why does it have multiple source bounds it there is only 1 source (derivedFrom)
+		// * / nAryMaterialRelation:
 		//	"material" "assoc" derivedFrom=[RelatorUniversal] name=ID (targetRelata+=[ExternallyDependentUniversal] ("["
 		//	sourceLowerBound+=CardinalityBound ".." sourceUpperBound+=CardinalityUpperBound "]") (","
 		//	targetRelata+=[ExternallyDependentUniversal])* ("[" sourceLowerBound+=CardinalityBound ".."
@@ -2809,10 +2778,10 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
-	public class CharacterizesElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Characterizes");
+	public class MediationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Mediation");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cCharacterizationAction_0 = (Action)cGroup.eContents().get(0);
+		private final Action cMediationAction_0 = (Action)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
 		private final Keyword cLeftSquareBracketKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
 		private final Assignment cSourceLowerBoundAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
@@ -2821,10 +2790,10 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cSourceUpperBoundAssignment_1_3 = (Assignment)cGroup_1.eContents().get(3);
 		private final RuleCall cSourceUpperBoundCardinalityUpperBoundParserRuleCall_1_3_0 = (RuleCall)cSourceUpperBoundAssignment_1_3.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_1_4 = (Keyword)cGroup_1.eContents().get(4);
-		private final Keyword cCharacterizedByKeyword_2 = (Keyword)cGroup.eContents().get(2);
+		private final Keyword cMediatesKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTargetIntrinsicMomentUniversalCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
-		private final RuleCall cTargetIntrinsicMomentUniversalIDTerminalRuleCall_3_0_1 = (RuleCall)cTargetIntrinsicMomentUniversalCrossReference_3_0.eContents().get(1);
+		private final CrossReference cTargetExternallyDependentUniversalCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
+		private final RuleCall cTargetExternallyDependentUniversalIDTerminalRuleCall_3_0_1 = (RuleCall)cTargetExternallyDependentUniversalCrossReference_3_0.eContents().get(1);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cTargetLowerBoundAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
@@ -2835,19 +2804,27 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
 		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
-		//Characterizes returns Characterization:
-		//	{Characterization} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
-		//	"characterizedBy" target=[IntrinsicMomentUniversal] ("[" targetLowerBound=CardinalityBound ".."
+		/// *
+		// * Example
+		// * 
+		// * RelatorUniversal Registration {
+		// * 	[1..1] mediates Offspring [1..1]
+		// * 	[1..1] mediates Parent [1..2]
+		// * }
+		// * 
+		// * / Mediation:
+		//	{Mediation} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")? "mediates"
+		//	target=[ExternallyDependentUniversal] ("[" targetLowerBound=CardinalityBound ".."
 		//	targetUpperBound=CardinalityUpperBound "]")? ";";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{Characterization} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
-		//"characterizedBy" target=[IntrinsicMomentUniversal] ("[" targetLowerBound=CardinalityBound ".."
+		//{Mediation} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")? "mediates"
+		//target=[ExternallyDependentUniversal] ("[" targetLowerBound=CardinalityBound ".."
 		//targetUpperBound=CardinalityUpperBound "]")? ";"
 		public Group getGroup() { return cGroup; }
 
-		//{Characterization}
-		public Action getCharacterizationAction_0() { return cCharacterizationAction_0; }
+		//{Mediation}
+		public Action getMediationAction_0() { return cMediationAction_0; }
 
 		//("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
 		public Group getGroup_1() { return cGroup_1; }
@@ -2873,120 +2850,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		//"]"
 		public Keyword getRightSquareBracketKeyword_1_4() { return cRightSquareBracketKeyword_1_4; }
 
-		//"characterizedBy"
-		public Keyword getCharacterizedByKeyword_2() { return cCharacterizedByKeyword_2; }
-
-		//target=[IntrinsicMomentUniversal]
-		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
-
-		//[IntrinsicMomentUniversal]
-		public CrossReference getTargetIntrinsicMomentUniversalCrossReference_3_0() { return cTargetIntrinsicMomentUniversalCrossReference_3_0; }
-
-		//ID
-		public RuleCall getTargetIntrinsicMomentUniversalIDTerminalRuleCall_3_0_1() { return cTargetIntrinsicMomentUniversalIDTerminalRuleCall_3_0_1; }
-
-		//("[" targetLowerBound=CardinalityBound ".." targetUpperBound=CardinalityUpperBound "]")?
-		public Group getGroup_4() { return cGroup_4; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_4_0() { return cLeftSquareBracketKeyword_4_0; }
-
-		//targetLowerBound=CardinalityBound
-		public Assignment getTargetLowerBoundAssignment_4_1() { return cTargetLowerBoundAssignment_4_1; }
-
-		//CardinalityBound
-		public RuleCall getTargetLowerBoundCardinalityBoundParserRuleCall_4_1_0() { return cTargetLowerBoundCardinalityBoundParserRuleCall_4_1_0; }
-
-		//".."
-		public Keyword getFullStopFullStopKeyword_4_2() { return cFullStopFullStopKeyword_4_2; }
-
-		//targetUpperBound=CardinalityUpperBound
-		public Assignment getTargetUpperBoundAssignment_4_3() { return cTargetUpperBoundAssignment_4_3; }
-
-		//CardinalityUpperBound
-		public RuleCall getTargetUpperBoundCardinalityUpperBoundParserRuleCall_4_3_0() { return cTargetUpperBoundCardinalityUpperBoundParserRuleCall_4_3_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_4_4() { return cRightSquareBracketKeyword_4_4; }
-
-		//";"
-		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
-	}
-
-	public class MediationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Mediation");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Action cMediationAction_0 = (Action)cGroup.eContents().get(0);
-		private final Keyword cMediatesKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final Keyword cLeftSquareBracketKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
-		private final Assignment cSourceLowerBoundAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cSourceLowerBoundCardinalityBoundParserRuleCall_2_1_0 = (RuleCall)cSourceLowerBoundAssignment_2_1.eContents().get(0);
-		private final Keyword cFullStopFullStopKeyword_2_2 = (Keyword)cGroup_2.eContents().get(2);
-		private final Assignment cSourceUpperBoundAssignment_2_3 = (Assignment)cGroup_2.eContents().get(3);
-		private final RuleCall cSourceUpperBoundCardinalityUpperBoundParserRuleCall_2_3_0 = (RuleCall)cSourceUpperBoundAssignment_2_3.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_2_4 = (Keyword)cGroup_2.eContents().get(4);
-		private final Assignment cTargetAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final CrossReference cTargetExternallyDependentUniversalCrossReference_3_0 = (CrossReference)cTargetAssignment_3.eContents().get(0);
-		private final RuleCall cTargetExternallyDependentUniversalIDTerminalRuleCall_3_0_1 = (RuleCall)cTargetExternallyDependentUniversalCrossReference_3_0.eContents().get(1);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cLeftSquareBracketKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cTargetLowerBoundAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cTargetLowerBoundCardinalityBoundParserRuleCall_4_1_0 = (RuleCall)cTargetLowerBoundAssignment_4_1.eContents().get(0);
-		private final Keyword cFullStopFullStopKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
-		private final Assignment cTargetUpperBoundAssignment_4_3 = (Assignment)cGroup_4.eContents().get(3);
-		private final RuleCall cTargetUpperBoundCardinalityUpperBoundParserRuleCall_4_3_0 = (RuleCall)cTargetUpperBoundAssignment_4_3.eContents().get(0);
-		private final Keyword cRightSquareBracketKeyword_4_4 = (Keyword)cGroup_4.eContents().get(4);
-		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		
-		/// *
-		// * Example
-		// * 
-		// * RelatorUniversal Registration {
-		// * 	[1..1] mediates Offspring [1..1]
-		// * 	[1..1] mediates Parent [1..2]
-		// * }
-		// * 
-		// * / Mediation:
-		//	{Mediation} "mediates" ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
-		//	target=[ExternallyDependentUniversal] ("[" targetLowerBound=CardinalityBound ".."
-		//	targetUpperBound=CardinalityUpperBound "]")? ";";
-		@Override public ParserRule getRule() { return rule; }
-
-		//{Mediation} "mediates" ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
-		//target=[ExternallyDependentUniversal] ("[" targetLowerBound=CardinalityBound ".."
-		//targetUpperBound=CardinalityUpperBound "]")? ";"
-		public Group getGroup() { return cGroup; }
-
-		//{Mediation}
-		public Action getMediationAction_0() { return cMediationAction_0; }
-
 		//"mediates"
-		public Keyword getMediatesKeyword_1() { return cMediatesKeyword_1; }
-
-		//("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
-		public Group getGroup_2() { return cGroup_2; }
-
-		//"["
-		public Keyword getLeftSquareBracketKeyword_2_0() { return cLeftSquareBracketKeyword_2_0; }
-
-		//sourceLowerBound=CardinalityBound
-		public Assignment getSourceLowerBoundAssignment_2_1() { return cSourceLowerBoundAssignment_2_1; }
-
-		//CardinalityBound
-		public RuleCall getSourceLowerBoundCardinalityBoundParserRuleCall_2_1_0() { return cSourceLowerBoundCardinalityBoundParserRuleCall_2_1_0; }
-
-		//".."
-		public Keyword getFullStopFullStopKeyword_2_2() { return cFullStopFullStopKeyword_2_2; }
-
-		//sourceUpperBound=CardinalityUpperBound
-		public Assignment getSourceUpperBoundAssignment_2_3() { return cSourceUpperBoundAssignment_2_3; }
-
-		//CardinalityUpperBound
-		public RuleCall getSourceUpperBoundCardinalityUpperBoundParserRuleCall_2_3_0() { return cSourceUpperBoundCardinalityUpperBoundParserRuleCall_2_3_0; }
-
-		//"]"
-		public Keyword getRightSquareBracketKeyword_2_4() { return cRightSquareBracketKeyword_2_4; }
+		public Keyword getMediatesKeyword_2() { return cMediatesKeyword_2; }
 
 		//target=[ExternallyDependentUniversal]
 		public Assignment getTargetAssignment_3() { return cTargetAssignment_3; }
@@ -3143,7 +3008,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	private final ModelElements pModel;
-	private final ElementElements pElement;
+	private final PackageableElementElements pPackageableElement;
 	private final EndurantUniversalElements pEndurantUniversal;
 	private final UniversalElements pUniversal;
 	private final DataTypeElements pDataType;
@@ -3179,7 +3044,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	private final NAryMaterialRelationElements pNAryMaterialRelation;
 	private final NAryFormalRelationElements pNAryFormalRelation;
 	private final CharacterizationElements pCharacterization;
-	private final CharacterizesElements pCharacterizes;
 	private final MediationElements pMediation;
 	private final EStringElements pEString;
 	private final PrimitiveDataTypeTypeElements pPrimitiveDataTypeType;
@@ -3198,7 +3062,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
 		this.pModel = new ModelElements();
-		this.pElement = new ElementElements();
+		this.pPackageableElement = new PackageableElementElements();
 		this.pEndurantUniversal = new EndurantUniversalElements();
 		this.pUniversal = new UniversalElements();
 		this.pDataType = new DataTypeElements();
@@ -3234,7 +3098,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pNAryMaterialRelation = new NAryMaterialRelationElements();
 		this.pNAryFormalRelation = new NAryFormalRelationElements();
 		this.pCharacterization = new CharacterizationElements();
-		this.pCharacterizes = new CharacterizesElements();
 		this.pMediation = new MediationElements();
 		this.pEString = new EStringElements();
 		this.pPrimitiveDataTypeType = new PrimitiveDataTypeTypeElements();
@@ -3271,12 +3134,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	/// *
-	// * Characterization
-	// * Derivation
-	// * Mediation
-	// * / Model:
-	//	{Model} elements+=Element*;
+	//Model:
+	//	{Model} elements+=PackageableElement*;
 	public ModelElements getModelAccess() {
 		return pModel;
 	}
@@ -3285,17 +3144,17 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getModelAccess().getRule();
 	}
 
-	//Element returns PackageableElement:
+	//PackageableElement:
 	//	Package | GeneralizationSet | PrimitiveDataType | ComplexDataType | Enumeration | MeronymicRelation | Kind |
 	//	QuantityUniversal | CollectiveUniversal | SubKind | Role | Phase | Category | Mixin | RoleMixin | RelatorUniversal |
 	//	BinaryMaterialRelation | BinaryFormalRelation | ModeUniversal | QualityUniversal | nAryMaterialRelation |
 	//	nAryFormalRelation;
-	public ElementElements getElementAccess() {
-		return pElement;
+	public PackageableElementElements getPackageableElementAccess() {
+		return pPackageableElement;
 	}
 	
-	public ParserRule getElementRule() {
-		return getElementAccess().getRule();
+	public ParserRule getPackageableElementRule() {
+		return getPackageableElementAccess().getRule();
 	}
 
 	//EndurantUniversal:
@@ -3342,7 +3201,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Package:
-	//	{Package} "package" name=ID "{" elements+=Element+ "}";
+	//	{Package} "package" name=ID "{" elements+=PackageableElement+ "}";
 	public PackageElements getPackageAccess() {
 		return pPackage;
 	}
@@ -3351,13 +3210,14 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getPackageAccess().getRule();
 	}
 
-	//// complete generalizationSet gender specializes Person into Man, Woman
-	//// => GeographicalSpace specializes SpatialThing
-	//// => GeographicalSpace, FooBar specialize SpatialThing
-	//// => GeographicalSpace specializationOf SpatialThing
-	//// GeographicalSpace => SpatialThing
-	//// GeographicalSpace, MultiDimensionalSpace => SpatialThing
-	//GeneralizationSet:
+	/// *
+	// * complete generalizationSet gender specializes Person into Man, Woman
+	// * => GeographicalSpace specializes SpatialThing
+	// * => GeographicalSpace, FooBar specialize SpatialThing
+	// * => GeographicalSpace specializationOf SpatialThing
+	// * GeographicalSpace => SpatialThing
+	// * GeographicalSpace, MultiDimensionalSpace => SpatialThing
+	// * / GeneralizationSet:
 	//	CompleteGeneralizationSet | AnonymousGeneralizationSet;
 	public GeneralizationSetElements getGeneralizationSetAccess() {
 		return pGeneralizationSet;
@@ -3583,11 +3443,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getRoleAccess().getRule();
 	}
 
-	/// *
-	// * Example
-	// * 
-	// * 
-	// * / Phase:
+	//Phase:
 	//	{Phase} "Phase" name=ID "{" characterizedBy+=Characterization* "}";
 	public PhaseElements getPhaseAccess() {
 		return pPhase;
@@ -3597,11 +3453,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getPhaseAccess().getRule();
 	}
 
-	/// *
-	// * Example
-	// * 
-	// * 
-	// * / Category:
+	//Category:
 	//	{Category} "Category" name=ID "{" "}";
 	public CategoryElements getCategoryAccess() {
 		return pCategory;
@@ -3611,11 +3463,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoryAccess().getRule();
 	}
 
-	/// *
-	// * Example
-	// * 
-	// * 
-	// * / Mixin:
+	//Mixin:
 	//	{Mixin} "Mixin" name=ID "{" "}";
 	public MixinElements getMixinAccess() {
 		return pMixin;
@@ -3625,11 +3473,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getMixinAccess().getRule();
 	}
 
-	/// *
-	// * Example
-	// * 
-	// * 
-	// * / RoleMixin:
+	//RoleMixin:
 	//	"RoleMixin" name=ID "{" "}";
 	public RoleMixinElements getRoleMixinAccess() {
 		return pRoleMixin;
@@ -3660,7 +3504,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	/// *
 	// * Example
 	// * 
-	// * material rel Parent[1..2] parentOf OffSpring[1..*];
+	// * material rel Parent[1..2] parentOf(Registration) OffSpring[1..*];
 	// * / BinaryMaterialRelation:
 	//	"material" "rel" source=[ExternallyDependentUniversal] ("[" sourceLowerBound=CardinalityBound ".."
 	//	sourceUpperBound=CardinalityUpperBound "]")? name=ID ("(" derivedFrom=[RelatorUniversal] ")")?
@@ -3711,8 +3555,12 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * Possible source of confusion:
 	// * It must have a characterization with target = self
+	// * 
+	// * It has to be like ModeUniversal. Allow it to be instantiated without a characterization...
+	// * But, it'll generate an error, warning the modeler that it has to characterize something.
 	// * / QualityUniversal:
-	//	"QualityUniversal" name=ID "characterizes" characterization=[Characterization] "{" //TODO: review this
+	//	"QualityUniversal" name=ID //characterization = Characterizes
+	//	"{" //TODO: review this
 	//	("datatypes" "(" datatypes+=[DataType] ("," datatypes+=[DataType])* ")")? characterizedBy+=Characterization* "}";
 	public QualityUniversalElements getQualityUniversalAccess() {
 		return pQualityUniversal;
@@ -3727,10 +3575,8 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * 
 	// * material assoc Teaching[1..2] happensAt Class[*], Teacher[1..*], Student[1..*];
 	// * 
-	// * Possible source of confusion:
-	// * It must have a characterization with target = self
-	// * / //QUESTION: Why does it have multiple source bounds it there is only 1 source (derivedFrom)
-	//nAryMaterialRelation:
+	// * QUESTION: Why does it have multiple source bounds it there is only 1 source (derivedFrom)
+	// * / nAryMaterialRelation:
 	//	"material" "assoc" derivedFrom=[RelatorUniversal] name=ID (targetRelata+=[ExternallyDependentUniversal] ("["
 	//	sourceLowerBound+=CardinalityBound ".." sourceUpperBound+=CardinalityUpperBound "]") (","
 	//	targetRelata+=[ExternallyDependentUniversal])* ("[" sourceLowerBound+=CardinalityBound ".."
@@ -3777,18 +3623,6 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCharacterizationAccess().getRule();
 	}
 
-	//Characterizes returns Characterization:
-	//	{Characterization} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
-	//	"characterizedBy" target=[IntrinsicMomentUniversal] ("[" targetLowerBound=CardinalityBound ".."
-	//	targetUpperBound=CardinalityUpperBound "]")? ";";
-	public CharacterizesElements getCharacterizesAccess() {
-		return pCharacterizes;
-	}
-	
-	public ParserRule getCharacterizesRule() {
-		return getCharacterizesAccess().getRule();
-	}
-
 	/// *
 	// * Example
 	// * 
@@ -3798,7 +3632,7 @@ public class DslGrammarAccess extends AbstractGrammarElementFinder {
 	// * }
 	// * 
 	// * / Mediation:
-	//	{Mediation} "mediates" ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")?
+	//	{Mediation} ("[" sourceLowerBound=CardinalityBound ".." sourceUpperBound=CardinalityUpperBound "]")? "mediates"
 	//	target=[ExternallyDependentUniversal] ("[" targetLowerBound=CardinalityBound ".."
 	//	targetUpperBound=CardinalityUpperBound "]")? ";";
 	public MediationElements getMediationAccess() {

@@ -41,7 +41,7 @@ class OntoUMLPrime2PlantUML {
 		return sharedInstance;
 	}
 	
-	def static String generatePlantUMLCode(ModelView v) {
+	def static String generatePlantUMLCode(ModelView v) throws NullPointerException {
 		'''
 		@startuml
 		hide circle
@@ -79,7 +79,11 @@ class OntoUMLPrime2PlantUML {
 	
 	def static String toPlantUML(int lowerBound, int upperBound, String extraLabel) {
 		if(upperBound == 0 && lowerBound == 0) {
-			return extraLabel;
+			if (extraLabel.isEmpty) {
+				return '''''';
+			} else {
+				return '''" «extraLabel» "''';
+			}
 		}
 		if(upperBound < 0) {
 			return '''" **«lowerBound»..* «extraLabel»**"''';
@@ -115,7 +119,6 @@ class OntoUMLPrime2PlantUML {
 	'''
 	«source.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound)» «target.name» : «derivedFrom.name»_«name»
 	'''
-	// («source.name», «target.name») .. «derivedFrom.name»
 	
 	def static dispatch String toPlantUML(Category it)
 	'''
@@ -146,14 +149,14 @@ class OntoUMLPrime2PlantUML {
 	'''
 	class «name» <<datatype>> {
 		«FOR a : attributes»
-		«a.isOfType.name» «a.name»
+		«a.name» : «a.isOfType.name»
 		«ENDFOR»
 	}
 	'''
 	
 	def static dispatch String toPlantUML(ComponentOfRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» -- «toPlantUML(targetLowerBound, targetUpperBound, "(C)")» «whole.name» «meronymicPropertiesToPlantUML»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --«if(partIsEssential) "*" else "o"» «toPlantUML(targetLowerBound, targetUpperBound, "(C)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 	def static dispatch String toPlantUML(Enumeration it)
@@ -189,7 +192,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(MembershipRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound, "(M)")» «whole.name» «meronymicPropertiesToPlantUML»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --«if(partIsEssential) "*" else "o"» «toPlantUML(targetLowerBound, targetUpperBound, "(M)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 	def static dispatch String toPlantUML(Mixin it)
@@ -212,14 +215,19 @@ class OntoUMLPrime2PlantUML {
 	'''
 	'''
 	
+	/**
+	 * Not working properly. To reference packaged elements, the namespace shoud be update accordingly.
+	 */
 	def static dispatch String toPlantUML(Package it)
 	'''
+	'''
+	/*'''
 	package «name» {
 	«FOR e : elements»
     «e.toPlantUML»
     «ENDFOR»
 	}
-	'''
+	'''*/
 	
 	def static dispatch String toPlantUML(Phase it)
 	'''
@@ -258,7 +266,7 @@ class OntoUMLPrime2PlantUML {
 	
 	def static dispatch String toPlantUML(SubCollectionRelation it)
 	'''
-	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --o «toPlantUML(targetLowerBound, targetUpperBound, "(C)")» «whole.name» «meronymicPropertiesToPlantUML»
+	«part.name» «toPlantUML(sourceLowerBound, sourceUpperBound)» --«if(partIsEssential) "*" else "o"» «toPlantUML(targetLowerBound, targetUpperBound, "(C)")» «whole.name» «meronymicPropertiesToPlantUML»
 	'''
 	
 	def static dispatch String toPlantUML(SubKind it)

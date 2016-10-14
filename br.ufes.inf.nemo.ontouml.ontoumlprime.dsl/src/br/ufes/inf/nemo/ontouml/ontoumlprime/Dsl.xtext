@@ -4,12 +4,6 @@ grammar br.ufes.inf.nemo.ontouml.ontoumlprime.Dsl with org.eclipse.xtext.common.
 import "http://nemo.inf.ufes.br/ontouml/ontoumlprime"
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
-/*
- * Characterization
- * Derivation
- * Mediation
- */
-
 Model returns Model:
 	{Model}
 	elements += PackageableElement*
@@ -88,18 +82,20 @@ Package returns Package:
 ;
 
 
-// complete generalizationSet gender specializes Person into Man, Woman
-// => GeographicalSpace specializes SpatialThing
-// => GeographicalSpace, FooBar specialize SpatialThing
-// => GeographicalSpace specializationOf SpatialThing
-// GeographicalSpace => SpatialThing
-// GeographicalSpace, MultiDimensionalSpace => SpatialThing
+/*
+ * complete generalizationSet gender specializes Person into Man, Woman
+ * => GeographicalSpace specializes SpatialThing
+ * => GeographicalSpace, FooBar specialize SpatialThing
+ * => GeographicalSpace specializationOf SpatialThing
+ * GeographicalSpace => SpatialThing
+ * GeographicalSpace, MultiDimensionalSpace => SpatialThing
+ */
 GeneralizationSet :
-	CompleteGeneralizationSet
+	NamedGeneralizationSet
 	| AnonymousGeneralizationSet
 ;
 
-CompleteGeneralizationSet returns GeneralizationSet:
+NamedGeneralizationSet returns GeneralizationSet:
 	(isCovering?='complete')?
 	'GeneralizationSet' name=ID
 	'specializes' specializedUniversal=[Universal|ID]
@@ -296,11 +292,6 @@ Role returns Role:
 	'}'
 ;
 
-/*
- * Example
- * 
- * 
- */
 Phase returns Phase:
 	{Phase}
 	'Phase' name=ID
@@ -309,11 +300,6 @@ Phase returns Phase:
 	'}'
 ;
 
-/*
- * Example
- * 
- * 
- */
 Category returns Category:
 	{Category}
 	'Category' name=ID
@@ -321,11 +307,6 @@ Category returns Category:
 	'}'
 ;
 
-/*
- * Example
- * 
- * 
- */
 Mixin returns Mixin:
 	{Mixin}
 	'Mixin' name=ID
@@ -333,11 +314,6 @@ Mixin returns Mixin:
 	'}'
 ;
 
-/*
- * Example
- * 
- * 
- */
 RoleMixin returns RoleMixin:
 	'RoleMixin' name=ID
 	'{'
@@ -364,7 +340,7 @@ RelatorUniversal returns RelatorUniversal:
 /*
  * Example
  * 
- * material rel Parent[1..2] parentOf OffSpring[1..*];
+ * material rel Parent[1..2] parentOf(Registration) OffSpring[1..*];
  */
 BinaryMaterialRelation returns BinaryMaterialRelation:
 	'material' 'rel'
@@ -410,10 +386,13 @@ ModeUniversal returns ModeUniversal:
  * 
  * Possible source of confusion:
  * It must have a characterization with target = self
+ * 
+ * It has to be like ModeUniversal. Allow it to be instantiated without a characterization...
+ * But, it'll generate an error, warning the modeler that it has to characterize something.
  */
 QualityUniversal returns QualityUniversal:
 	'QualityUniversal' name=ID
-	'characterizes' characterization = [Characterization]
+	//characterization = Characterizes
 	'{'
 		//TODO: review this
 		('datatypes' '(' datatypes+=[DataType] ( "," datatypes+=[DataType])* ')' )?
@@ -426,11 +405,8 @@ QualityUniversal returns QualityUniversal:
  * 
  * material assoc Teaching[1..2] happensAt Class[*], Teacher[1..*], Student[1..*];
  * 
- * Possible source of confusion:
- * It must have a characterization with target = self
+ * QUESTION: Why does it have multiple source bounds it there is only 1 source (derivedFrom)
  */
-
-//QUESTION: Why does it have multiple source bounds it there is only 1 source (derivedFrom)
 nAryMaterialRelation returns nAryMaterialRelation:
 	'material' 'assoc'
 	derivedFrom=[RelatorUniversal]
@@ -467,15 +443,6 @@ Characterization returns Characterization:
 	';'
 ;
 
-Characterizes returns Characterization:
-	{Characterization}
-	('['sourceLowerBound=CardinalityBound '..' sourceUpperBound=CardinalityUpperBound ']')?
-	'characterizedBy'
-	target=[IntrinsicMomentUniversal]
-	('[' targetLowerBound=CardinalityBound '..' targetUpperBound=CardinalityUpperBound ']')?
-	';'
-;
-
 /*
  * Example
  * 
@@ -487,8 +454,8 @@ Characterizes returns Characterization:
  */
 Mediation returns Mediation:
 	{Mediation}
-	'mediates'
 	('['sourceLowerBound=CardinalityBound '..' sourceUpperBound=CardinalityUpperBound ']')?
+	'mediates'
 	target=[ExternallyDependentUniversal]
 	('[' targetLowerBound=CardinalityBound '..' targetUpperBound=CardinalityUpperBound ']')?
 	';'

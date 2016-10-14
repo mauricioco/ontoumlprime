@@ -15,8 +15,9 @@ import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Characterization;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.EndurantUniversal;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.GeneralizationSet;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Mediation;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.MeronymicRelation;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Model;
-import br.ufes.inf.nemo.ontouml.PrimeOntoUML.NamedElement;
+import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Package;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.PackageableElement;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.RelatorUniversal;
 import br.ufes.inf.nemo.ontouml.PrimeOntoUML.Universal;
@@ -100,6 +101,13 @@ public class ModelView implements Serializable {
 			}
 		}
 		
+		if (e instanceof MeronymicRelation) {
+			if(((MeronymicRelation) e).getPart() == null
+					|| ((MeronymicRelation) e).getWhole() == null) {
+				return true;
+			}
+		}
+		
 		return false;
 	}
 
@@ -113,9 +121,14 @@ public class ModelView implements Serializable {
 		if(elementMap.get(id) == null) {
 			elementMap.put(id, new ModelViewElement(element, this));
 		}
-			
+		
 		if (isDefault) {
 			// Default model views add Characterizations and Mediations from their sources.
+			if (element instanceof Package) {
+				for (PackageableElement p : ((Package) element).getElements()) {
+					addElement(p);
+				}
+			}
 			if (element instanceof EndurantUniversal) {
 				for (Characterization c : ((EndurantUniversal) element).getCharacterizedBy()) {
 					addElement(c);
@@ -136,6 +149,10 @@ public class ModelView implements Serializable {
 			if (element instanceof Mediation) {
 				addElement(((Mediation) element).getSource());
 				addElement(((Mediation) element).getTarget());
+			}
+			if (element instanceof MeronymicRelation) {
+				addElement(((MeronymicRelation) element).getPart());
+				addElement(((MeronymicRelation) element).getWhole());
 			}
 			if (element instanceof GeneralizationSet) {
 				addElement(((GeneralizationSet) element).getSpecializedUniversal());
@@ -165,7 +182,7 @@ public class ModelView implements Serializable {
 			try {
 				addElement(e);
 			} catch (NullPointerException ex) {
-				// TODO handle.
+				ex.printStackTrace();
 			}
 		}
 	}

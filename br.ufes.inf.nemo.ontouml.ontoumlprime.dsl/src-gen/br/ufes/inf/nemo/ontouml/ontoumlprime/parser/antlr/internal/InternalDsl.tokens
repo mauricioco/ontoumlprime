@@ -1,6 +1,6 @@
 '('=23
 ')'=24
-'*'=61
+'*'=60
 ','=18
 '..'=33
 ';'=19
@@ -14,7 +14,7 @@
 'ModeUniversal'=53
 'Phase'=45
 'PrimitiveDataType'=22
-'PrimitiveDataTypeType'=60
+'PrimitiveDataTypeType'=59
 'QualityUniversal'=54
 'Quantity'=40
 'RelatorUniversal'=49
@@ -23,11 +23,10 @@
 'SubKind'=43
 '['=32
 ']'=34
-'assoc'=57
-'characterizedBy'=58
-'characterizes'=55
+'assoc'=56
+'characterizedBy'=57
 'complete'=14
-'datatypes'=56
+'datatypes'=55
 'enum'=26
 'essential'=27
 'extensional'=41
@@ -40,7 +39,7 @@
 'isSubCollectionOf'=37
 'isSubQuantityOf'=38
 'material'=50
-'mediates'=59
+'mediates'=58
 'package'=11
 'rel'=51
 'relation'=31
@@ -106,4 +105,3 @@ T__57=57
 T__58=58
 T__59=59
 T__60=60
-T__61=61

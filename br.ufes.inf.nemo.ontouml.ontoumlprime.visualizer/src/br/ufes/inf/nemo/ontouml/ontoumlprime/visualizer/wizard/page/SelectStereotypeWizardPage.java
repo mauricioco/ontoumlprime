@@ -49,9 +49,11 @@ public class SelectStereotypeWizardPage extends WizardPage {
 		
 		listViewer = CheckboxTableViewer.newCheckList(composite, SWT.BORDER);
 		listViewer.getTable().setLayoutData(new GridData());
+		
 		((GridData) listViewer.getTable().getLayoutData()).horizontalAlignment = GridData.FILL;
 		((GridData) listViewer.getTable().getLayoutData()).horizontalSpan = GridData.FILL;
-		((GridData) listViewer.getTable().getLayoutData()).heightHint = 200;
+		((GridData) listViewer.getTable().getLayoutData()).widthHint = 396;
+		((GridData) listViewer.getTable().getLayoutData()).heightHint = 198;
 		listViewer.setLabelProvider(new LabelProvider() {
 			@Override
 			public String getText(Object element) {
@@ -80,12 +82,12 @@ public class SelectStereotypeWizardPage extends WizardPage {
 		listViewer.setAllChecked(startChecked);
 				
 		Button selectAllButton = new Button(composite, SWT.PUSH);
-		//selectAllButton.setLayoutData(new GridData());
 		selectAllButton.setText("Select all");
 		selectAllButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				listViewer.setAllChecked(true);
+				getContainer().updateButtons();
 			}
 			
 			@Override
@@ -95,12 +97,12 @@ public class SelectStereotypeWizardPage extends WizardPage {
 		});
 
 		Button deselectAllButton = new Button(composite, SWT.PUSH);
-		//deselectAllButton.setLayoutData(new GridData());
 		deselectAllButton.setText("Deselect all");
 		deselectAllButton.addSelectionListener(new SelectionListener() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				listViewer.setAllChecked(false);
+				getContainer().updateButtons();
 			}
 			
 			@Override

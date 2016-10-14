@@ -60,4 +60,6 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="characterization" lowerBound="1"
         eType="#//Characterization" eOpposite="#//Characterization/target"/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Role" eSuperTypes="#//ExternallyDependentUniversal"/>
+  <eClassifiers xsi:type="ecore:EClass" name="RoleMixin" eSuperTypes="#//ExternallyDependentUniversal"/>
 </ecore:EPackage>
